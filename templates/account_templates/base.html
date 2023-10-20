@@ -1,0 +1,370 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{% block title %} online banking {% endblock title %}</title>
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="{% block meta_keywords %} keywords goes here {% endblock meta_keywords %}">
+    <meta name="description" content="{% block meta_description %} description goes here{% endblock meta_description %}">
+	<!-- Favicon icon -->    
+	<link rel="stylesheet" href="{% static 'account-assets/css/clientlib-default.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/headstyle.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/site.min.css' %}" type="text/css">
+	<link rel="shortcut icon" type="image/png" href="{% static 'account-assets/media/img/capital_logo.png' %}">    
+	<!-- Google fonts -->	
+	<link href="{% static 'account-assets/css/css.css' %}" rel="stylesheet">			
+	<!-- Bootstrap -->    
+	<link href="{% static 'account-assets/css/bootstrap.min.css' %}" rel="stylesheet">	
+	<!-- Fontawsome -->    
+	<link href="{% static 'account-assets/css/font-awesome.min.cs' %}" rel="stylesheet">    
+	<!-- Animate CSS-->    
+	<link href="{% static 'account-assets/css/animate.css' %}" rel="stylesheet">    
+	<!-- menu CSS-->    
+	<link href="{% static 'account-assets/css/bootstrap-4-navbar.css' %}" rel="stylesheet">		
+	<!-- Portfolio Gallery -->    
+	<link href="{% static 'account-assets/css/filterizer.css' %}" rel="stylesheet">	
+	<!-- Lightbox Gallery -->    
+	<link href="{% static 'account-assets/css/jquery.fancybox.css' %}" rel="stylesheet">	
+	<!-- OWL Carousel -->	
+	<link rel="stylesheet" href="{% static 'account-assets/css/owl.carousel.min.css' %}">	
+	<link rel="stylesheet" href="{% static 'account-assets/css/owl.theme.default.min.css' %}">   
+	<!-- Custom CSS --> 
+	{% block custom_css %}  {% endblock custom_css %}
+	<!-- Preloader CSS-->    
+	<link href="{% static 'account-assets/css/fakeLoader.css' %}" rel="stylesheet">	
+	<!-- Main CSS -->  
+	<link rel="stylesheet" type="text/css" href="{% static 'account-assets/css/sweetalert.css' %}">  
+	<link href="{% static 'account-assets/css/style.css' %}" rel="stylesheet">    
+	<!-- Default CSS Color -->     
+	<link href="{% static 'account-assets/css/default.css' %}" rel="stylesheet">     
+	<!-- Color CSS -->     
+	<link rel="stylesheet" href="{% static 'account-assets/css/color-switcher.css' %}">    
+	<!-- Default CSS Color -->     
+	<link href="{% static 'account-assets/css/default.css' %}" rel="stylesheet">     
+	<!-- Color CSS -->     
+	<link rel="stylesheet" href="{% static 'account-assets/css/color-switcher.css' %}">	
+	<!-- Responsive CSS -->    
+	<link href="{% static 'account-assets/css/responsive.css' %}" rel="stylesheet">    
+	<link href="{% static 'account-assets/css/customcss.css' %}" rel="stylesheet">    
+	<link href="{% static 'account-assets/css/css(1).css' %}" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'account-assets/css/toastr.css' %}">
+	<link rel="stylesheet" href="{% static 'account-assets/css/aos.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/keyframe.css' %}" type="text/css">
+
+	<!-- Twk Files -->
+	{% comment %} <script src="{% static 'account-assets/css/twk-main.css' %}" charset="UTF-8" crossorigin="*"></script>
+	<script src="{% static 'account-assets/css/twk-vendor.css' %}" charset="UTF-8" crossorigin="*"></script>
+	<script src="{% static 'account-assets/css/twk-chunk-vendors.css' %}" charset="UTF-8" crossorigin="*"></script>
+	<script src="{% static 'account-assets/css/twk-chunk-common.css' %}" charset="UTF-8" crossorigin="*"></script>
+	<script src="{% static 'account-assets/css/twk-runtime.css' %}" charset="UTF-8" crossorigin="*"></script> {% endcomment %}
+	{% comment %} <script src="{% static 'account-assets/css/twk-app.css' %}" charset="UTF-8" crossorigin="*"></script> {% endcomment %}
+	<script type="text/javascript" src="{% static 'account-assets/js/weglot.min.js' %}"></script>
+	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/css/m=el_main_css.css' %}"></script>
+	<link rel="stylesheet" id="ColorSwitcherLinkHolder">
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-2c78ba82.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-696bc286.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-f1596d96.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-2d0b383d.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-48f46bef.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-4fe9d5dd.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-2d0b9454.js' %}"></script>
+	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-07cad36d.js' %}"></script>
+
+    <script src="{% static 'account-assets/css/emojione.min.js" type="text/javascript' %}" async="" defer=""></script>
+	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/css/common.js' %}"></script>
+	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/css/util.js' %}"></script></head>
+<!--header open in header-->
+
+
+
+  <body style="position: relative; min-height: 20%; top: 0px;" class="">
+  <style>
+      .navbar-brand h2{
+          font-size:35px;
+          margin-top:2px;
+      }
+  </style>
+	
+	<div class="top-menu-1x">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="top-menu-left">
+						<p>Need help? Contact Us</p>
+						<b><i class="fa fa-envelope"></i><a style="color:##fff;" href="mailto:veritas@customerservicec.com">onlinebanking@gmail.com </a></b>
+					</div>				
+				</div>				
+				<div class="col-md-6">
+					<div class="top-menu-right">
+						<div class="footer-info-right">
+							<table>
+								<tbody>
+									<tr>
+											<td style="padding-top: 25px;">
+												<a href="#" style="background-color:white; color:black; border: 2px red; padding:2px;"><i class="fa fas fa-lock"></i> sign in</a></td><td>  &nbsp;&nbsp;&nbsp;</td>
+	                                        <td>
+		<ul>
+  <style type="text/css">
+	a.gflag {vertical-align:middle;font-size:610px;padding:610px 0;background-repeat:no-repeat;background-image:url(//gtranslate.net/flags/16.png);}
+a.gflag img {border:0;}
+a.gflag:hover {background-image:url(//gtranslate.net/flags/16a.png);}
+#goog-gt-tt {display:none !important;}
+.goog-te-banner-frame {display:none !important;}
+.goog-te-menu-value:hover {text-decoration:none !important;}
+body {top:0 !important;}
+#google_translate_element2 {display:none!important;}
+</style>
+
+<!--language translator-->
+{% include 'account_templates/includes/language.html' %}
+<!--End of language translator-->
+
+<script type="text/javascript">
+function googleTranslateElementInit2() {new google.translate.TranslateElement({pageLanguage: 'en',autoDisplay: false}, 'google_translate_element2');}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('6 7(a,b){n{4(2.9){3 c=2.9("o");c.p(b,f,f);a.q(c)}g{3 c=2.r();a.s(\'t\'+b,c)}}u(e){}}6 h(a){4(a.8)a=a.8;4(a==\'\')v;3 b=a.w(\'|\')[1];3 c;3 d=2.x(\'y\');z(3 i=0;i<d.5;i++)4(d[i].A==\'B-C-D\')c=d[i];4(2.j(\'k\')==E||2.j(\'k\').l.5==0||c.5==0||c.l.5==0){F(6(){h(a)},G)}g{c.8=b;7(c,\'m\');7(c,\'m\')}}',43,43,'||document|var|if|length|function|GTranslateFireEvent|value|createEvent||||||true|else|doGTranslate||getElementById|google_translate_element2|innerHTML|change|try|HTMLEvents|initEvent|dispatchEvent|createEventObject|fireEvent|on|catch|return|split|getElementsByTagName|select|for|className|goog|te|combo|null|setTimeout|500'.split('|'),0,{}))
+/* ]]> */
+</script>								
+			</ul>		
+		</td>
+	</tr>
+</tbody></table>
+    </div>					
+					</div>				
+				</div>
+			</div>
+		</div>
+	</div>
+				<!---Header Start -->
+			{% block header %} {% include 'account_templates/includes/header.html' %} {% endblock header %}	
+	           <!-- Header END-->
+	
+	<style>
+    ##userpinid,##useridtextid {
+    color: ##717171;
+    font-size: 1em;
+    line-height: 1.375em;
+    background: none;
+    border: none;
+        border-bottom-color: currentcolor;
+        border-bottom-style: none;
+        border-bottom-width:medium;
+    border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width:medium;
+    border-bottom: 1px solid ##ccc;
+    padding: .313em;
+    margin: .188em 0;
+}
+</style>
+    <!-- Main Content Start-->
+
+	{% block main_content %}
+
+
+
+  {% endblock main_content %}
+	<!-- End Main Content Start-->
+
+
+	<!-- Start Footer -->
+	<footer class="bussiness-footer-1x">		
+	    <div class="bussiness-footer-content ">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3">	
+						<h5> Help &amp; support </h5>
+						<a href="https://veritasfinancial.cc/##">Got a question? We are here to help you </a>
+					</div>
+					<div class="col-md-3">
+						<h5> Find a branch </h5>
+						<a href="https://veritasfinancial.cc/##">Find your nearest Veritas Banking location</a>
+					</div>							
+					<div class="col-md-3">	
+						<h5> Our performance </h5>
+						<a href="https://veritasfinancial.cc/##">View our service dashboard to see how we're doing</a>		
+					</div>
+
+					<div class="col-md-3">	
+						<h5> About Veritas </h5>								
+						<a href="https://veritasfinancial.cc/##">Careers, media, investor and corporate information</a>							
+					</div>					
+
+                    <div class="container">	
+                        <div class="">
+                            <div class="col-md-12 footer-info">
+                                <div class="row">	
+                                	<p class="text-center">Federally-insured by the National Credit Administration. We do business in accordance with the Fair Law and Equal opportunity Credit Act.</p>
+
+                                    <div class="col-md-3">	
+                                        <div class="footer-info-left">	
+                                            <!--<p><a href="##">Industri Banking Group</a></p>-->
+                                            <img style="max-width:125px;" src=".{% static 'account-assets/media/img/capital_logo.png' %}" class="d-inline-block align-top" alt="">
+                                        </div>			
+                                    </div>	
+                                    <div class="col-md-6 text-center">PO Box: Ermyn Way, Leatherhead KT24 6UX<br>
+                                     <strong>Call us : </strong>
+                                    </div>	
+
+                                    <div class="col-md-3">
+                                        <div class="footer-info-right">
+                                            <ul>
+                                                <li><a href="https://veritasfinancial.cc/##"> <i class="fa fa-facebook"></i> </a></li>										
+                                                <li><a href="https://veritasfinancial.cc/##"> <i class="fa fa-twitter"></i> </a></li>											
+                                                <li><a href="https://veritasfinancial.cc/##"> <i class="fa fa-google"></i> </a></li>									
+                                                <li><a href="https://veritasfinancial.cc/##" target="_blank" rel="noopener"> <i class="fa fa-linkedin"></i> </a></li>											
+                                            </ul>					
+                                        </div>					
+                                    </div>	
+                                    <div class="col-md-12 text-center text-muted">© 2023 Veritas Financial Union- All rights reserved.</div>	
+                                </div>					
+                            </div>					
+                        </div>	  
+					</div>
+				</div>					
+			</div>			
+	    </div>		  
+	</footer>	
+
+	<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <script src="{% static 'account-assets/js/jquery.min(1).js' %}"></script>
+	<script src="https://veritasfinancial.cc/cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'account-assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'account-assets/js/jquery.min(2).js' %}"></script>
+
+	<!-- Wow Script -->
+	<script src="{% static 'account-assets/js/wow.min.js' %}"></script>
+	<!-- Counter Script -->
+	<script src="{% static 'account-assets/js/waypoints.min.js' %}"></script>
+	<script src="{% static 'account-assets/js/jquery.counterup.min.js' %}"></script>
+	<!-- Masonry Portfolio Script -->
+    <script src="{% static 'account-assets/js/jquery.filterizr.min.js' %}"></script>
+    <script src="{% static 'account-assets/js/filterizer-controls.js' %}"></script>
+    <!-- OWL Carousel js-->
+	<script src="{% static 'account-assets/js/owl.carousel.min.js' %}"></script>  
+	<!-- Lightbox js -->
+	<script src="{% static 'account-assets/js/jquery.fancybox.pack.js' %}"></script>
+	<script src="{% static 'account-assets/js/lightbox.js' %}"></script>
+	<!-- Google map js -->
+	<script src="{% static 'account-assets/js/js.js"></script>	
+	<script src="{% static 'account-assets/js/map.js' %}"></script>
+	<!-- loader js-->
+    <script src="{% static 'account-assets/js/fakeLoader.min.js' %}"></script>
+	<!-- Scroll bottom to top -->
+	<script src="{% static 'account-assets/js/scrolltopcontrol.js' %}"></script>
+	<!-- menu -->
+	<script src="{% static 'account-assets/js/bootstrap-4-navbar.js' %}"></script>    
+    <!-- Stiky menu -->
+	<script src="{% static 'account-assets/js/jquery.sticky.js' %}"></script>  
+    <!-- youtube popup video -->
+	<script src="{% static 'account-assets/js/jquery.magnific-popup.min.js' %}"></script>  
+    <!-- Color switcher js -->
+	<script src="{% static 'account-assets/js/color-switcher.js' %}"></script> 
+    <!-- Color-switcher-active -->  
+    <script src="{% static 'account-assets/js/color-switcher-active.js' %}"></script><div class="ColorSwitcher"><button class="ColorSwitcher__control"></button><div class="ColorSwitcher__switchs"><button class="ColorSwitcher__switch" title="Blue to Red" data-index="0" style="background-color: rgb(3, 61, 117);"></button><button class="ColorSwitcher__switch" title="Cyan to Orange" data-index="1" style="background-color: rgb(31, 166, 154);"></button><button class="ColorSwitcher__switch" title="Blue to Orange" data-index="2" style="background-color: rgb(6, 116, 236);"></button><button class="ColorSwitcher__switch" title="Green to Violet" data-index="3" style="background-color: rgb(46, 158, 4);"></button><button class="ColorSwitcher__switch" title="Sky" data-index="4" style="background-color: rgb(88, 201, 233);"></button><button class="ColorSwitcher__switch" title="Red" data-index="5" style="background-color: rgb(255, 106, 109);"></button></div></div>      
+	<!-- Custom script -->
+    <script src="{% static 'account-assets/js/custom.js' %}"></script>
+    <script src="{% static 'account-assets/js/jquery.bxslider.min.js' %}"></script>
+    <script src="{% static 'account-assets/js/toastr.js' %}"></script>
+    <script src="{% static 'account-assets/js/sweetalert.js' %}"></script>
+
+    <!-- for calucator---->
+    	<script type="text/javascript" src="{% static 'account-assets/js/clientlib-all.min.js' %}"></script>
+		
+		<script type="text/javascript" src="{% static 'account-assets/js/clientlib.min.js' %}"></script>
+		
+
+
+
+<script src="{% static 'account-assets/js/jquery.bxslider.min.js' %}"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		if( ($(window).width() > 769) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 5,
+	  			maxSlides: 5,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else if( ($(window).width() < 769) && ($(window).width() > 481) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else{
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:false,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+	}); 
+</script>
+
+	<script type="text/javascript">
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>	
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/62d8548e54f06e12d88a8098/1g8egkj8h';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->  
+
+
+
+<script>
+var sprytextfield1 = new Spry.Widget.ValidationTextField("sprytextfield1", "integer", {validateOn:["blur", "change"]});
+var sprypassword1 = new Spry.Widget.ValidationPassword("sprypassword1", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
+</script>
+{% block custom_js %}
+
+{% endblock custom_js %}
+</html>
+</body>
