@@ -61,63 +61,7 @@
 		<div class="card-single-wr">
 			
 			<div class="tkl">
-				<style>
-					.tab {
-					    overflow: hidden;
-					    border: 1px solid #ccc;
-					    background-color: #033d75;
-					}
-
-					/* Style the buttons inside the tab */
-					.tab button {
-					    background-color: inherit;
-					    float: left;
-					    border: none;
-					    outline: none;
-					    cursor: pointer;
-					    padding: 14px 16px;
-					    transition: 0.3s;
-					    font-size: 20px;
-					    color: #fff;
-					    border-radius: 0;
-					}
-					.tabcontent li{
-						display: block;
-					    margin-bottom: 15px;
-					    line-height: 25px;
-					    margin-top: 15px;
-					}
-					.tabcontent li i{
-						margin-right: 7px;
-					}
-					.tabcontent h3 {
-					    margin: 45px 0 25px;
-					}
-					/* Change background color of buttons on hover */
-					.tab button:hover {
-					    background-color: #EF454D;
-					}
-					.tabcontent h3{
-						margin: 32px 0 15px;
-	    				font-size: 23px;
-					}
-
-					/* Create an active/current tablink class */
-					.tab button.active {
-					    background-color: #EF454D;
-					}
-
-					/* Style the tab content */
-					.tabcontent {
-					    display: none;
-					    padding: 30px 15px;
-					    border: 1px solid #ccc;
-					    border-top: none;
-					}
-					.tabcontent a{
-						color: #033d75;
-					}
-				</style>
+				
 				<div class="tab">
 				  <button class="tablinks active" onclick="openCity(event, 'London')" id="defaultOpen">Online Registration</button>
 				  <button class="tablinks">Terms &amp; Condition</button>
@@ -140,12 +84,6 @@
 			
 			
 		  </div>	
-						
-						
-						
-						
-						
-						
 						
 						
 						</div>	
@@ -182,4 +120,48 @@
 
 
 {% endblock main_content %}
-<!-- Main Content Ends -->
+<!-- Main Goes Here -->
+
+{% block custom_js %}
+
+<script type="text/javascript">
+	//Firstname
+	var sprytf_firstname = new Spry.Widget.ValidationTextField("sprytf_firstname", 'none', {validateOn:["blur", "change"]});
+	//Lastname
+	var sprytf_lastname = new Spry.Widget.ValidationTextField("sprytf_lastname", 'none', {validateOn:["blur", "change"]});
+	//Password
+	var sprypass1 = new Spry.Widget.ValidationPassword("sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
+	//Confirm Password
+	var spryconf1 = new Spry.Widget.ValidationConfirm("sprycpwd", "sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
+	//Email ID
+	var spryemail = new Spry.Widget.ValidationTextField("sprytf_email", 'email', {validateOn:["blur", "change"]});
+	//Phone Number
+	var spryphone = new Spry.Widget.ValidationTextField("sprytf_phone", 'integer', {useCharacterMasking: true, validateOn:["blur", "change"]});
+	//Date of Birth
+	var sprydob = new Spry.Widget.ValidationTextField("sprytf_dob", 'date', {format:"none", useCharacterMasking: true, validateOn:["blur", "change"]});
+	//Gender
+	var sprygender = new Spry.Widget.ValidationSelect("spryselect_gender");
+	
+	
+	//address
+	var spry_ad = new Spry.Widget.ValidationTextarea("spryta_address", {isRequired:true});
+	//city
+	var sprytf_city = new Spry.Widget.ValidationTextField("sprytf_city", 'none', {validateOn:["blur", "change"]});
+	//State
+	var sprytf_state = new Spry.Widget.ValidationTextField("sprytf_state", 'none', {validateOn:["blur", "change"]});
+	//ZipCode
+	var sprytf_zip = new Spry.Widget.ValidationTextField("sprytf_zip", 'integer', {validateOn:["blur", "change"]});
+	
+	//Account Type
+	var spryselect1 = new Spry.Widget.ValidationSelect("spryselect_acctype");
+	//Account Number
+	var spry_accno = new Spry.Widget.ValidationTextField("sprytf_accno", 'integer', {minChars:8, maxChars: 12, validateOn:["blur", "change"]});
+	
+	var spry_pin = new Spry.Widget.ValidationTextField("sprytf_pin", 'integer', {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
+	//Confirm Password
+	var spry_cpin = new Spry.Widget.ValidationConfirm("sprytf_cpin", "sprytf_pin", {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
+
+	</script>
+
+{% endblock custom_js %}
+
