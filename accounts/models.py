@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from django.db import models
-
 # Create your models here.
-=======
 from __future__ import unicode_literals
 import uuid
 from django.db import models
@@ -148,4 +144,3 @@ class Balance(models.Model):
 # @receiver(post_save, sender=Book)
 # def save_author(sender, instance, **kwargs):
 #     instance.author.save()
->>>>>>> 27d17dc (auth workflow)

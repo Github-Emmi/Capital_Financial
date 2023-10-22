@@ -1,10 +1,7 @@
 from .modules import *
-<<<<<<< HEAD
 
 # Create your views here
-def index(request):
-     return render(request, 'account_templates/index.html', {})
-=======
+
 from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, get_object_or_404, redirect
@@ -70,12 +67,10 @@ def index(request):
 #         form = SignUpForm()
 
 #     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
->>>>>>> 27d17dc (auth workflow)
 
 
     ##### Sign Up Views
 def enroll_step1(request):
-<<<<<<< HEAD
      return render(request, 'account_templates/enroll_step1.html', {})
 
 def enroll_step2(request):
@@ -83,9 +78,7 @@ def enroll_step2(request):
 
 def enroll_step3(request):
      return render(request, 'account_templates/enroll_step3.html', {})
-=======
      return render(request, 'account_templates/online_registration.html', {})
 
 def enroll_step2(request):
      return render(request, 'account_templates/terms_conditions.html', {})
->>>>>>> 27d17dc (auth workflow)
