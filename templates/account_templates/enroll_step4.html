@@ -1,0 +1,374 @@
+{% extends 'account_templates/base.html' %}
+{% load static %}
+{% block title %} Capital Funding Financial | Open an Account {% endblock title %}</title>
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+{% endblock custom_css %}
+{% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
+
+{% block main_content %}
+
+<div class="business-main-slider">
+    <div class="owl-carousel main-slider owl-loaded owl-drag">
+            
+        <div class="owl-stage-outer">
+            <div class="owl-stage" style="transform: translate3d(-2560px, 0px, 0px); transition: all 0s ease 0s; width: 6400px;">
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            
+        </div>
+    </div>
+        </div></div>
+        
+    </div>	
+    </div>
+
+    <div class="card-detail-wr">
+        <div class="container">
+        
+    
+            <div class="card-single-wr">
+                
+                <div class="tkl">
+                    
+                    <div class="tab">
+                      <button class="tablinks" onclick="(event, &#39;London&#39;)">Online Registration</button>
+                      <button class="tablinks" onclick="(event, &#39;Paris&#39;)">Terms &amp; Condition</button>
+                      <button class="tablinks active" onclick="openCity(event, &#39;Tokyo&#39;)" id="defaultOpen">User Information</button>
+                      <button class="tablinks" onclick="(event, &#39;Completed&#39;)">Completed</button>
+                    </div>
+                    
+                    </div>
+    
+                    <div id="Tokyo" class="tabcontent" style="display: block;">
+                      <div class="container">
+    
+         
+                 <div class="row">
+            <div class="form-v1-content">
+                <div class="wizard-form">
+                <form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
+                    
+                        <div id="form-total">
+                            <!-- SECTION 1 -->
+                             
+                            <section style="width:100%; align:center; padding:10px;">
+                                <div class="inner">
+                                
+                                <div class="errorMessage" align="center">&nbsp;</div>
+                                
+                <div class="wizard-header">
+                    <h3 class="heading">Account Information</h3>
+                    <p>Please enter your information and proceed to the next step so we can continue building your account.  </p>
+                </div>
+                <h3 style="font-weight:700; color:Purple;">Employment Information (Incase of Loan/Facility)</h3>
+        
+        
+    
+                    <div class="form-row">
+                    <div class="form-holder">
+                    
+                     <legend>Type of Employment</legend>
+                     
+                   <select required="" name="occupation" id="occupation">
+                     <option value="">Select Type of Employment</option>
+                        <option value="Self Employed">Self Employed</option>  
+                        <option value="Self Employed">Public/Government Office</option>  
+                        <option value="Self Employed">Private/Partnership Office</option>  
+                        <option value="Self Employed">Business/Sales</option>  
+                        <option value="Self Employed">Trading/Market</option>  
+                        <option value="Self Employed">Military/Paramilitary</option>  
+                        <option value="Self Employed">Politician/Celebrity</option>  
+                        </select>
+                        <br>
+                        
+                    </div>
+            <div class="form-holder">
+                     <legend>Annual income Range</legend>
+                       <select required="" name="income" id="income">
+                     <option value="">Select Salary Range</option>
+                        <option value="$100.00 - $500.00">$100.00 - $500.00</option> 
+                        <option value="$700.00 - $1,000.00">$700.00 - $1,000.00</option> 
+                        <option value="$1,000.00 - $2,000.00">$1,000.00 - $2,000.00</option> 
+                        <option value="$2,000.00 - $5,000.00">$2,000.00 - $5,000.00</option> 
+                        <option value="$5,000.00 - $10,000.00">$5,000.00 - $10,000.00</option> 
+                        <option value="$15,000.00 - $20,000.00">$15,000.00 - $20,000.00</option> 
+                        <option value="$25,000.00 - $30,000.00">$25,000.00 - $30,000.00</option> 
+                        <option value="$30,000.00 - $70,000.00">$30,000.00 - $70,000.00</option> 
+                        <option value="$80,000.00 - $140,000.00">$80,000.00 - $140,000.00</option> 
+                        <option value="$150,000.00 - $300,000.00">$150,000.00 - $300,000.00</option> 
+                        <option value="$300,000.00 - $1,000,000.00">$300,000.00 - $1,000,000.00</option> 
+                    </select>
+                        
+                         <br>
+                         
+                </div>
+                
+                </div>
+                
+                
+             <h3 style="font-weight:700; color:green;">Registered Next of Kin</h3>
+                                
+                
+        <div class="form-row">
+            <div class="form-holder">
+            <span>
+                <fieldset>
+                    <legend>Beneficiary Legal Name</legend>
+                    <input type="text" id="next_kin" name="next_kin" class="form-control" autocomplete="off" placeholder="Beneficiary Legal Name" required="">
+                </fieldset>
+                </span>
+                  <br>
+            </div>
+        </div>
+         <div class="form-row-8">
+                <div class="form-holder">
+                    <span>
+                  <input type="text" class="form-control" name="next_address" id="next_address" autocomplete="off" placeholder="Next of Kin Residential Address" required="">
+                </span> <br>
+                    </div></div>
+             <div class="form-row">
+                    <div class="form-holder">
+                     <legend>Please select Relationship</legend>
+                         <select required="" name="next_relationship" id="next_relationship">
+                         <option value="">Please select Relationship</option>
+                            <option value="Son">Son</option>
+                            <option value="Daughter">Daughter</option>
+                            <option value="Father">Father</option>
+                            <option value="Mother">Mother</option>
+                            <option value="Husband">Husband</option>
+                            <option value="Spouse">Spouse</option>
+                            <option value="Hobby">Hobby</option>
+                            <option value="Cousin">Cousin</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    
+                        <br>
+                    </div>
+                    
+            <div class="form-holder">
+            <span>
+                     <legend>Please select Age</legend>
+                     <select required="" name="next_age" id="next_age">
+                    <option value="">Age</option>
+                        <option value="18-25yrs">18-25yrs</option>
+                        <option value="25-35yrs">25-35yrs</option>
+                        <option value="35-50yrs">35-50yrs</option>
+                        <option value="50-above">50yrs and above</option>
+                        </select>
+                        </span>
+                         <br>
+                </div>
+                
+                </div>
+                
+             <h3 style="font-weight:700; color:red;">Security Details</h3>
+                            
+            <div class="form-row">
+                    <div class="form-holder">
+                    <span id="sprypwd"> 
+                        <fieldset>
+                            <legend>Password</legend>
+                            <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Account Password" required="">
+                        </fieldset>
+                        <br>
+                        </span>
+                    </div>
+                    <div class="form-holder">
+                    <span id="sprycpwd"> 
+                        <fieldset>
+                            <legend>Confirm Password</legend>
+                            <input type="password" class="form-control" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm A/C Password" required="">
+                        </fieldset>
+                        <br>
+                        </span>
+                    </div>
+                </div>
+            <div class="form-row">
+                <div class="form-holder">
+                <span id="sprytf_pin">
+                    <fieldset>
+                        <legend>2FA PIN</legend>
+                        <input type="number" class="form-control" id="secretCode" autocomplete="off" name="secretCode" placeholder="Account PIN" required="">
+                    </fieldset>
+                     <br>
+                        </span>
+                </div>
+            </div>
+            <div class="form-row">
+            <div class="form-holder">
+             <legend>Select Security Question One</legend>
+             <select required="" name="securityquestion" id="securityquestion">
+             <option value="">Please Select Question One</option>
+            <option value="What is your pet name?">What is your pet name?</option>    
+                <option value="What is your nick name?">What is your nick name?</option>    
+                <option value="What is the name of your first car?">What is the name of your first car?</option>    
+                <option value="when did you finish high school?">when did you finish high school?</option>    
+                <option value="your favorite music?">your favorite music?</option>    
+                <option value="your favorite movie?">your favorite movie</option>    
+                <option value="your favorite roll model?">your favorite role model</option>    
+                <option value="favorite state?">favorite state?</option>    
+                        </select>
+            </div>
+            <div class="form-holder">
+                    <fieldset>
+                        <legend>Answer Question One</legend>
+                        <input type="text" class="form-control" id="answer" autocomplete="off" name="answer" placeholder="Answer to Security Question One" required="">
+                    </fieldset>
+                     <br>
+                    
+                </div>
+        </div>	
+            <div class="form-row">
+            <div class="form-holder">
+            <span>
+             <legend>Select Security Question Two</legend>
+           <select required="" name="securityquestion2" id="securityquestion2">
+                 <option value="">Please Select Question Two</option>
+                <option value="What is the name of the road you grew up on?">What is the name of the road you grew up on?</option>    
+                    <option value="What is your mother’s maiden name?">What is your mother’s maiden name?</option>    
+                    <option value="Where did you meet your spouse?">Where did you meet your spouse?</option>    
+                    <option value="when did you finish high school?">when did you finish high school?</option>    
+                    <option value="What is your favorite food?">What is your favorite food?</option>    
+                    <option value=" What city were you born in?"> What city were you born in?</option>    
+                    <option value=" Where is your favorite place to vacation?"> Where is your favorite place to vacation?</option>    
+                    <option value="What was the first company that you worked for?">What was the first company that you worked for?</option>    
+                        </select>
+                        </span>
+                        
+                        <br>
+            </div>
+            <div class="form-holder">
+                    <fieldset>
+                        <legend>Answer Question Two</legend>
+                        <input type="text" class="form-control" id="answer2" autocomplete="off" name="answer2" placeholder="Answer to Security Question Two" required="">
+                    </fieldset>
+                     <br>
+                </div>
+        </div>
+        <div class="secondstepResult"></div>
+                <button type="submit" class="secondstep" style="width:250px; height:50px; background-color: green; color: white;"> continue</button>
+      
+        </div><a href="{% url 'accounts:login' %}">Already registered?  Login Here</a></section></div>
+        
+    </form>
+          <br><br><br><br>
+        </div>   
+        </div>      
+                </div>
+                {% block custom_js %}
+			<script src="{% static 'account-assets/js/registration.js' %}"></script>
+			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
+			<link rel="stylesheet" href="{% static 'account-assets/js/enroll.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/opensans-font.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationPassword.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationSelect.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextarea.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationConfirm.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextField.js' %}"> 
+
+             {% endblock custom_js %}
+                <script type="text/javascript">
+    
+                $(document).ready(function () {
+          $('.secondstep').click(function (e) {
+          e.preventDefault();
+          var occupation = $('#occupation').val();
+          var income = $('#income').val(); 
+          var password = $('#password').val();
+          var cpassword = $('#cpassword').val();
+          var next_kin = $('#next_kin').val();
+          var next_address = $('#next_address').val();
+          var next_relationship = $('#next_relationship').val();
+          var next_age = $('#next_age').val();
+          var secretCode = $('#secretCode').val();
+          var csecretCode = $('#csecretCode').val();
+          var securityquestion = $('#securityquestion').val();
+          var answer = $('#answer').val();
+          var securityquestion2 = $('#securityquestion2').val();
+          var answer2 = $('#answer2').val(); 
+    
+          $.ajax
+            ({
+              type: "POST",
+              url: "secondstep.php",
+              data: { "occupation": occupation, "income": income, "password": password, "cpassword": cpassword, "next_kin": next_kin, "next_address": next_address, "next_relationship": next_relationship, "next_age": next_age, "secretCode": secretCode, "csecretCode": csecretCode, "securityquestion": securityquestion, "answer": answer, "securityquestion2": securityquestion2, "answer2": answer2},
+              success: function (data) {
+                $('.secondstepResult').html(data);
+                $('#formPC')[0].reset();
+              }
+            });
+          });
+        });
+                </script>
+                                </div>	
+                </div> 
+                    </div>
+          <script>
+                        function openCity(evt, cityName) {
+                            var i, tabcontent, tablinks;
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.display = "none";
+                            }
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+                            document.getElementById(cityName).style.display = "block";
+                            evt.currentTarget.className += " active";
+                        }
+    
+                        // Get the element with id="defaultOpen" and click on it
+                        document.getElementById("defaultOpen").click();
+                    </script>
+                </div>
+    
+    <!--content end-->
+
+
+
+{% endblock main_content %}
+
+
+

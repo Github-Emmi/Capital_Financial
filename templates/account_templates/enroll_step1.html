@@ -124,44 +124,7 @@
 
 {% block custom_js %}
 
-<script type="text/javascript">
-	//Firstname
-	var sprytf_firstname = new Spry.Widget.ValidationTextField("sprytf_firstname", 'none', {validateOn:["blur", "change"]});
-	//Lastname
-	var sprytf_lastname = new Spry.Widget.ValidationTextField("sprytf_lastname", 'none', {validateOn:["blur", "change"]});
-	//Password
-	var sprypass1 = new Spry.Widget.ValidationPassword("sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
-	//Confirm Password
-	var spryconf1 = new Spry.Widget.ValidationConfirm("sprycpwd", "sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
-	//Email ID
-	var spryemail = new Spry.Widget.ValidationTextField("sprytf_email", 'email', {validateOn:["blur", "change"]});
-	//Phone Number
-	var spryphone = new Spry.Widget.ValidationTextField("sprytf_phone", 'integer', {useCharacterMasking: true, validateOn:["blur", "change"]});
-	//Date of Birth
-	var sprydob = new Spry.Widget.ValidationTextField("sprytf_dob", 'date', {format:"none", useCharacterMasking: true, validateOn:["blur", "change"]});
-	//Gender
-	var sprygender = new Spry.Widget.ValidationSelect("spryselect_gender");
-	
-	
-	//address
-	var spry_ad = new Spry.Widget.ValidationTextarea("spryta_address", {isRequired:true});
-	//city
-	var sprytf_city = new Spry.Widget.ValidationTextField("sprytf_city", 'none', {validateOn:["blur", "change"]});
-	//State
-	var sprytf_state = new Spry.Widget.ValidationTextField("sprytf_state", 'none', {validateOn:["blur", "change"]});
-	//ZipCode
-	var sprytf_zip = new Spry.Widget.ValidationTextField("sprytf_zip", 'integer', {validateOn:["blur", "change"]});
-	
-	//Account Type
-	var spryselect1 = new Spry.Widget.ValidationSelect("spryselect_acctype");
-	//Account Number
-	var spry_accno = new Spry.Widget.ValidationTextField("sprytf_accno", 'integer', {minChars:8, maxChars: 12, validateOn:["blur", "change"]});
-	
-	var spry_pin = new Spry.Widget.ValidationTextField("sprytf_pin", 'integer', {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
-	//Confirm Password
-	var spry_cpin = new Spry.Widget.ValidationConfirm("sprytf_cpin", "sprytf_pin", {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
 
-	</script>
 
 {% endblock custom_js %}
 

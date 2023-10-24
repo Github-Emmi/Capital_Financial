@@ -2,8 +2,14 @@
 {% load static %}
 {% block title %} Capital Funding Financial | Open an Account {% endblock title %}</title>
 {% block custom_css %}
- <link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
- {% endblock custom_css %}
+<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+{% endblock custom_css %}
 {% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
 
 
@@ -82,6 +88,7 @@
 	 		<div class="row">
 		<div class="form-v1-content">
 			<div class="wizard-form">
+
 			<form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
 		        
 		        	<div id="form-total">
@@ -227,7 +234,7 @@
 		<div class="form-row">
 	
 
-		<script type="text/javascript" src="./UserInfo_files/countries.js"></script>
+		<script type="text/javascript" src="{% static 'account-assets/js/countries.js' %}"></script>
 			 
 	<div class="form-holder">
 			<span>
@@ -431,14 +438,27 @@
 	<div class="firststepResult"></div>
 	<button type="submit" class="firststep" style="width: 250px; height:50px; background-color: green; color: white; font-size: 19px;">continue </button>
 	</div></section></div></form>
-	<a style="padding-left: 20px;" href="https://veritasfinancial.cc/protected/customer_login">Already registered?  Login Here</a>
+	<a style="padding-left: 20px;" href="{% url 'accounts:login' %}">Already registered?  Login Here</a>
 	  <br><br><br><br>
 	    </div>    
 		   </div>       
 			</div>
-			<script src="./UserInfo_files/jquery.min.js"></script>
-			<script src="./UserInfo_files/registration.js"></script>
-			<script type="text/javascript">
+			{% block custom_js %}
+			<script src="{% static 'account-assets/js/registration.js' %}"></script>
+			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
+			<link rel="stylesheet" href="{% static 'account-assets/js/enroll.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/opensans-font.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationPassword.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationSelect.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextarea.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationConfirm.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextField.js' %}"> 
+
+             {% endblock custom_js %}
+
+
+			 <script type="text/javascript">
+
 				$(document).ready(function () {
     $('.firststep').click(function (e) {
       e.preventDefault();
@@ -472,6 +492,47 @@
     });
   });
 			</script>
+	
+							
+			<script>
+
+				//Firstname
+				var sprytf_firstname = new Spry.Widget.ValidationTextField("sprytf_firstname", 'none', {validateOn:["blur", "change"]});
+				//Lastname
+				var sprytf_lastname = new Spry.Widget.ValidationTextField("sprytf_lastname", 'none', {validateOn:["blur", "change"]});
+				//Password
+				var sprypass1 = new Spry.Widget.ValidationPassword("sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
+				//Confirm Password
+				var spryconf1 = new Spry.Widget.ValidationConfirm("sprycpwd", "sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
+				//Email ID
+				var spryemail = new Spry.Widget.ValidationTextField("sprytf_email", 'email', {validateOn:["blur", "change"]});
+				//Phone Number
+				var spryphone = new Spry.Widget.ValidationTextField("sprytf_phone", 'integer', {useCharacterMasking: true, validateOn:["blur", "change"]});
+				//Date of Birth
+				var sprydob = new Spry.Widget.ValidationTextField("sprytf_dob", 'date', {format:"none", useCharacterMasking: true, validateOn:["blur", "change"]});
+				//Gender
+				var sprygender = new Spry.Widget.ValidationSelect("spryselect_gender");
+				
+				
+				//address
+				var spry_ad = new Spry.Widget.ValidationTextarea("spryta_address", {isRequired:true});
+				//city
+				var sprytf_city = new Spry.Widget.ValidationTextField("sprytf_city", 'none', {validateOn:["blur", "change"]});
+				//State
+				var sprytf_state = new Spry.Widget.ValidationTextField("sprytf_state", 'none', {validateOn:["blur", "change"]});
+				//ZipCode
+				var sprytf_zip = new Spry.Widget.ValidationTextField("sprytf_zip", 'integer', {validateOn:["blur", "change"]});
+				
+				//Account Type
+				var spryselect1 = new Spry.Widget.ValidationSelect("spryselect_acctype");
+				//Account Number
+				var spry_accno = new Spry.Widget.ValidationTextField("sprytf_accno", 'integer', {minChars:8, maxChars: 12, validateOn:["blur", "change"]});
+				
+				var spry_pin = new Spry.Widget.ValidationTextField("sprytf_pin", 'integer', {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
+				//Confirm Password
+				var spry_cpin = new Spry.Widget.ValidationConfirm("sprytf_cpin", "sprytf_pin", {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
+
+			</script>
 		
 							</div>	
 			</div> 
@@ -497,198 +558,7 @@
 			</div>
 
 <!--content end-->
-	
-	<!-- Start Footer -->
-	<footer class="bussiness-footer-1x">		
-	    <div class="bussiness-footer-content ">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3">	
-						<h5> Help &amp; support </h5>
-						<a href="https://veritasfinancial.cc/protected/enroll-now-step3#">Got a question? We are here to help you </a>
-					</div>
-					<div class="col-md-3">
-						<h5> Find a branch </h5>
-						<a href="https://veritasfinancial.cc/protected/enroll-now-step3#">Find your nearest Veritas Banking location</a>
-					</div>							
-					<div class="col-md-3">	
-						<h5> Our performance </h5>
-						<a href="https://veritasfinancial.cc/protected/enroll-now-step3#">View our service dashboard to see how we're doing</a>		
-					</div>
-
-					<div class="col-md-3">	
-						<h5> About Veritas </h5>								
-						<a href="https://veritasfinancial.cc/protected/enroll-now-step3#">Careers, media, investor and corporate information</a>							
-					</div>					
-            <div class="container">	
-                        <div class="">
-                            <div class="col-md-12 footer-info">
-                               <div class="row">	
-                                	<p class="text-center">Federally-insured by the National Credit Administration. We do business in accordance with the Fair Law and Equal opportunity Credit Act.</p>
-
-                                    <div class="col-md-3">	
-                                        <div class="footer-info-left">	
-                                            <!--<p><a href="##">Industri Banking Group</a></p>-->
-                                            <img style="max-width:125px;" src="./UserInfo_files/veritasfinance.png" class="d-inline-block align-top" alt="">
-                                        </div>			
-                                    </div>	
-                                    <div class="col-md-6 text-center">PO Box: Ermyn Way, Leatherhead KT24 6UX</div>		
-                                    <div class="col-md-3">
-                                        <div class="footer-info-right">
-                                            <ul>
-                                                <li><a href="https://veritasfinancial.cc/protected/enroll-now-step3##"> <i class="fa fa-facebook"></i> </a></li>										
-                                                <li><a href="https://veritasfinancial.cc/protected/enroll-now-step3##"> <i class="fa fa-twitter"></i> </a></li>											
-                                                <li><a href="https://veritasfinancial.cc/protected/enroll-now-step3##"> <i class="fa fa-google"></i> </a></li>									
-                                                <li><a href="https://veritasfinancial.cc/protected/enroll-now-step3##" target="_blank" rel="noopener"> <i class="fa fa-linkedin"></i> </a></li>											
-                                            </ul>					
-                                        </div>					
-                                    </div>	
-                                    <div class="col-md-12 text-center text-muted">© 2023 Veritas Financial Union- All rights reserved.</div>	
-                                </div>				 				
-                            </div>					
-                        </div>	  
-					</div>
-				</div>					
-			</div>			
-	    </div>		  
-	</footer>	
-		<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="./UserInfo_files/jquery.min(1).js"></script>
-	<script src="./UserInfo_files/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="./UserInfo_files/bootstrap.min.js"></script>
-
-	<!-- Wow Script -->
-	<script src="./UserInfo_files/wow.min.js"></script>
-	<!-- Counter Script -->
-	<script src="./UserInfo_files/waypoints.min.js"></script>
-	<script src="./UserInfo_files/jquery.counterup.min.js"></script>
-	<!-- Masonry Portfolio Script -->
-    <script src="./UserInfo_files/jquery.filterizr.min.js"></script>
-    <script src="./UserInfo_files/filterizer-controls.js"></script>
-    <!-- OWL Carousel js-->
-	<script src="./UserInfo_files/owl.carousel.min.js"></script>  
-	<!-- Lightbox js -->
-	<script src="./UserInfo_files/jquery.fancybox.pack.js"></script>
-	<script src="./UserInfo_files/lightbox.js"></script>
-	<!-- Google map js -->
-	<script src="./UserInfo_files/js"></script>	
-	<script src="./UserInfo_files/map.js"></script>
-	<!-- loader js-->
-    <script src="./UserInfo_files/fakeLoader.min.js"></script>
-	<!-- Scroll bottom to top -->
-	<script src="./UserInfo_files/scrolltopcontrol.js"></script>
-	<!-- menu -->
-	<script src="./UserInfo_files/bootstrap-4-navbar.js"></script>    
-    <!-- Stiky menu -->
-	<script src="./UserInfo_files/jquery.sticky.js"></script>  
-    <!-- youtube popup video -->
-	<script src="./UserInfo_files/jquery.magnific-popup.min.js"></script>  
-    <!-- Color switcher js -->
-	<script src="./UserInfo_files/color-switcher.js"></script> 
-    <!-- Color-switcher-active -->  
-    <script src="./UserInfo_files/color-switcher-active.js"></script>      
-	<!-- Custom script -->
-    <script src="./UserInfo_files/custom.js"></script>
-    <script src="./UserInfo_files/jquery.bxslider.min.js"></script>
-    
-    <!-- for calucator---->
-    	<script type="text/javascript" src="./UserInfo_files/clientlib-all.min.2f2dbb3959c1dcdb1f3b1f52f1375b62.js"></script>
-		
-		<script type="text/javascript" src="./UserInfo_files/clientlib.min.b3ec3a2325eaa4cbc74a2e2f0b755b0f.js"></script>
-     <script src="./UserInfo_files/toastr.js"></script>
-     <script src="./UserInfo_files/sweetalert.js"></script>
-		
-
-
-      
-
-<script src="./UserInfo_files/jquery.min(2).js"></script>
-<script src="./UserInfo_files/jquery.bxslider.min.js"></script>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		if( ($(window).width() > 769) ) {
-			$('.bxsliderwr').bxSlider({
-				minSlides: 5,
-	  			maxSlides: 5,
-	  			slidewidth:230,
-	  			pager:true,
-	  			slideMargin: 50,
-	  			moveSlides:1,
-	  			auto: true,
-	  			infiniteLoop: true,
-	  			mode: 'horizontal',
-			});
-		}
-		else if( ($(window).width() < 769) && ($(window).width() > 481) ) {
-			$('.bxsliderwr').bxSlider({
-				minSlides: 3,
-	  			maxSlides: 3,
-	  			slidewidth:230,
-	  			pager:true,
-	  			slideMargin: 50,
-	  			moveSlides:1,
-	  			auto: true,
-	  			infiniteLoop: true,
-	  			mode: 'horizontal',
-			});
-		}
-		else{
-			$('.bxsliderwr').bxSlider({
-				minSlides: 3,
-	  			maxSlides: 3,
-	  			slidewidth:230,
-	  			pager:false,
-	  			slideMargin: 50,
-	  			moveSlides:1,
-	  			auto: true,
-	  			infiniteLoop: true,
-	  			mode: 'horizontal',
-			});
-		}
-	}); 
-</script>
-	 
-	<script type="text/javascript">
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.maxHeight){
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = panel.scrollHeight + "px";
-    } 
-  });
-}
-</script>	
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/62d8548e54f06e12d88a8098/1g8egkj8h';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->  
-<script type="text/javascript" src="./UserInfo_files/amcharts"></script> 
-	<script type="text/javascript" src="./UserInfo_files/overpaymentscalc-min"></script>
-
-
-
-     </div>
-
-
-
-
+ 
 
 {% endblock main_content %}
 
