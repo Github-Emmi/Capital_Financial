@@ -2,12 +2,6 @@ from .modules import *
 
 # Create your views here
 
-from .forms import LoginForm
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, get_object_or_404, redirect
-from django.conf import settings
-from django.contrib.auth import get_user_model
-
 
 
 # Create your views here
@@ -68,7 +62,7 @@ def index(request):
 
 #     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
 
-def login(request):
+def login_user(request):
      return render(request, 'account_templates/login.html')
 
 
@@ -81,7 +75,6 @@ def enroll_step2(request):
 
 def enroll_step3(request):
      return render(request, 'account_templates/enroll_step3.html', {})
-<<<<<<< HEAD
 
 def enroll_step4(request):
      return render(request, 'account_templates/enroll_step4.html', {})
@@ -91,9 +84,5 @@ def enroll_step5(request):
 
 def enroll_complete(request):
      return render(request, 'account_templates/enroll_complete.html', {})
-=======
-     return render(request, 'account_templates/online_registration.html', {})
 
-def enroll_step2(request):
-     return render(request, 'account_templates/terms_conditions.html', {})
->>>>>>> origin/master
+
