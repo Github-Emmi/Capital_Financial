@@ -2,6 +2,16 @@ from .modules import *
 
 # Create your views here
 
+<<<<<<< HEAD
+=======
+from .forms import LoginForm, SignUpForm
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from .models import State
+
+>>>>>>> f92e18e (registration)
 
 
 # Create your views here
@@ -34,6 +44,7 @@ def index(request):
 
 
 
+<<<<<<< HEAD
 
 # def register_user(request):
 
@@ -67,6 +78,9 @@ def login_user(request):
 
 
     ##### Sign Up Views  #######
+=======
+    ##### Sign Up Views
+>>>>>>> f92e18e (registration)
 def enroll_step1(request):
      return render(request, 'account_templates/enroll_step1.html', {})
 
@@ -74,6 +88,7 @@ def enroll_step2(request):
      return render(request, 'account_templates/enroll_step2.html', {})
 
 def enroll_step3(request):
+<<<<<<< HEAD
      return render(request, 'account_templates/enroll_step3.html', {})
 
 def enroll_step4(request):
@@ -86,3 +101,26 @@ def enroll_complete(request):
      return render(request, 'account_templates/enroll_complete.html', {})
 
 
+=======
+     form = SignUpForm(request.POST or None)
+     msg = None
+
+     if request.method == "POST" or "None":
+
+          if form.is_valid():
+               print(form.cleaned_data)
+               pass
+               # username = form.cleaned_data.get("account_number")
+               # password = form.cleaned_data.get("password")
+               
+
+     return render(request, 'account_templates/enroll_step3.html',{"form": form, "msg" : msg})
+
+
+
+def load_cities(request):
+    country_id = request.GET.get('country_id')
+    print(country_id)
+    cities = State.objects.filter(country_id=country_id).order_by('name')
+    return render(request, 'account_templates/dropdown.html', {'cities': cities})
+>>>>>>> f92e18e (registration)

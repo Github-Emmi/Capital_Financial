@@ -88,8 +88,13 @@
 	 		<div class="row">
 		<div class="form-v1-content">
 			<div class="wizard-form">
+<<<<<<< HEAD
 
 			<form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
+=======
+			<form class="form-register" method="post"  id="personForm" data-cities-url="{% url 'accounts:ajax_load_cities' %}" novalidate>
+				{% csrf_token %} 
+>>>>>>> f92e18e (registration)
 		        
 		        	<div id="form-total">
 		        		<!-- SECTION 1 -->
@@ -110,7 +115,7 @@
 				<span id="sprytf_firstname">
 					<fieldset>
 						<legend>First Name</legend>
-						<input type="text" class="form-control" id="firstname" name="firstname" autocomplete="off" placeholder="First Name" required="">
+					{{form.first_name}}
 					</fieldset>
 						</span>
 				</div>
@@ -118,7 +123,7 @@
 				<span id="sprytf_lastname">
 					<fieldset>
 						<legend>Last Name</legend>
-						<input type="text" class="form-control" id="lastname" name="lastname" autocomplete="off" placeholder="Last Name" required="">
+					{{ form.last_name }}
 					</fieldset>
 					 <br>
 						</span>
@@ -129,7 +134,7 @@
 				<span id="sprytf_firstname">
 					<fieldset>
 						<legend>Other name</legend>
-						<input type="text" class="form-control" id="middlename" name="middlename" autocomplete="off" placeholder="Middle name" required="">
+					{{ form.middle_name }}
 					</fieldset>
 						</span>
 			</div>
@@ -137,7 +142,7 @@
 				<span id="sprytf_lastname">
 					<fieldset>
 						<legend>Nick Name or Maiden name</legend>
-						<input type="text" class="form-control" id="nickname" name="nickname" autocomplete="off" placeholder="Nick name" required="">
+					{{ form.nick_name }}
 					</fieldset>
 					 <br>
 						</span>
@@ -149,7 +154,7 @@
 		<span id="sprytf_email">
 			<fieldset>
 				<legend>Your Email</legend>
-				<input type="text" name="email" id="email" class="form-control" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" autocomplete="off" placeholder="example@email.com" required="">
+			{{ form.email }}
 			</fieldset>
 			  <br>
 				</span>
@@ -159,7 +164,7 @@
 		<span id="sprytf_phone">
 			<fieldset>
 				<legend>Phone Number</legend>
-				<input type="text" class="form-control" id="phone" name="phone" autocomplete="off" placeholder="+18655356754" required="">
+			{{ form.phone_number}}
 			</fieldset>
 			 <br>
 				</span>
@@ -170,7 +175,7 @@
 		<span id="sprytf_dob">
 			<fieldset>
 				<legend>Date of Birth</legend>
-				<input type="date" class="form-control" id="dob" name="dob" autocomplete="off" placeholder="Date of Birth" required="">
+			{{ form.date_of_birth }}
 			</fieldset>
 			 <br>
 				</span>
@@ -181,7 +186,7 @@
 		<span id="sprytf_zip">
 			<fieldset>
 				<legend>Zipcode</legend>
-				<input type="text" class="form-control" id="zipcode" name="zipcode" autocomplete="off" placeholder="Zip/Postal Code" required="">
+			{{ form.zip_code }}
 			</fieldset>
 			  <br>
 				</span>
@@ -196,36 +201,28 @@
 		 <span id="spryselect_gender">
 				<legend>Title</legend>
 				
-				<select required="" name="title" id="title">
-					<option value="">Please select your Title</option>
-					<option value="Male">Mr.</option>
-					<option value="Female">Mrs.</option>
-					<option value="Female">Mr&amp;Mrs.</option>
-					<option value="Female">Ms.</option>
-					<option value="Female">Miss.</option>
-			  </select> 
 	  <br>
-		 <span class="selectRequiredMsg">Please select your Title.</span>
+		 {{ form.title }}
 		</span>
 		</div>
 		<div class="form-holder">
 		 <span id="spryselect_gender">
 				<legend>Gender</legend>
 				
-				<select required="" name="gender" id="gender">
-					<option value="">Please select your gender</option>
-					<option value="Male">Male</option>
-					<option value="Female">Female</option>
-					<option>Others</option>
-			  </select> 
+				
 	  <br>
+	  {{ form.gender}}
+
 		</span>
 		</div>
 	</div>		
 	<div class="form-row-8">
 			<div class="form-holder">
+
+				<legend>Residential Address</legend>
 	
-			<input type="text" class="form-control" id="address" name="address" autocomplete="off" placeholder="Residential Address" required="">
+			{{ form.residential_address}}
+
 			<br>		
 		</div>
 	</div>
@@ -234,16 +231,19 @@
 		<div class="form-row">
 	
 
+<<<<<<< HEAD
 		<script type="text/javascript" src="{% static 'account-assets/js/countries.js' %}"></script>
 			 
+=======
+					 
+>>>>>>> f92e18e (registration)
 	<div class="form-holder">
 			<span>
 			
 				<legend>Country</legend>
-			<select required="" name="country" id="country">
 					  
-					<option value="-1">Select Country</option><option value="Afghanistan">Afghanistan</option><option value="Albania">Albania</option><option value="Algeria">Algeria</option><option value="American Samoa">American Samoa</option><option value="Angola">Angola</option><option value="Anguilla">Anguilla</option><option value="Antartica">Antartica</option><option value="Antigua and Barbuda">Antigua and Barbuda</option><option value="Argentina">Argentina</option><option value="Armenia">Armenia</option><option value="Aruba">Aruba</option><option value="Ashmore and Cartier Island">Ashmore and Cartier Island</option><option value="Australia">Australia</option><option value="Austria">Austria</option><option value="Azerbaijan">Azerbaijan</option><option value="Bahamas">Bahamas</option><option value="Bahrain">Bahrain</option><option value="Bangladesh">Bangladesh</option><option value="Barbados">Barbados</option><option value="Belarus">Belarus</option><option value="Belgium">Belgium</option><option value="Belize">Belize</option><option value="Benin">Benin</option><option value="Bermuda">Bermuda</option><option value="Bhutan">Bhutan</option><option value="Bolivia">Bolivia</option><option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option><option value="Botswana">Botswana</option><option value="Brazil">Brazil</option><option value="British Virgin Islands">British Virgin Islands</option><option value="Brunei">Brunei</option><option value="Bulgaria">Bulgaria</option><option value="Burkina Faso">Burkina Faso</option><option value="Burma">Burma</option><option value="Burundi">Burundi</option><option value="Cambodia">Cambodia</option><option value="Cameroon">Cameroon</option><option value="Canada">Canada</option><option value="Cape Verde">Cape Verde</option><option value="Cayman Islands">Cayman Islands</option><option value="Central African Republic">Central African Republic</option><option value="Chad">Chad</option><option value="Chile">Chile</option><option value="China">China</option><option value="Christmas Island">Christmas Island</option><option value="Clipperton Island">Clipperton Island</option><option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option><option value="Colombia">Colombia</option><option value="Comoros">Comoros</option><option value="Congo, Democratic Republic of the">Congo, Democratic Republic of the</option><option value="Congo, Republic of the">Congo, Republic of the</option><option value="Cook Islands">Cook Islands</option><option value="Costa Rica">Costa Rica</option><option value="Cote d'Ivoire">Cote d'Ivoire</option><option value="Croatia">Croatia</option><option value="Cuba">Cuba</option><option value="Cyprus">Cyprus</option><option value="Czeck Republic">Czeck Republic</option><option value="Denmark">Denmark</option><option value="Djibouti">Djibouti</option><option value="Dominica">Dominica</option><option value="Dominican Republic">Dominican Republic</option><option value="Ecuador">Ecuador</option><option value="Egypt">Egypt</option><option value="El Salvador">El Salvador</option><option value="Equatorial Guinea">Equatorial Guinea</option><option value="Eritrea">Eritrea</option><option value="Estonia">Estonia</option><option value="Ethiopia">Ethiopia</option><option value="Europa Island">Europa Island</option><option value="Falkland Islands (Islas Malvinas)">Falkland Islands (Islas Malvinas)</option><option value="Faroe Islands">Faroe Islands</option><option value="Fiji">Fiji</option><option value="Finland">Finland</option><option value="France">France</option><option value="French Guiana">French Guiana</option><option value="French Polynesia">French Polynesia</option><option value="French Southern and Antarctic Lands">French Southern and Antarctic Lands</option><option value="Gabon">Gabon</option><option value="Gambia, The">Gambia, The</option><option value="Gaza Strip">Gaza Strip</option><option value="Georgia">Georgia</option><option value="Germany">Germany</option><option value="Ghana">Ghana</option><option value="Gibraltar">Gibraltar</option><option value="Glorioso Islands">Glorioso Islands</option><option value="Greece">Greece</option><option value="Greenland">Greenland</option><option value="Grenada">Grenada</option><option value="Guadeloupe">Guadeloupe</option><option value="Guam">Guam</option><option value="Guatemala">Guatemala</option><option value="Guernsey">Guernsey</option><option value="Guinea">Guinea</option><option value="Guinea-Bissau">Guinea-Bissau</option><option value="Guyana">Guyana</option><option value="Haiti">Haiti</option><option value="Heard Island and McDonald Islands">Heard Island and McDonald Islands</option><option value="Holy See (Vatican City)">Holy See (Vatican City)</option><option value="Honduras">Honduras</option><option value="Hong Kong">Hong Kong</option><option value="Howland Island">Howland Island</option><option value="Hungary">Hungary</option><option value="Iceland">Iceland</option><option value="India">India</option><option value="Indonesia">Indonesia</option><option value="Iran">Iran</option><option value="Iraq">Iraq</option><option value="Ireland">Ireland</option><option value="Ireland, Northern">Ireland, Northern</option><option value="Israel">Israel</option><option value="Italy">Italy</option><option value="Jamaica">Jamaica</option><option value="Jan Mayen">Jan Mayen</option><option value="Japan">Japan</option><option value="Jarvis Island">Jarvis Island</option><option value="Jersey">Jersey</option><option value="Johnston Atoll">Johnston Atoll</option><option value="Jordan">Jordan</option><option value="Juan de Nova Island">Juan de Nova Island</option><option value="Kazakhstan">Kazakhstan</option><option value="Kenya">Kenya</option><option value="Kiribati">Kiribati</option><option value="Korea, North">Korea, North</option><option value="Korea, South">Korea, South</option><option value="Kuwait">Kuwait</option><option value="Kyrgyzstan">Kyrgyzstan</option><option value="Laos">Laos</option><option value="Latvia">Latvia</option><option value="Lebanon">Lebanon</option><option value="Lesotho">Lesotho</option><option value="Liberia">Liberia</option><option value="Libya">Libya</option><option value="Liechtenstein">Liechtenstein</option><option value="Lithuania">Lithuania</option><option value="Luxembourg">Luxembourg</option><option value="Macau">Macau</option><option value="Macedonia, Former Yugoslav Republic of">Macedonia, Former Yugoslav Republic of</option><option value="Madagascar">Madagascar</option><option value="Malawi">Malawi</option><option value="Malaysia">Malaysia</option><option value="Maldives">Maldives</option><option value="Mali">Mali</option><option value="Malta">Malta</option><option value="Man, Isle of">Man, Isle of</option><option value="Marshall Islands">Marshall Islands</option><option value="Martinique">Martinique</option><option value="Mauritania">Mauritania</option><option value="Mauritius">Mauritius</option><option value="Mayotte">Mayotte</option><option value="Mexico">Mexico</option><option value="Micronesia, Federated States of">Micronesia, Federated States of</option><option value="Midway Islands">Midway Islands</option><option value="Moldova">Moldova</option><option value="Monaco">Monaco</option><option value="Mongolia">Mongolia</option><option value="Montserrat">Montserrat</option><option value="Morocco">Morocco</option><option value="Mozambique">Mozambique</option><option value="Namibia">Namibia</option><option value="Nauru">Nauru</option><option value="Nepal">Nepal</option><option value="Netherlands">Netherlands</option><option value="Netherlands Antilles">Netherlands Antilles</option><option value="New Caledonia">New Caledonia</option><option value="New Zealand">New Zealand</option><option value="Nicaragua">Nicaragua</option><option value="Niger">Niger</option><option value="Nigeria">Nigeria</option><option value="Niue">Niue</option><option value="Norfolk Island">Norfolk Island</option><option value="Northern Mariana Islands">Northern Mariana Islands</option><option value="Norway">Norway</option><option value="Oman">Oman</option><option value="Pakistan">Pakistan</option><option value="Palau">Palau</option><option value="Panama">Panama</option><option value="Papua New Guinea">Papua New Guinea</option><option value="Paraguay">Paraguay</option><option value="Peru">Peru</option><option value="Philippines">Philippines</option><option value="Pitcaim Islands">Pitcaim Islands</option><option value="Poland">Poland</option><option value="Portugal">Portugal</option><option value="Puerto Rico">Puerto Rico</option><option value="Qatar">Qatar</option><option value="Reunion">Reunion</option><option value="Romainia">Romainia</option><option value="Russia">Russia</option><option value="Rwanda">Rwanda</option><option value="Saint Helena">Saint Helena</option><option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option><option value="Saint Lucia">Saint Lucia</option><option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option><option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option><option value="Samoa">Samoa</option><option value="San Marino">San Marino</option><option value="Sao Tome and Principe">Sao Tome and Principe</option><option value="Saudi Arabia">Saudi Arabia</option><option value="Scotland">Scotland</option><option value="Senegal">Senegal</option><option value="Seychelles">Seychelles</option><option value="Sierra Leone">Sierra Leone</option><option value="Singapore">Singapore</option><option value="Slovakia">Slovakia</option><option value="Slovenia">Slovenia</option><option value="Solomon Islands">Solomon Islands</option><option value="Somalia">Somalia</option><option value="South Africa">South Africa</option><option value="South Georgia and South Sandwich Islands">South Georgia and South Sandwich Islands</option><option value="Spain">Spain</option><option value="Spratly Islands">Spratly Islands</option><option value="Sri Lanka">Sri Lanka</option><option value="Sudan">Sudan</option><option value="Suriname">Suriname</option><option value="Svalbard">Svalbard</option><option value="Swaziland">Swaziland</option><option value="Sweden">Sweden</option><option value="Switzerland">Switzerland</option><option value="Syria">Syria</option><option value="Taiwan">Taiwan</option><option value="Tajikistan">Tajikistan</option><option value="Tanzania">Tanzania</option><option value="Thailand">Thailand</option><option value="Tobago">Tobago</option><option value="Toga">Toga</option><option value="Tokelau">Tokelau</option><option value="Tonga">Tonga</option><option value="Trinidad">Trinidad</option><option value="Tunisia">Tunisia</option><option value="Turkey">Turkey</option><option value="Turkmenistan">Turkmenistan</option><option value="Tuvalu">Tuvalu</option><option value="Uganda">Uganda</option><option value="Ukraine">Ukraine</option><option value="United Arab Emirates">United Arab Emirates</option><option value="United Kingdom">United Kingdom</option><option value="Uruguay">Uruguay</option><option value="USA">USA</option><option value="Uzbekistan">Uzbekistan</option><option value="Vanuatu">Vanuatu</option><option value="Venezuela">Venezuela</option><option value="Vietnam">Vietnam</option><option value="Virgin Islands">Virgin Islands</option><option value="Wales">Wales</option><option value="Wallis and Futuna">Wallis and Futuna</option><option value="West Bank">West Bank</option><option value="Western Sahara">Western Sahara</option><option value="Yemen">Yemen</option><option value="Yugoslavia">Yugoslavia</option><option value="Zambia">Zambia</option><option value="Zimbabwe">Zimbabwe</option></select>
-			<br>
+				{{ form.country }}				
+				<br>
 				</span>
 		</div>
 				
@@ -252,16 +252,12 @@
 				<span>
 			
 				<legend>State</legend>
-			<select required="" name="state" id="state">
-					 <option value="">Please select State</option> 
+				
+			<select required="" name="state" id="id_city">
 					</select>
 			<br>
 				</span>
-				            <script language="javascript">
-                    	populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
-                    	populateCountries("country2");
-                    	populateCountries("country2");
-                    </script>
+				            
 		            </div>		
 	          </div>
     	<div class="form-row">
@@ -269,7 +265,7 @@
 		<span id="sprytf_city">
 			<fieldset>
 				<legend>City Name</legend>
-				<input type="text" class="form-control" id="city" name="city" autocomplete="off" placeholder="City" required="">
+			{{ form.city}}
 			</fieldset>
 			 <br>
 			</span>
@@ -278,7 +274,7 @@
 			<span id="spryta_address">
 			<fieldset>
 				<legend>State Security Number(SSN, NI, SIN etc.)</legend>
-			<input type="text" class="form-control" id="ssn" name="ssn" autocomplete="off" placeholder="State Security Number" required="">
+			{{ form.ssn}}
 			</fieldset>
 			<br>
 				</span>
@@ -288,161 +284,32 @@
 	<div class="form-holder">
 				<legend>Currency Type</legend>
 				<span id="spryselect_acctype">
-				<select required="" name="usercurrency" id="usercurrency">
-					<option selected="" value="">Select Account Currency</option>
-          <option value="USD">America (United States) Dollars – USD</option>
-<option value="AFN">Afghanistan Afghanis – AFN</option>
-<option value="ALL">Albania Leke – ALL</option>
-<option value="DZD">Algeria Dinars – DZD</option>
-<option value="ARS">Argentina Pesos – ARS</option>
-<option value="AUD">Australia Dollars – AUD</option>
-<option value="ATS">Austria Schillings – ATS</option>
- 
-<option value="BSD">Bahamas Dollars – BSD</option>
-<option value="BHD">Bahrain Dinars – BHD</option>
-<option value="BDT">Bangladesh Taka – BDT</option>
-<option value="BBD">Barbados Dollars – BBD</option>
-<option value="BEF">Belgium Francs – BEF</option>
-<option value="BMD">Bermuda Dollars – BMD</option>
- 
-<option value="BRL">Brazil Reais – BRL</option>
-<option value="BGN">Bulgaria Leva – BGN</option>
-<option value="CAD">Canada Dollars – CAD</option>
-<option value="XOF">CFA BCEAO Francs – XOF</option>
-<option value="XAF">CFA BEAC Francs – XAF</option>
-<option value="CLP">Chile Pesos – CLP</option>
- 
-<option value="CNY">China Yuan Renminbi – CNY</option>
-<option value="CNY">RMB (China Yuan Renminbi) – CNY</option>
-<option value="COP">Colombia Pesos – COP</option>
-<option value="XPF">CFP Francs – XPF</option>
-<option value="CRC">Costa Rica Colones – CRC</option>
-<option value="HRK">Croatia Kuna – HRK</option>
- 
-<option value="CYP">Cyprus Pounds – CYP</option>
-<option value="CZK">Czech Republic Koruny – CZK</option>
-<option value="DKK">Denmark Kroner – DKK</option>
-<option value="DEM">Deutsche (Germany) Marks – DEM</option>
-<option value="DOP">Dominican Republic Pesos – DOP</option>
-<option value="NLG">Dutch (Netherlands) Guilders – NLG</option>
- 
-<option value="XCD">Eastern Caribbean Dollars – XCD</option>
-<option value="EGP">Egypt Pounds – EGP</option>
-<option value="EEK">Estonia Krooni – EEK</option>
-<option value="EUR">Euro – EUR</option>
-<option value="FJD">Fiji Dollars – FJD</option>
-<option value="FIM">Finland Markkaa – FIM</option>
- 
-<option value="FRF*">France Francs – FRF*</option>
-<option value="DEM">Germany Deutsche Marks – DEM</option>
-<option value="XAU">Gold Ounces – XAU</option>
-<option value="GRD">Greece Drachmae – GRD</option>
-<option value="GTQ">Guatemalan Quetzal – GTQ</option>
-<option value="NLG">Holland (Netherlands) Guilders – NLG</option>
-<option value="HKD">Hong Kong Dollars – HKD</option>
- 
-<option value="HUF">Hungary Forint – HUF</option>
-<option value="ISK">Iceland Kronur – ISK</option>
-<option value="XDR">IMF Special Drawing Right – XDR</option>
-<option value="INR">India Rupees – INR</option>
-<option value="IDR">Indonesia Rupiahs – IDR</option>
-<option value="IRR">Iran Rials – IRR</option>
- 
-<option value="IQD">Iraq Dinars – IQD</option>
-<option value="IEP*">Ireland Pounds – IEP*</option>
-<option value="ILS">Israel New Shekels – ILS</option>
-<option value="ITL*">Italy Lire – ITL*</option>
-<option value="JMD">Jamaica Dollars – JMD</option>
-<option value="JPY">Japan Yen – JPY</option>
- 
-<option value="JOD">Jordan Dinars – JOD</option>
-<option value="KES">Kenya Shillings – KES</option>
-<option value="KRW">Korea (South) Won – KRW</option>
-<option value="KWD">Kuwait Dinars – KWD</option>
-<option value="LBP">Lebanon Pounds – LBP</option>
-<option value="LUF">Luxembourg Francs – LUF</option>
- 
-<option value="MYR">Malaysia Ringgits – MYR</option>
-<option value="MTL">Malta Liri – MTL</option>
-<option value="MUR">Mauritius Rupees – MUR</option>
-<option value="MXN">Mexico Pesos – MXN</option>
-<option value="MAD">Morocco Dirhams – MAD</option>
-<option value="NLG">Netherlands Guilders – NLG</option>
- 
-<option value="NZD">New Zealand Dollars – NZD</option>
-<option value="NGN">Nigeria Naira – NGN</option>
-<option value="NOK">Norway Kroner – NOK</option>
-<option value="OMR">Oman Rials – OMR</option>
-<option value="PKR">Pakistan Rupees – PKR</option>
-<option value="XPD">Palladium Ounces – XPD</option>
-<option value="PEN">Peru Nuevos Soles – PEN</option>
- 
-<option value="PHP">Philippines Pesos – PHP</option>
-<option value="XPT">Platinum Ounces – XPT</option>
-<option value="PLN">Poland Zlotych – PLN</option>
-<option value="PTE">Portugal Escudos – PTE</option>
-<option value="QAR">Qatar Riyals – QAR</option>
-<option value="RON">Romania New Lei – RON</option>
- 
-<option value="ROL">Romania Lei – ROL</option>
-<option value="RUB">Russia Rubles – RUB</option>
-<option value="SAR">Saudi Arabia Riyals – SAR</option>
-<option value="XAG">Silver Ounces – XAG</option>
-<option value="SGD">Singapore Dollars – SGD</option>
-<option value="SKK">Slovakia Koruny – SKK</option>
- 
-<option value="SIT">Slovenia Tolars – SIT</option>
-<option value="ZAR">South Africa Rand – ZAR</option>
-<option value="KRW">South Korea Won – KRW</option>
-<option value="ESP">Spain Pesetas – ESP</option> 
- 
-<option value="SDD">Sudan Dinars – SDD</option>
-<option value="SEK">Sweden Kronor – SEK</option>
-<option value="CHF">Switzerland Francs – CHF</option>
-<option value="TWD">Taiwan New Dollars – TWD</option>
-<option value="THB">Thailand Baht – THB</option>
-<option value="TTD">Trinidad and Tobago Dollars – TTD</option>
- 
-<option value="TND">Tunisia Dinars – TND</option>
-<option value="TRY">Turkey New Lira – TRY</option>
-<option value="AED">United Arab Emirates Dirhams – AED</option>
-<option value="GBP">United Kingdom Pounds – GBP</option>
-<option value="USD">United States Dollars – USD</option>
-<option value="VEB">Venezuela Bolivares – VEB</option>
- 
-<option value="VND">Vietnam Dong – VND</option>
-<option value="ZMK">Zambia Kwacha – ZMK</option>				</select>
+				{{ form.Currency_type }}
 		  <br>
-		 <span class="selectRequiredMsg">Please select Account Type.</span>
 		</span>
 		</div>
 		<div class="form-holder" id="firstname">
 				<legend>Account Type</legend>
-				<span id="spryselect_acctype">
-				<select required="" name="accounttype" id="accounttype">
-				     	<option value="">Please select Account Type</option> 
-						<option value="Checking Account">Checking Account</option>
-						<option value="Savings Account">Saving Account</option>
-						<option value="Fixed Deposit Account">Fixed Deposit Account</option>
-						<option value="Current Account">Current Account</option>
-						<option value="Business Account">Business Account</option>
-						<option value="Non Resident Account">Non Resident Account</option>
-						<option value="Cooperate Business Account">Cooperate Business Account</option>
-						<option value="Investment Account">Investment Account</option>
-					</select>
+				<span id="spryselect_acctype">	
+				{{ form.account_type}}
 		  <br>
 
 		</span>
 		</div>
 	</div>
-	<div class="firststepResult"></div>
+	<!-- <div class="firststepResult"></div> -->
 	<button type="submit" class="firststep" style="width: 250px; height:50px; background-color: green; color: white; font-size: 19px;">continue </button>
 	</div></section></div></form>
+<<<<<<< HEAD
 	<a style="padding-left: 20px;" href="{% url 'accounts:login' %}">Already registered?  Login Here</a>
+=======
+	<a style="padding-left: 20px;" href="">Already registered?  Login Here</a>
+>>>>>>> f92e18e (registration)
 	  <br><br><br><br>
 	    </div>    
 		   </div>       
 			</div>
+<<<<<<< HEAD
 			{% block custom_js %}
 			<script src="{% static 'account-assets/js/registration.js' %}"></script>
 			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
@@ -559,6 +426,170 @@
 
 <!--content end-->
  
+=======
+			<script src="./UserInfo_files/jquery.min.js"></script>
+			<script src="./UserInfo_files/registration.js"></script>
+			<script src="{% static 'account-assets/js/jquery.min.js' %}""></script>
+			<script>
+			  $("#id_country").change(function () {
+				var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+				var countryId = $(this).val();  // get the selected country ID from the HTML input
+		  
+				$.ajax({                       // initialize an AJAX request
+				  url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				  data: {
+					'country_id': countryId       // add the country id to the GET parameters
+				  },
+				  success: function (data) {   // `data` is the return of the `load_cities` view function
+					console.log(data)
+					$("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+				  }
+				});
+		  
+			  });
+			</script>
+		  
+		
+			
+	</footer>	
+		<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <script src="./UserInfo_files/jquery.min(1).js"></script>
+	<script src="./UserInfo_files/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./UserInfo_files/bootstrap.min.js"></script>
+
+	<!-- Wow Script -->
+	<script src="./UserInfo_files/wow.min.js"></script>
+	<!-- Counter Script -->
+	<script src="./UserInfo_files/waypoints.min.js"></script>
+	<script src="./UserInfo_files/jquery.counterup.min.js"></script>
+	<!-- Masonry Portfolio Script -->
+    <script src="./UserInfo_files/jquery.filterizr.min.js"></script>
+    <script src="./UserInfo_files/filterizer-controls.js"></script>
+    <!-- OWL Carousel js-->
+	<script src="./UserInfo_files/owl.carousel.min.js"></script>  
+	<!-- Lightbox js -->
+	<script src="./UserInfo_files/jquery.fancybox.pack.js"></script>
+	<script src="./UserInfo_files/lightbox.js"></script>
+	<!-- Google map js -->
+	<script src="./UserInfo_files/js"></script>	
+	<script src="./UserInfo_files/map.js"></script>
+	<!-- loader js-->
+    <script src="./UserInfo_files/fakeLoader.min.js"></script>
+	<!-- Scroll bottom to top -->
+	<script src="./UserInfo_files/scrolltopcontrol.js"></script>
+	<!-- menu -->
+	<script src="./UserInfo_files/bootstrap-4-navbar.js"></script>    
+    <!-- Stiky menu -->
+	<script src="./UserInfo_files/jquery.sticky.js"></script>  
+    <!-- youtube popup video -->
+	<script src="./UserInfo_files/jquery.magnific-popup.min.js"></script>  
+    <!-- Color switcher js -->
+	<script src="./UserInfo_files/color-switcher.js"></script> 
+    <!-- Color-switcher-active -->  
+    <script src="./UserInfo_files/color-switcher-active.js"></script>      
+	<!-- Custom script -->
+    <script src="./UserInfo_files/custom.js"></script>
+    <script src="./UserInfo_files/jquery.bxslider.min.js"></script>
+    
+    <!-- for calucator---->
+    	<script type="text/javascript" src="./UserInfo_files/clientlib-all.min.2f2dbb3959c1dcdb1f3b1f52f1375b62.js"></script>
+		
+		<script type="text/javascript" src="./UserInfo_files/clientlib.min.b3ec3a2325eaa4cbc74a2e2f0b755b0f.js"></script>
+     <script src="./UserInfo_files/toastr.js"></script>
+     <script src="./UserInfo_files/sweetalert.js"></script>
+		
+
+
+      
+
+<script src="./UserInfo_files/jquery.min(2).js"></script>
+<script src="./UserInfo_files/jquery.bxslider.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if( ($(window).width() > 769) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 5,
+	  			maxSlides: 5,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else if( ($(window).width() < 769) && ($(window).width() > 481) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else{
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:false,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+	}); 
+</script>
+	 
+	<script type="text/javascript">
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>	
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/62d8548e54f06e12d88a8098/1g8egkj8h';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->  
+<script type="text/javascript" src="./UserInfo_files/amcharts"></script> 
+	<script type="text/javascript" src="./UserInfo_files/overpaymentscalc-min"></script>
+
+
+
+     </div>
+
+
+
+
+>>>>>>> f92e18e (registration)
 
 {% endblock main_content %}
 

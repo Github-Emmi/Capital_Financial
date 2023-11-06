@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
     "adminapp.apps.AdminappConfig",
+    # "cities_light",
 ]
 
 MIDDLEWARE = [

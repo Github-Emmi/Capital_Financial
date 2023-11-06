@@ -8,8 +8,39 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
+from .country import Currency
 
 from django.contrib.auth.base_user import BaseUserManager
+
+
+Title = (
+    ('none', 'Please Select Title'),
+    ('Mr.', 'Mr.'),
+    ('Mrs.', 'Mrs.'),
+    ('Mr&Mrs.', 'Mr&Mrs.'),
+    ('Ms.', 'Ms.'),
+    ('Miss.', 'Miss.'),
+)
+
+Gender = (
+    ('none', 'Please Select Gender'),
+    ('Male', 'Male'),
+    ('Female', 'FeMale'),
+    ('Other', 'Other')
+)
+
+
+Account_Type = (
+    ('none','Please select Account Type'),
+    ('Checking Account', 'Checking Account'),
+    ('Savings Account', 'Savings Account'),
+    ('Fixed Deposit Account', 'Fixed Deposit Account'),
+    ('Current Account','Current Account'),
+    ('Business Account', 'Business Account'),
+    ('Non Resident Account','Non Resident Account'),
+    ('Cooperate Business Account', 'Cooperate Business Account'),
+    ('Investment Account', 'Investment Account'),
+)
 
 
 # custom user and manager area
@@ -46,10 +77,43 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+
+class Country(models.Model):
+    # id = models.AutoField()
+    name = models.CharField(('country name'), max_length=55, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class State(models.Model):
+    name = models.CharField(('state name'), max_length=55, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30, blank=True)
-    last_name = models.CharField(('last name'), max_length=30, blank=True)
+    last_name = models.CharField(('middle name'), max_length=30, blank=True)
+    
+    middle_name = models.CharField(('last name'), max_length=30, blank=True)
+    nick_name = models.CharField(('nick name'), max_length=30, blank=True)
+    date_of_birth = models.DateField(('date of birth'), max_length=30, blank=True)
+    zip_code = models.PositiveIntegerField(('zip code'))
+    residential_address = models.CharField(('residential address'), max_length=300, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
+    State = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
+    city = models.CharField(('city'),max_length=55, blank=True)
+    ssn = models.CharField(('ssn'), max_length=30, blank=True)
+    phone_number = models.CharField(('phone number'), max_length=30, blank=True)
+    
+    title = models.CharField(max_length=17, choices=Title, default='none')
+    gender = models.CharField(max_length=17, choices=Gender, default='none')
+    account_type = models.CharField(max_length=37, choices=Account_Type, default='none')
+    Currency_type = models.CharField(max_length=97, choices=Currency, default='USD')
+    
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
