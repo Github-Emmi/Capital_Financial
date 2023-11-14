@@ -87,7 +87,9 @@
                  <div class="row">
             <div class="form-v1-content">
                 <div class="wizard-form">
+                    {{msg}}
                 <form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
+				{% csrf_token %}  
                     
                         <div id="form-total">
                             <!-- SECTION 1 -->
@@ -109,36 +111,13 @@
                     <div class="form-holder">
                     
                      <legend>Type of Employment</legend>
-                     
-                   <select required="" name="occupation" id="occupation">
-                     <option value="">Select Type of Employment</option>
-                        <option value="Self Employed">Self Employed</option>  
-                        <option value="Self Employed">Public/Government Office</option>  
-                        <option value="Self Employed">Private/Partnership Office</option>  
-                        <option value="Self Employed">Business/Sales</option>  
-                        <option value="Self Employed">Trading/Market</option>  
-                        <option value="Self Employed">Military/Paramilitary</option>  
-                        <option value="Self Employed">Politician/Celebrity</option>  
-                        </select>
+                     {{ form.employment_type}}
                         <br>
                         
                     </div>
             <div class="form-holder">
                      <legend>Annual income Range</legend>
-                       <select required="" name="income" id="income">
-                     <option value="">Select Salary Range</option>
-                        <option value="$100.00 - $500.00">$100.00 - $500.00</option> 
-                        <option value="$700.00 - $1,000.00">$700.00 - $1,000.00</option> 
-                        <option value="$1,000.00 - $2,000.00">$1,000.00 - $2,000.00</option> 
-                        <option value="$2,000.00 - $5,000.00">$2,000.00 - $5,000.00</option> 
-                        <option value="$5,000.00 - $10,000.00">$5,000.00 - $10,000.00</option> 
-                        <option value="$15,000.00 - $20,000.00">$15,000.00 - $20,000.00</option> 
-                        <option value="$25,000.00 - $30,000.00">$25,000.00 - $30,000.00</option> 
-                        <option value="$30,000.00 - $70,000.00">$30,000.00 - $70,000.00</option> 
-                        <option value="$80,000.00 - $140,000.00">$80,000.00 - $140,000.00</option> 
-                        <option value="$150,000.00 - $300,000.00">$150,000.00 - $300,000.00</option> 
-                        <option value="$300,000.00 - $1,000,000.00">$300,000.00 - $1,000,000.00</option> 
-                    </select>
+                      {{ form.salary_range }}
                         
                          <br>
                          
@@ -155,7 +134,7 @@
             <span>
                 <fieldset>
                     <legend>Beneficiary Legal Name</legend>
-                    <input type="text" id="next_kin" name="next_kin" class="form-control" autocomplete="off" placeholder="Beneficiary Legal Name" required="">
+                    {{ form.beneficiary_legal_name }}
                 </fieldset>
                 </span>
                   <br>
@@ -164,39 +143,20 @@
          <div class="form-row-8">
                 <div class="form-holder">
                     <span>
-                  <input type="text" class="form-control" name="next_address" id="next_address" autocomplete="off" placeholder="Next of Kin Residential Address" required="">
+                        {{ form.nok_address}}
                 </span> <br>
                     </div></div>
              <div class="form-row">
                     <div class="form-holder">
                      <legend>Please select Relationship</legend>
-                         <select required="" name="next_relationship" id="next_relationship">
-                         <option value="">Please select Relationship</option>
-                            <option value="Son">Son</option>
-                            <option value="Daughter">Daughter</option>
-                            <option value="Father">Father</option>
-                            <option value="Mother">Mother</option>
-                            <option value="Husband">Husband</option>
-                            <option value="Spouse">Spouse</option>
-                            <option value="Hobby">Hobby</option>
-                            <option value="Cousin">Cousin</option>
-                            <option value="Others">Others</option>
-                        </select>
-                    
+                        {{ form.nok_relationship}}
                         <br>
                     </div>
                     
             <div class="form-holder">
             <span>
                      <legend>Please select Age</legend>
-                     <select required="" name="next_age" id="next_age">
-                    <option value="">Age</option>
-                        <option value="18-25yrs">18-25yrs</option>
-                        <option value="25-35yrs">25-35yrs</option>
-                        <option value="35-50yrs">35-50yrs</option>
-                        <option value="50-above">50yrs and above</option>
-                        </select>
-                        </span>
+                     {{ form.nok_age}}
                          <br>
                 </div>
                 
@@ -209,7 +169,8 @@
                     <span id="sprypwd"> 
                         <fieldset>
                             <legend>Password</legend>
-                            <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Account Password" required="">
+                            {{ form.password}}
+                            <!-- <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Account Password" required=""> -->
                         </fieldset>
                         <br>
                         </span>
@@ -218,7 +179,8 @@
                     <span id="sprycpwd"> 
                         <fieldset>
                             <legend>Confirm Password</legend>
-                            <input type="password" class="form-control" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm A/C Password" required="">
+                            {{ form.password1}}
+                            <!-- <input type="password" class="form-control" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm A/C Password" required=""> -->
                         </fieldset>
                         <br>
                         </span>
@@ -229,7 +191,8 @@
                 <span id="sprytf_pin">
                     <fieldset>
                         <legend>2FA PIN</legend>
-                        <input type="number" class="form-control" id="secretCode" autocomplete="off" name="secretCode" placeholder="Account PIN" required="">
+                        {{ form.PIN}}
+                        <!-- <input type="number" class="form-control" id="secretCode" autocomplete="off" name="secretCode" placeholder="Account PIN" required=""> -->
                     </fieldset>
                      <br>
                         </span>
@@ -238,22 +201,12 @@
             <div class="form-row">
             <div class="form-holder">
              <legend>Select Security Question One</legend>
-             <select required="" name="securityquestion" id="securityquestion">
-             <option value="">Please Select Question One</option>
-            <option value="What is your pet name?">What is your pet name?</option>    
-                <option value="What is your nick name?">What is your nick name?</option>    
-                <option value="What is the name of your first car?">What is the name of your first car?</option>    
-                <option value="when did you finish high school?">when did you finish high school?</option>    
-                <option value="your favorite music?">your favorite music?</option>    
-                <option value="your favorite movie?">your favorite movie</option>    
-                <option value="your favorite roll model?">your favorite role model</option>    
-                <option value="favorite state?">favorite state?</option>    
-                        </select>
+             {{ form.sq1_select}}
             </div>
             <div class="form-holder">
                     <fieldset>
                         <legend>Answer Question One</legend>
-                        <input type="text" class="form-control" id="answer" autocomplete="off" name="answer" placeholder="Answer to Security Question One" required="">
+                        {{ form.sq1_answer}}
                     </fieldset>
                      <br>
                     
@@ -263,17 +216,7 @@
             <div class="form-holder">
             <span>
              <legend>Select Security Question Two</legend>
-           <select required="" name="securityquestion2" id="securityquestion2">
-                 <option value="">Please Select Question Two</option>
-                <option value="What is the name of the road you grew up on?">What is the name of the road you grew up on?</option>    
-                    <option value="What is your mother’s maiden name?">What is your mother’s maiden name?</option>    
-                    <option value="Where did you meet your spouse?">Where did you meet your spouse?</option>    
-                    <option value="when did you finish high school?">when did you finish high school?</option>    
-                    <option value="What is your favorite food?">What is your favorite food?</option>    
-                    <option value=" What city were you born in?"> What city were you born in?</option>    
-                    <option value=" Where is your favorite place to vacation?"> Where is your favorite place to vacation?</option>    
-                    <option value="What was the first company that you worked for?">What was the first company that you worked for?</option>    
-                        </select>
+             {{ form.sq2_select}}
                         </span>
                         
                         <br>
@@ -281,7 +224,7 @@
             <div class="form-holder">
                     <fieldset>
                         <legend>Answer Question Two</legend>
-                        <input type="text" class="form-control" id="answer2" autocomplete="off" name="answer2" placeholder="Answer to Security Question Two" required="">
+                        {{form.sq2_answer}}
                     </fieldset>
                      <br>
                 </div>

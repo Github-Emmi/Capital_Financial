@@ -84,17 +84,15 @@
 
 				<div id="Tokyo" class="tabcontent" style="display: block;">
 				  <div class="container">
+					{{ msg }}
 
 	 		<div class="row">
 		<div class="form-v1-content">
 			<div class="wizard-form">
-<<<<<<< HEAD
 
-			<form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
-=======
-			<form class="form-register" method="post"  id="personForm" data-cities-url="{% url 'accounts:ajax_load_cities' %}" novalidate>
+			<!-- <form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin"> -->
+			<form class="form-register" method="post"  id="personForm" data-cities-url="{% url 'accounts:query_load_cities' %}" novalidate>
 				{% csrf_token %} 
->>>>>>> f92e18e (registration)
 		        
 		        	<div id="form-total">
 		        		<!-- SECTION 1 -->
@@ -115,7 +113,7 @@
 				<span id="sprytf_firstname">
 					<fieldset>
 						<legend>First Name</legend>
-					{{form.first_name}}
+					{{form.firstname}}
 					</fieldset>
 						</span>
 				</div>
@@ -123,7 +121,7 @@
 				<span id="sprytf_lastname">
 					<fieldset>
 						<legend>Last Name</legend>
-					{{ form.last_name }}
+					{{ form.lastname }}
 					</fieldset>
 					 <br>
 						</span>
@@ -228,15 +226,8 @@
 	</div>
 	
 	
-		<div class="form-row">
-	
-
-<<<<<<< HEAD
-		<script type="text/javascript" src="{% static 'account-assets/js/countries.js' %}"></script>
-			 
-=======
+		<div class="form-row">			 
 					 
->>>>>>> f92e18e (registration)
 	<div class="form-holder">
 			<span>
 			
@@ -300,16 +291,12 @@
 	<!-- <div class="firststepResult"></div> -->
 	<button type="submit" class="firststep" style="width: 250px; height:50px; background-color: green; color: white; font-size: 19px;">continue </button>
 	</div></section></div></form>
-<<<<<<< HEAD
 	<a style="padding-left: 20px;" href="{% url 'accounts:login' %}">Already registered?  Login Here</a>
-=======
 	<a style="padding-left: 20px;" href="">Already registered?  Login Here</a>
->>>>>>> f92e18e (registration)
 	  <br><br><br><br>
 	    </div>    
 		   </div>       
 			</div>
-<<<<<<< HEAD
 			{% block custom_js %}
 			<script src="{% static 'account-assets/js/registration.js' %}"></script>
 			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
@@ -324,111 +311,17 @@
              {% endblock custom_js %}
 
 
-			 <script type="text/javascript">
-
-				$(document).ready(function () {
-    $('.firststep').click(function (e) {
-      e.preventDefault();
-      var firstname = $('#firstname').val();
-      var middlename = $('#middlename').val(); 
-      var lastname = $('#lastname').val();
-      var email = $('#email').val();
-      var phone = $('#phone').val();
-      var dob = $('#dob').val();
-      var address = $('#address').val();
-      var state = $('#state').val();
-      var country = $('#country').val();
-      var ssn = $('#ssn').val();
-      var nickname = $('#nickname').val();
-      var zipcode = $('#zipcode').val();
-      var usercurrency = $('#usercurrency').val();
-      var gender = $('#gender').val();
-      var city = $('#city').val();
-      var accounttype = $('#accounttype').val();
-       
-      $.ajax
-        ({
-          type: "POST",
-          url: "firststep.php",
-          data: { "firstname": firstname, "middlename": middlename, "lastname": lastname, "email": email, "phone": phone, "dob": dob, "address": address, "state": state, "country": country, "ssn": ssn, "nickname": nickname, "zipcode": zipcode, "usercurrency": usercurrency, "gender": gender, "city": city, "accounttype": accounttype},
-          success: function (data) {
-            $('.firststepResult').html(data);
-            $('#formPC')[0].reset();
-          }
-        });
-    });
-  });
-			</script>
-	
-							
-			<script>
-
-				//Firstname
-				var sprytf_firstname = new Spry.Widget.ValidationTextField("sprytf_firstname", 'none', {validateOn:["blur", "change"]});
-				//Lastname
-				var sprytf_lastname = new Spry.Widget.ValidationTextField("sprytf_lastname", 'none', {validateOn:["blur", "change"]});
-				//Password
-				var sprypass1 = new Spry.Widget.ValidationPassword("sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
-				//Confirm Password
-				var spryconf1 = new Spry.Widget.ValidationConfirm("sprycpwd", "sprypwd", {minChars:6, maxChars: 12, validateOn:["blur", "change"]});
-				//Email ID
-				var spryemail = new Spry.Widget.ValidationTextField("sprytf_email", 'email', {validateOn:["blur", "change"]});
-				//Phone Number
-				var spryphone = new Spry.Widget.ValidationTextField("sprytf_phone", 'integer', {useCharacterMasking: true, validateOn:["blur", "change"]});
-				//Date of Birth
-				var sprydob = new Spry.Widget.ValidationTextField("sprytf_dob", 'date', {format:"none", useCharacterMasking: true, validateOn:["blur", "change"]});
-				//Gender
-				var sprygender = new Spry.Widget.ValidationSelect("spryselect_gender");
-				
-				
-				//address
-				var spry_ad = new Spry.Widget.ValidationTextarea("spryta_address", {isRequired:true});
-				//city
-				var sprytf_city = new Spry.Widget.ValidationTextField("sprytf_city", 'none', {validateOn:["blur", "change"]});
-				//State
-				var sprytf_state = new Spry.Widget.ValidationTextField("sprytf_state", 'none', {validateOn:["blur", "change"]});
-				//ZipCode
-				var sprytf_zip = new Spry.Widget.ValidationTextField("sprytf_zip", 'integer', {validateOn:["blur", "change"]});
-				
-				//Account Type
-				var spryselect1 = new Spry.Widget.ValidationSelect("spryselect_acctype");
-				//Account Number
-				var spry_accno = new Spry.Widget.ValidationTextField("sprytf_accno", 'integer', {minChars:8, maxChars: 12, validateOn:["blur", "change"]});
-				
-				var spry_pin = new Spry.Widget.ValidationTextField("sprytf_pin", 'integer', {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
-				//Confirm Password
-				var spry_cpin = new Spry.Widget.ValidationConfirm("sprytf_cpin", "sprytf_pin", {minChars:4, maxChars: 6, validateOn:["blur", "change"]});
-
-			</script>
 		
 							</div>	
 			</div> 
 				</div>
-      <script>
-					function openCity(evt, cityName) {
-					    var i, tabcontent, tablinks;
-					    tabcontent = document.getElementsByClassName("tabcontent");
-					    for (i = 0; i < tabcontent.length; i++) {
-					        tabcontent[i].style.display = "none";
-					    }
-					    tablinks = document.getElementsByClassName("tablinks");
-					    for (i = 0; i < tablinks.length; i++) {
-					        tablinks[i].className = tablinks[i].className.replace(" active", "");
-					    }
-					    document.getElementById(cityName).style.display = "block";
-					    evt.currentTarget.className += " active";
-					}
-
-					// Get the element with id="defaultOpen" and click on it
-					document.getElementById("defaultOpen").click();
-				</script>
+      
 			</div>
 
 <!--content end-->
  
-=======
-			<script src="./UserInfo_files/jquery.min.js"></script>
-			<script src="./UserInfo_files/registration.js"></script>
+			<!-- <script src="./UserInfo_files/jquery.min.js"></script>
+			<script src="./UserInfo_files/registration.js"></script> -->
 			<script src="{% static 'account-assets/js/jquery.min.js' %}""></script>
 			<script>
 			  $("#id_country").change(function () {
@@ -453,58 +346,58 @@
 			
 	</footer>	
 		<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-   <script src="./UserInfo_files/jquery.min(1).js"></script>
-	<script src="./UserInfo_files/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+   <!-- <script src="./UserInfo_files/jquery.min(1).js"></script>
+	<script src="./UserInfo_files/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="./UserInfo_files/bootstrap.min.js"></script>
+    <!-- <script src="./UserInfo_files/bootstrap.min.js"></script> -->
 
 	<!-- Wow Script -->
-	<script src="./UserInfo_files/wow.min.js"></script>
+	<!-- <script src="./UserInfo_files/wow.min.js"></script> -->
 	<!-- Counter Script -->
-	<script src="./UserInfo_files/waypoints.min.js"></script>
-	<script src="./UserInfo_files/jquery.counterup.min.js"></script>
+	<!-- <script src="./UserInfo_files/waypoints.min.js"></script>
+	<script src="./UserInfo_files/jquery.counterup.min.js"></script> -->
 	<!-- Masonry Portfolio Script -->
-    <script src="./UserInfo_files/jquery.filterizr.min.js"></script>
-    <script src="./UserInfo_files/filterizer-controls.js"></script>
+    <!-- <script src="./UserInfo_files/jquery.filterizr.min.js"></script>
+    <script src="./UserInfo_files/filterizer-controls.js"></script> -->
     <!-- OWL Carousel js-->
-	<script src="./UserInfo_files/owl.carousel.min.js"></script>  
+	<!-- <script src="./UserInfo_files/owl.carousel.min.js"></script>   -->
 	<!-- Lightbox js -->
-	<script src="./UserInfo_files/jquery.fancybox.pack.js"></script>
-	<script src="./UserInfo_files/lightbox.js"></script>
+	<!-- <script src="./UserInfo_files/jquery.fancybox.pack.js"></script>
+	<script src="./UserInfo_files/lightbox.js"></script> -->
 	<!-- Google map js -->
-	<script src="./UserInfo_files/js"></script>	
-	<script src="./UserInfo_files/map.js"></script>
+	<!-- <script src="./UserInfo_files/js"></script>	
+	<script src="./UserInfo_files/map.js"></script> -->
 	<!-- loader js-->
-    <script src="./UserInfo_files/fakeLoader.min.js"></script>
+    <!-- <script src="./UserInfo_files/fakeLoader.min.js"></script> -->
 	<!-- Scroll bottom to top -->
-	<script src="./UserInfo_files/scrolltopcontrol.js"></script>
+	<!-- <script src="./UserInfo_files/scrolltopcontrol.js"></script> -->
 	<!-- menu -->
-	<script src="./UserInfo_files/bootstrap-4-navbar.js"></script>    
+	<!-- <script src="./UserInfo_files/bootstrap-4-navbar.js"></script>     -->
     <!-- Stiky menu -->
-	<script src="./UserInfo_files/jquery.sticky.js"></script>  
+	<!-- <script src="./UserInfo_files/jquery.sticky.js"></script>   -->
     <!-- youtube popup video -->
-	<script src="./UserInfo_files/jquery.magnific-popup.min.js"></script>  
+	<!-- <script src="./UserInfo_files/jquery.magnific-popup.min.js"></script>   -->
     <!-- Color switcher js -->
-	<script src="./UserInfo_files/color-switcher.js"></script> 
+	<!-- <script src="./UserInfo_files/color-switcher.js"></script>  -->
     <!-- Color-switcher-active -->  
-    <script src="./UserInfo_files/color-switcher-active.js"></script>      
+    <!-- <script src="./UserInfo_files/color-switcher-active.js"></script>       -->
 	<!-- Custom script -->
-    <script src="./UserInfo_files/custom.js"></script>
-    <script src="./UserInfo_files/jquery.bxslider.min.js"></script>
+    <!-- <script src="./UserInfo_files/custom.js"></script> -->
+    <!-- <script src="./UserInfo_files/jquery.bxslider.min.js"></script> -->
     
     <!-- for calucator---->
-    	<script type="text/javascript" src="./UserInfo_files/clientlib-all.min.2f2dbb3959c1dcdb1f3b1f52f1375b62.js"></script>
+    	<!-- <script type="text/javascript" src="./UserInfo_files/clientlib-all.min.2f2dbb3959c1dcdb1f3b1f52f1375b62.js"></script> -->
 		
-		<script type="text/javascript" src="./UserInfo_files/clientlib.min.b3ec3a2325eaa4cbc74a2e2f0b755b0f.js"></script>
+		<!-- <script type="text/javascript" src="./UserInfo_files/clientlib.min.b3ec3a2325eaa4cbc74a2e2f0b755b0f.js"></script>
      <script src="./UserInfo_files/toastr.js"></script>
-     <script src="./UserInfo_files/sweetalert.js"></script>
+     <script src="./UserInfo_files/sweetalert.js"></script> -->
 		
 
 
       
 
-<script src="./UserInfo_files/jquery.min(2).js"></script>
-<script src="./UserInfo_files/jquery.bxslider.min.js"></script>
+<!-- <script src="./UserInfo_files/jquery.min(2).js"></script>
+<script src="./UserInfo_files/jquery.bxslider.min.js"></script> -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -579,8 +472,8 @@ s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
 <!--End of Tawk.to Script-->  
-<script type="text/javascript" src="./UserInfo_files/amcharts"></script> 
-	<script type="text/javascript" src="./UserInfo_files/overpaymentscalc-min"></script>
+<!-- <script type="text/javascript" src="./UserInfo_files/amcharts"></script> 
+	<script type="text/javascript" src="./UserInfo_files/overpaymentscalc-min"></script> -->
 
 
 
@@ -589,7 +482,6 @@ s0.parentNode.insertBefore(s1,s0);
 
 
 
->>>>>>> f92e18e (registration)
 
 {% endblock main_content %}
 

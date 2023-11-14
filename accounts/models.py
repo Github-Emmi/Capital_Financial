@@ -8,39 +8,10 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
-from .country import Currency
-
 from django.contrib.auth.base_user import BaseUserManager
+from .choices import Title,Employment,Gender,Status, Salary,Account_Type,nok_Age,Security_Question_One,Security_Question_Two,Currency
 
 
-Title = (
-    ('none', 'Please Select Title'),
-    ('Mr.', 'Mr.'),
-    ('Mrs.', 'Mrs.'),
-    ('Mr&Mrs.', 'Mr&Mrs.'),
-    ('Ms.', 'Ms.'),
-    ('Miss.', 'Miss.'),
-)
-
-Gender = (
-    ('none', 'Please Select Gender'),
-    ('Male', 'Male'),
-    ('Female', 'FeMale'),
-    ('Other', 'Other')
-)
-
-
-Account_Type = (
-    ('none','Please select Account Type'),
-    ('Checking Account', 'Checking Account'),
-    ('Savings Account', 'Savings Account'),
-    ('Fixed Deposit Account', 'Fixed Deposit Account'),
-    ('Current Account','Current Account'),
-    ('Business Account', 'Business Account'),
-    ('Non Resident Account','Non Resident Account'),
-    ('Cooperate Business Account', 'Cooperate Business Account'),
-    ('Investment Account', 'Investment Account'),
-)
 
 
 # custom user and manager area
@@ -79,7 +50,7 @@ class UserManager(BaseUserManager):
 
 
 class Country(models.Model):
-    # id = models.AutoField()
+    
     name = models.CharField(('country name'), max_length=55, blank=True)
 
     def __str__(self):
@@ -98,26 +69,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(('first name'), max_length=30, blank=True)
     last_name = models.CharField(('middle name'), max_length=30, blank=True)
     
-    middle_name = models.CharField(('last name'), max_length=30, blank=True)
-    nick_name = models.CharField(('nick name'), max_length=30, blank=True)
-    date_of_birth = models.DateField(('date of birth'), max_length=30, blank=True)
-    zip_code = models.PositiveIntegerField(('zip code'))
-    residential_address = models.CharField(('residential address'), max_length=300, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
-    State = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
-    city = models.CharField(('city'),max_length=55, blank=True)
-    ssn = models.CharField(('ssn'), max_length=30, blank=True)
-    phone_number = models.CharField(('phone number'), max_length=30, blank=True)
-    
-    title = models.CharField(max_length=17, choices=Title, default='none')
-    gender = models.CharField(max_length=17, choices=Gender, default='none')
-    account_type = models.CharField(max_length=37, choices=Account_Type, default='none')
-    Currency_type = models.CharField(max_length=97, choices=Currency, default='USD')
     
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
 
     objects = UserManager()
@@ -165,12 +121,50 @@ def create_author(sender, instance, created, **kwargs):
 #  bank model area
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    middle_name = models.CharField(('last name'), max_length=30, blank=True)
+    nick_name = models.CharField(('nick name'), max_length=30, blank=True)
+    date_of_birth = models.DateField(('date of birth'), max_length=30, blank=True)
+    zip_code = models.PositiveIntegerField(('zip code'))
+    residential_address = models.CharField(('residential address'), max_length=300, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
+    state = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
+    city = models.CharField(('city'),max_length=55, blank=True)
+    ssn = models.CharField(('ssn'), max_length=30, blank=True)
+    phone_number = models.CharField(('phone number'), max_length=30, blank=True)
+    
+    title = models.CharField(max_length=17, choices=Title, default='none')
+    gender = models.CharField(max_length=17, choices=Gender, default='none')
+    account_type = models.CharField(max_length=37, choices=Account_Type, default='none')
+    Currency_type = models.CharField(max_length=97, choices=Currency, default='USD')
+    
+
+class Beneficiary_Security_Details(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    beneficiary_legal_name = models.CharField(('ben_legal_name'), max_length=30, blank=True)
+    nok_address = models.CharField(('next of kin address'), max_length=300, blank=True)
+    nok_relationship = models.CharField(max_length=37, choices=Account_Type, default='none')
+    nok_age = models.CharField(max_length=37, choices=nok_Age, default='none')
+    
+    employment_type = models.CharField(max_length=37, choices=Employment, default='none')
+    salary_range = models.CharField(max_length=37, choices=Salary, default='none')
+    
+    sq1_select = models.CharField(max_length=37, choices=Security_Question_One, default='none')
+    sq2_select = models.CharField(max_length=50, choices=Security_Question_Two, default='none')
+    
+    sq1_answer = models.CharField(('answer to security question 1'), max_length=300, blank=True)
+    sq2_answer = models.CharField(('answer to security question 2'), max_length=300, blank=True)
+
+
+
 class Deposit(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     txnId = models.UUIDField(default=uuid.uuid4, editable=False)
     txnType = models.CharField(max_length=10,default="Credit", editable=False)
     amount = models.CharField(max_length=30)
     action = models.CharField(max_length=200)
+    status = models.CharField(max_length=50, choices=Status, default='pending')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -183,6 +177,7 @@ class Transfer(models.Model):
     txnType = models.CharField(max_length=10,default="Debit", editable=False)
     amount = models.CharField(max_length=30)
     action = models.CharField(max_length=30)
+    status = models.CharField(max_length=50, choices=Status, default='pending')
     date = models.DateTimeField(auto_now_add=True)
     
 
