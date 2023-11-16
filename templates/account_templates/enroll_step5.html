@@ -1,0 +1,171 @@
+{% extends 'account_templates/base.html' %}
+{% load static %}
+{% block title %} Capital Funding Financial | Open an Account {% endblock title %}</title>
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+{% endblock custom_css %}
+{% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
+
+{% block main_content %}
+
+<div class="business-main-slider">
+    <div class="owl-carousel main-slider owl-loaded owl-drag">
+            
+        <div class="owl-stage-outer">
+            <div class="owl-stage" style="transform: translate3d(-2560px, 0px, 0px); transition: all 0s ease 0s; width: 6400px;">
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            <div class="owl-item" style="width: 1280px;">
+                <div class="item creditbanner">			
+                <div class="hvrbox">
+                    <img src="{% static 'account-assets/media/img/step-4.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+                </div>	
+                <div class="banner-content">
+                    <div class="innerBanner container">
+                        <h3>User Information</h3>
+                        <p>A bank with your needs in mind</p>
+                    </div>
+                </div>		
+            </div></div> 
+            
+        </div>
+    </div>
+        </div></div>
+        
+    </div>	
+    </div>
+
+    <div class="card-detail-wr">
+        <div class="container">
+        
+    
+            <div class="card-single-wr">
+                
+                <div class="tkl">
+                    
+                    <div class="tab">
+                      <button class="tablinks" onclick="(event, &#39;London&#39;)">Online Registration</button>
+                      <button class="tablinks" onclick="(event, &#39;Paris&#39;)">Terms &amp; Condition</button>
+                      <button class="tablinks active" onclick="openCity(event, &#39;Tokyo&#39;)" id="defaultOpen">User Information</button>
+                      <button class="tablinks" onclick="(event, &#39;Completed&#39;)">Completed</button>
+                    </div>
+                    
+                    </div>
+    
+                    <div id="Tokyo" class="tabcontent" style="display: block;">
+                      <div class="container">
+    
+         
+                    
+            <div class="row align-content-center">
+                        <form action=" " class="form-register" method="post" enctype="multipart/form-data" id="acclogin">
+				            {% csrf_token %} 
+                    
+                        <div id="form-total">
+                            <!-- SECTION 1 -->
+                            <section style="width:100%; align:center; padding:10px;">
+                                <div class="inner">
+                    <div class="container ">			
+                <div class="wizard-header">
+                    <h2 class="heading">Please Upload a clear passport photograph of you.</h2>
+                </div>
+                <h3 style="font-weight:700; color:Purple;">Passport Photograph</h3>
+                <div class="form-row">
+                    <div class="col-lg-6 p-1">
+              <img src=" " style="height: 200px; width: 150px;" class="img-responsive" id="preview" height="150" width="150"> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 p-1">
+                        {{ form.avatar}}
+                </div>
+               </div>
+               <div class="row">
+                 <div class="col-lg-6 p-1">
+                     <input type="submit" name="userPassport" id="submitButton" style="width:250px; height:50px; background-color: green; color: white;" value="Upload Passport" >
+                 </div>
+          </div>
+      </div>
+        
+        </div>
+    </section>
+    </div>
+    </form>
+          <script type="text/javascript">
+              var fileTag = document.getElementById("filetag"),
+        preview = document.getElementById("preview");
+        
+    fileTag.addEventListener("change", function() {
+      changeImage(this);
+    });
+    
+    function changeImage(input) {
+      var reader;
+    
+      if (input.files && input.files[0]) {
+        reader = new FileReader();
+    
+        reader.onload = function(e) {
+          preview.setAttribute('src', e.target.result);
+        }
+    
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+          </script>
+        </div>
+                        </div>	
+                </div> 
+                    </div>
+          <script>
+                        function openCity(evt, cityName) {
+                            var i, tabcontent, tablinks;
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.display = "none";
+                            }
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+                            document.getElementById(cityName).style.display = "block";
+                            evt.currentTarget.className += " active";
+                        }
+    
+                        // Get the element with id="defaultOpen" and click on it
+                        document.getElementById("defaultOpen").click();
+                    </script>
+                </div>
+    
+    <!--content end-->
+
+
+{% endblock main_content %}

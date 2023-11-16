@@ -1,0 +1,488 @@
+{% extends 'account_templates/base.html' %}
+{% load static %}
+{% block title %} Capital Funding Financial | Open an Account {% endblock title %}</title>
+{% block custom_css %}
+<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+{% endblock custom_css %}
+{% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
+
+
+
+
+    <!-- Main Content Starts -->
+{% block main_content %}
+<div class="business-main-slider">
+<div class="owl-carousel main-slider owl-loaded owl-drag">
+        
+    <div class="owl-stage-outer">
+        <div class="owl-stage" style="transform: translate3d(-2560px, 0px, 0px); transition: all 0s ease 0s; width: 6400px;">
+        <div class="owl-item" style="width: 1280px;">
+            <div class="item creditbanner">			
+			<div class="hvrbox">
+				<img src="{% static 'account-assets/media/img/online-reg.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+			</div>	
+			<div class="banner-content">
+				<div class="innerBanner container">
+					<h3>User Information</h3>
+					<p>A bank with your needs in mind</p>
+				</div>
+			</div>		
+        </div></div> 
+        <div class="owl-item" style="width: 1280px;">
+            <div class="item creditbanner">			
+            <div class="hvrbox">
+                <img src="{% static 'account-assets/media/img/online-reg.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+            </div>	
+            <div class="banner-content">
+                <div class="innerBanner container">
+                    <h3>User Information</h3>
+                    <p>A bank with your needs in mind</p>
+                </div>
+            </div>		
+        </div></div> 
+        <div class="owl-item" style="width: 1280px;">
+            <div class="item creditbanner">			
+            <div class="hvrbox">
+                <img src="{% static 'account-assets/media/img/online-reg.jpg' %}" alt="credit" class="hvrbox-layer_bottom">
+            </div>	
+            <div class="banner-content">
+                <div class="innerBanner container">
+                    <h3>User Information</h3>
+                    <p>A bank with your needs in mind</p>
+                </div>
+            </div>		
+        </div></div> 
+        
+    </div>
+</div>
+    </div></div>
+    
+</div>	
+</div>
+
+<div class="card-detail-wr">
+	<div class="container">
+	
+
+		<div class="card-single-wr">
+			
+			<div class="tkl">
+				<div class="tab">
+				  <button class="tablinks" onclick="(event, 'London')">Online Registration</button>
+				  <button class="tablinks" onclick="(event, 'Paris')">Terms &amp; Condition</button>
+				  <button class="tablinks active" onclick="openCity(event, 'Tokyo')" id="defaultOpen">User Information</button>
+				  <button class="tablinks" onclick="(event, 'Completed')">Completed</button>
+				</div>
+				
+				</div>
+
+				<div id="Tokyo" class="tabcontent" style="display: block;">
+				  <div class="container">
+					{{ msg }}
+
+	 		<div class="row">
+		<div class="form-v1-content">
+			<div class="wizard-form">
+
+			<!-- <form action="" class="form-register" method="post" enctype="multipart/form-data" id="acclogin"> -->
+			<form class="form-register" method="post"  id="personForm" data-cities-url="{% url 'accounts:query_load_cities' %}" novalidate>
+				{% csrf_token %} 
+		        
+		        	<div id="form-total">
+		        		<!-- SECTION 1 -->
+			             
+			            <section style="width100%; align:center; padding:10px;">
+			                <div class="inner">
+							
+							<div class="errorMessage" align="center">&nbsp;</div>
+							
+			<div class="wizard-header">
+				<h3 class="heading">Account Information</h3>
+				<p>Please enter your information and proceed to the next step so we can build your accounts.  </p>
+			</div>
+
+			<h3 style="font-weight:700; color:#033d75;">Basic User information </h3>
+			<div class="form-row">
+				<div class="form-holder">
+				<span id="sprytf_firstname">
+					<fieldset>
+						<legend>First Name</legend>
+					{{form.firstname}}
+					</fieldset>
+						</span>
+				</div>
+				<div class="form-holder">
+				<span id="sprytf_lastname">
+					<fieldset>
+						<legend>Last Name</legend>
+					{{ form.lastname }}
+					</fieldset>
+					 <br>
+						</span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-holder">
+				<span id="sprytf_firstname">
+					<fieldset>
+						<legend>Other name</legend>
+					{{ form.middle_name }}
+					</fieldset>
+						</span>
+			</div>
+				<div class="form-holder">
+				<span id="sprytf_lastname">
+					<fieldset>
+						<legend>Nick Name or Maiden name</legend>
+					{{ form.nick_name }}
+					</fieldset>
+					 <br>
+						</span>
+				</div>
+			</div>
+				
+	<div class="form-row">
+		<div class="form-holder">
+		<span id="sprytf_email">
+			<fieldset>
+				<legend>Your Email</legend>
+			{{ form.email }}
+			</fieldset>
+			  <br>
+				</span>
+		</div>
+	
+		<div class="form-holder">
+		<span id="sprytf_phone">
+			<fieldset>
+				<legend>Phone Number</legend>
+			{{ form.phone_number}}
+			</fieldset>
+			 <br>
+				</span>
+		</div>
+	</div>
+		<div class="form-row">
+		<div class="form-holder">
+		<span id="sprytf_dob">
+			<fieldset>
+				<legend>Date of Birth</legend>
+			{{ form.date_of_birth }}
+			</fieldset>
+			 <br>
+				</span>
+		</div>
+		
+		
+		<div class="form-holder">
+		<span id="sprytf_zip">
+			<fieldset>
+				<legend>Zipcode</legend>
+			{{ form.zip_code }}
+			</fieldset>
+			  <br>
+				</span>
+		</div>
+		
+		
+		
+	</div>
+	
+		<div class="form-row">
+			<div class="form-holder">
+		 <span id="spryselect_gender">
+				<legend>Title</legend>
+				
+	  <br>
+		 {{ form.title }}
+		</span>
+		</div>
+		<div class="form-holder">
+		 <span id="spryselect_gender">
+				<legend>Gender</legend>
+				
+				
+	  <br>
+	  {{ form.gender}}
+
+		</span>
+		</div>
+	</div>		
+	<div class="form-row-8">
+			<div class="form-holder">
+
+				<legend>Residential Address</legend>
+	
+			{{ form.residential_address}}
+
+			<br>		
+		</div>
+	</div>
+	
+	
+		<div class="form-row">			 
+					 
+	<div class="form-holder">
+			<span>
+			
+				<legend>Country</legend>
+					  
+				{{ form.country }}				
+				<br>
+				</span>
+		</div>
+				
+				
+			<div class="form-holder">	
+				<span>
+			
+				<legend>State</legend>
+				
+			<select required="" name="state" id="id_city">
+					</select>
+			<br>
+				</span>
+				            
+		            </div>		
+	          </div>
+    	<div class="form-row">
+		<div class="form-holder">
+		<span id="sprytf_city">
+			<fieldset>
+				<legend>City Name</legend>
+			{{ form.city}}
+			</fieldset>
+			 <br>
+			</span>
+		</div>
+			<div class="form-holder">
+			<span id="spryta_address">
+			<fieldset>
+				<legend>State Security Number(SSN, NI, SIN etc.)</legend>
+			{{ form.ssn}}
+			</fieldset>
+			<br>
+				</span>
+		</div>
+	</div>
+	<div class="form-row">
+	<div class="form-holder">
+				<legend>Currency Type</legend>
+				<span id="spryselect_acctype">
+				{{ form.Currency_type }}
+		  <br>
+		</span>
+		</div>
+		<div class="form-holder" id="firstname">
+				<legend>Account Type</legend>
+				<span id="spryselect_acctype">	
+				{{ form.account_type}}
+		  <br>
+
+		</span>
+		</div>
+	</div>
+	<!-- <div class="firststepResult"></div> -->
+	<button type="submit" class="firststep" style="width: 250px; height:50px; background-color: green; color: white; font-size: 19px;">continue </button>
+	</div></section></div></form>
+	<a style="padding-left: 20px;" href="{% url 'accounts:login' %}">Already registered?  Login Here</a>
+	<a style="padding-left: 20px;" href="">Already registered?  Login Here</a>
+	  <br><br><br><br>
+	    </div>    
+		   </div>       
+			</div>
+			{% block custom_js %}
+			<script src="{% static 'account-assets/js/registration.js' %}"></script>
+			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
+			<link rel="stylesheet" href="{% static 'account-assets/js/enroll.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/opensans-font.css' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationPassword.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationSelect.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextarea.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationConfirm.js' %}"> 
+            <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextField.js' %}"> 
+
+             {% endblock custom_js %}
+
+
+		
+							</div>	
+			</div> 
+				</div>
+      
+			</div>
+
+<!--content end-->
+ 
+			<!-- <script src="./UserInfo_files/jquery.min.js"></script>
+			<script src="./UserInfo_files/registration.js"></script> -->
+			<script src="{% static 'account-assets/js/jquery.min.js' %}""></script>
+			<script>
+			  $("#id_country").change(function () {
+				var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
+				var countryId = $(this).val();  // get the selected country ID from the HTML input
+		  
+				$.ajax({                       // initialize an AJAX request
+				  url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+				  data: {
+					'country_id': countryId       // add the country id to the GET parameters
+				  },
+				  success: function (data) {   // `data` is the return of the `load_cities` view function
+					console.log(data)
+					$("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+				  }
+				});
+		  
+			  });
+			</script>
+		  
+		
+			
+	</footer>	
+		<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+   <!-- <script src="./UserInfo_files/jquery.min(1).js"></script>
+	<script src="./UserInfo_files/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script> -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- <script src="./UserInfo_files/bootstrap.min.js"></script> -->
+
+	<!-- Wow Script -->
+	<!-- <script src="./UserInfo_files/wow.min.js"></script> -->
+	<!-- Counter Script -->
+	<!-- <script src="./UserInfo_files/waypoints.min.js"></script>
+	<script src="./UserInfo_files/jquery.counterup.min.js"></script> -->
+	<!-- Masonry Portfolio Script -->
+    <!-- <script src="./UserInfo_files/jquery.filterizr.min.js"></script>
+    <script src="./UserInfo_files/filterizer-controls.js"></script> -->
+    <!-- OWL Carousel js-->
+	<!-- <script src="./UserInfo_files/owl.carousel.min.js"></script>   -->
+	<!-- Lightbox js -->
+	<!-- <script src="./UserInfo_files/jquery.fancybox.pack.js"></script>
+	<script src="./UserInfo_files/lightbox.js"></script> -->
+	<!-- Google map js -->
+	<!-- <script src="./UserInfo_files/js"></script>	
+	<script src="./UserInfo_files/map.js"></script> -->
+	<!-- loader js-->
+    <!-- <script src="./UserInfo_files/fakeLoader.min.js"></script> -->
+	<!-- Scroll bottom to top -->
+	<!-- <script src="./UserInfo_files/scrolltopcontrol.js"></script> -->
+	<!-- menu -->
+	<!-- <script src="./UserInfo_files/bootstrap-4-navbar.js"></script>     -->
+    <!-- Stiky menu -->
+	<!-- <script src="./UserInfo_files/jquery.sticky.js"></script>   -->
+    <!-- youtube popup video -->
+	<!-- <script src="./UserInfo_files/jquery.magnific-popup.min.js"></script>   -->
+    <!-- Color switcher js -->
+	<!-- <script src="./UserInfo_files/color-switcher.js"></script>  -->
+    <!-- Color-switcher-active -->  
+    <!-- <script src="./UserInfo_files/color-switcher-active.js"></script>       -->
+	<!-- Custom script -->
+    <!-- <script src="./UserInfo_files/custom.js"></script> -->
+    <!-- <script src="./UserInfo_files/jquery.bxslider.min.js"></script> -->
+    
+    <!-- for calucator---->
+    	<!-- <script type="text/javascript" src="./UserInfo_files/clientlib-all.min.2f2dbb3959c1dcdb1f3b1f52f1375b62.js"></script> -->
+		
+		<!-- <script type="text/javascript" src="./UserInfo_files/clientlib.min.b3ec3a2325eaa4cbc74a2e2f0b755b0f.js"></script>
+     <script src="./UserInfo_files/toastr.js"></script>
+     <script src="./UserInfo_files/sweetalert.js"></script> -->
+		
+
+
+      
+
+<!-- <script src="./UserInfo_files/jquery.min(2).js"></script>
+<script src="./UserInfo_files/jquery.bxslider.min.js"></script> -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		if( ($(window).width() > 769) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 5,
+	  			maxSlides: 5,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else if( ($(window).width() < 769) && ($(window).width() > 481) ) {
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:true,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+		else{
+			$('.bxsliderwr').bxSlider({
+				minSlides: 3,
+	  			maxSlides: 3,
+	  			slidewidth:230,
+	  			pager:false,
+	  			slideMargin: 50,
+	  			moveSlides:1,
+	  			auto: true,
+	  			infiniteLoop: true,
+	  			mode: 'horizontal',
+			});
+		}
+	}); 
+</script>
+	 
+	<script type="text/javascript">
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>	
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/62d8548e54f06e12d88a8098/1g8egkj8h';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->  
+<!-- <script type="text/javascript" src="./UserInfo_files/amcharts"></script> 
+	<script type="text/javascript" src="./UserInfo_files/overpaymentscalc-min"></script> -->
+
+
+
+     </div>
+
+
+
+
+
+{% endblock main_content %}
+
+<!-- Main Content Ends -->

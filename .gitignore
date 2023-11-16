@@ -1,0 +1,9 @@
+<<<<<<< HEAD
+venv/
+.vscode/
+=======
+venv
+accounts/migrations
+accounts/__pycache__
+adminapp/__pycache__
+>>>>>>> 27d17dc (auth workflow)

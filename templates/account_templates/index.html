@@ -1,0 +1,303 @@
+{% extends 'account_templates/base.html' %}
+{% load static %}
+
+{% block main_content %}
+
+<div class="business-main-slider1">
+    <div class="owl-carousel1 main-slider1">
+        <div class="item1">			
+            <div class="hvrbox">
+                <img src="{% static 'account-assets/media/img/bg.jpg' %}" alt="Mountains" class="hvrbox-layer_bottom">
+                <div class="business-main-slider">
+                    
+                    <!-- Business Slider -->
+                    {% comment %} {% include "account_templates/includes/business_slider.html" %} {% endcomment %}
+                    <!-- End Business Slider-->
+
+                <div class="loginbox">
+                    <div class="innerlogin" id="login-form">
+                        <!-- <script src="./1 new message_files/jquery.min.js"></script> -->
+                        
+                        <form class="form-horizontal" action="" method="post">
+                            {% csrf_token %} 
+                             
+                            <h3>Account Login</h3>
+                            {{msg}}
+                             <div class="logResult"></div>
+                              &nbsp;	
+                              <div class="form-group">
+                                <div class="col-sm-10">
+                                <span id="sprytextfield1" style="text-align:left;">
+                                  <!-- <input class="form-control" name="id" type="text" id="id" autocomplete="off" maxlength="20" placeholder="Account Number"> -->
+                                  {{ form.account_number }}
+                                </span>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="col-sm-10"> 
+                                 <span id="sprypassword1" style="text-align:left;"> 
+                                  <!-- <input class="form-control" name="pass" type="password" id="pass" placeholder="Password" autocomplete="off" maxlength="20"> -->
+                                  {{ form.password }}
+                                </span>
+                                </div>
+                              </div>
+                              <div class="form-group"> 
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <div class="checkbox">
+                                    <label><input type="checkbox"> Remember me</label>
+                                    
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="form-group"> 
+                                <div class="col-sm-offset-2 col-sm-10">
+                                  <button type="submit" class="btn btn-default loginbtn">Sign in</button>
+                                </div>
+                              </div>
+                             <div class="form-group" style="margin-bottom: 0;line-height: 28px;"> 
+                                
+                                <center> <div class="col-sm-offset-2 col-sm-10">
+                                    <a href="{% url 'accounts:enroll_step1' %}">Not enrolled? Sign up now.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a href="forgot_password url">Forget Password.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
+                                </div></center>
+                              </div>
+                         </form>
+                         
+                    </div>
+                    
+                     <script type="text/javaScript">
+        $(document).ready(function() {
+        $('.loginbtn').on('click', function() {
+    var $this = $(this);
+     var loadingText = '<i class="spinner-border spinner-border-sm text-light" role="status" aria-hidden="true"></i>&nbsp;Processing...';
+     
+      
+    if ($(this).html() !== loadingText) {
+  $this.data('original-text', $(this).html());
+  $this.html(loadingText);
+  }
+setTimeout(function() {
+  $this.html($this.data('original-text'));
+},5000);
+});
+})
+
+$(document).ready(function () {
+$('.loginbtn').click(function (e) {
+  e.preventDefault();
+  var id = $('#id').val();
+  var pass = $('#pass').val(); 
+   
+  $.ajax
+    ({
+      type: "POST",
+      url: "login.php",
+      data: { "id": id, "pass": pass},
+      success: function (data) {
+        $('.logResult').html(data);
+        $('#formPC')[0].reset();
+      }
+    });
+});
+});
+</script>
+
+                    
+                </div>
+                                
+            </div>
+        </div>		
+    </div>
+</div>
+
+
+
+<div class="business-wr">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/blog-1.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/advance-accounts">Up to $20,000 this tax year<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Make the most of your 2019/<script>
+function myFunction() {
+var d = new Date();
+var n = d.getFullYear();
+document.getElementById("demo").innerHTML = n;
+}
+</script> ISA allowance with an bank Selection Stocks and Shares ISA.</span>
+                    </div>
+                </div>
+            </div>			
+            <div class="col-md-4">
+                <div class="single-bolg hover01">
+                    <figure><img src="../static/account-assets/media/img/appointment.jpeg" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/quality-conversations">Book an appointment<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>You can now book an appointment online. Existing customers may prefer to log on to Online Service to make booking even simpler.</span>
+                        
+                    </div>
+                </div>
+            </div>			
+            <div class="col-md-4">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/ring_fence.jpeg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/ways-we-can-help">Ring-fencing<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>We’re changing the way bank is structured in the EU.</span>
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+</div>
+
+<div class="business-portfolio-1x" id="portfolio">
+    <div class="container">
+        <div class="row" style="padding: 30px 0;">
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/blog-7.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/home-insurance">Insurance<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Protect your family and property.</span>
+                    </div>
+                </div>
+            </div>	
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/activate_card.jpeg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/32-month-balance-transfer">Activate your card<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>There are several ways to easily activate your card. Choose the option that's best for you.</span>
+                    </div>
+                </div>
+            </div>	
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src=".{% static 'account-assets/media/img/security.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/protecting-what-matters">Security centre<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Handy tips designed to help you stay safe online.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/blog-4.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/contactandsupport">Helpful guides<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>A range of guides and articles from understanding APRs to saving tips.</span>
+                    </div>
+                </div>
+            </div>	
+            <div class="col-sm-12" style="height: 1px;width:100%;background-color:##EF454D;"></div>
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/security_key.jpeg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/investment-funds-online">Secure Key<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Handy demos to help you activate, reset and use your Secure Key</span>
+                    </div>
+                </div>
+            </div>	
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/voice.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/investment-funds-online">Voice ID<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Make your voice your password for telephone banking</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/card.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/advance">Card support<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Activate, lost or stolen, and general card support</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="single-bolg hover01">
+                    <figure><img src="{% static 'account-assets/media/img/credit.jpg' %}" alt="slide 1" class=""></figure>
+                    <div class="blog-content">
+                        <a href="https://veritasfinancial.cc/advance">PPI<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <span>Payment Protection Insurance claim deadlines</span>
+                    </div>
+                </div>
+            </div>	
+        </div>
+    </div>
+</div>
+  
+<div class="padding-top-large"></div>
+
+<div class="business-app-present-2x">	
+    <div class="app-present-content-2">	
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="business-title-middle">
+                        <h2>Your news and information</h2>
+                        <span class="title-border-middle"></span>
+                    </div>
+                </div>
+                
+                <div class="col-md-5">				
+                    <div class="app-present-left-2">
+                        <img src="{% static 'account-assets/media/img/Question-mark.jpg' %}" alt="Mountains" class="">
+                    </div>									
+                </div>
+                <div class="col-md-6" style="background-color: rgba(3, 61, 117, .1);">		
+                    <div class="app-present-right-2">
+                        <div class="single-app-present">
+                            <div class="media">
+                              <div class="media-body">
+                                <h2>Account questions? Just ask me.</h2>
+                                <p>I’m just a few taps away — open your Veritas® mobile app and say hello.</p>
+                                <a class="bussiness-btn-larg" href="https://veritasfinancial.cc/index">ask questions</a>
+                              </div>
+                            </div>
+                        </div>		
+                    </div>		
+                </div>
+                
+            </div>		
+        </div>
+    </div>
+</div> 
+  
+<div class="padding-top-large"></div>
+
+<div class="business-cta-1x">	
+    <div class="container">
+        <div class="row">					
+            <div class="col-md-12">
+                <div class="cta-content">
+                    <h2>Open our most popular savings account</h2>
+                    <h3>Apply for a new Savings<sup>℠</sup> account in minutes.</h3>
+                    <a href="https://veritasfinancial.cc/register" class="bussiness-btn-larg">apply Now</a>
+                </div>									
+            </div>		
+        </div>		
+    </div>
+</div> 
+
+<!-- End Client Map -->	
+<!--home content end-->
+<div class="col-sm-12 connectus">
+    <div class="container">
+        <div class="inner-connect">
+            <h5> Connect with us </h5>
+            <a href="https://veritasfinancial.cc/index">Listening to what you have to say about our services matters to us.</a>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}
