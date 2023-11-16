@@ -191,7 +191,7 @@ class Balance(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dep = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="deposits")
     trans = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="transfers")
-    bal = models.IntegerField()
+    bal = models.DecimalField(decimal_places=2, max_digits=11, default= 0.00)
 
 # @receiver(post_save, sender=Book)
 # def create_author(sender, instance, created, **kwargs):

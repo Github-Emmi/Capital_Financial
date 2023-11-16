@@ -37,12 +37,15 @@
                                         <div class="nk-wg7">
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50" style="background-image: url(../protected/passport/); border-color: white; border-width: 5px; border-radius: 50%;">
-                                                                                                                   <img class="img img-rounded" src="./LoginHome_files/Screenshot_20230904-224505.jpg" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
-                                                                                                       </div>
+                                                    {% if user.avatar %}                                                      
+                                                    <img class="img img-rounded" src="media/{{user.avatar}}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
+                                                    {% endif %}  
+                                                
+                                                </div>
                                             <div class="nk-wg7-stats w-50">
                                                 <div class="nk-wg7-title">Available balance</div>
                                                 <div class="number-lg amount">USD 3,833,000.00</div>
-                                                Michael  Wilson  James                                                             </div> 
+                                                {{ user.get_full_name}}                                                             </div> 
                                             </div>
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50">

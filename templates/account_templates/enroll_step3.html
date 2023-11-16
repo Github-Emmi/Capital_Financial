@@ -115,6 +115,11 @@
 						<legend>First Name</legend>
 					{{form.firstname}}
 					</fieldset>
+					{% if form.firstname.errors %}
+                    {% for error in form.firstname.errors %}
+                        <p class="text-warning">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 						</span>
 				</div>
 				<div class="form-holder">
@@ -123,6 +128,11 @@
 						<legend>Last Name</legend>
 					{{ form.lastname }}
 					</fieldset>
+					{% if form.lastname.errors %}
+                    {% for error in form.lastname.errors %}
+                        <p class="text-warning">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 					 <br>
 						</span>
 				</div>
@@ -134,6 +144,11 @@
 						<legend>Other name</legend>
 					{{ form.middle_name }}
 					</fieldset>
+					{% if form.middle_name.errors %}
+                    {% for error in form.middle_name.errors %}
+                        <p class="text-warning">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 						</span>
 			</div>
 				<div class="form-holder">
@@ -142,6 +157,11 @@
 						<legend>Nick Name or Maiden name</legend>
 					{{ form.nick_name }}
 					</fieldset>
+					{% if form.nick_name.errors %}
+                    {% for error in form.nick_name.errors %}
+                        <p class="text-warning">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 					 <br>
 						</span>
 				</div>
@@ -153,8 +173,14 @@
 			<fieldset>
 				<legend>Your Email</legend>
 			{{ form.email }}
+			
 			</fieldset>
 			  <br>
+			  {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                        <p class="text-warning">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
 				</span>
 		</div>
 	
@@ -164,6 +190,11 @@
 				<legend>Phone Number</legend>
 			{{ form.phone_number}}
 			</fieldset>
+			{% if form.phone_number.errors %}
+			{% for error in form.phone_number.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}
 			 <br>
 				</span>
 		</div>
@@ -175,6 +206,11 @@
 				<legend>Date of Birth</legend>
 			{{ form.date_of_birth }}
 			</fieldset>
+			{% if form.date_of_birth.errors %}
+			{% for error in form.date_of_birth.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}
 			 <br>
 				</span>
 		</div>
@@ -186,6 +222,11 @@
 				<legend>Zipcode</legend>
 			{{ form.zip_code }}
 			</fieldset>
+			{% if form.zip_code.errors %}
+			{% for error in form.zip_code.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}
 			  <br>
 				</span>
 		</div>
@@ -202,6 +243,11 @@
 	  <br>
 		 {{ form.title }}
 		</span>
+		{% if form.title.errors %}
+		{% for error in form.title.errors %}
+			<p class="text-warning">{{ error }}</p>
+		{% endfor %}
+	{% endif %}
 		</div>
 		<div class="form-holder">
 		 <span id="spryselect_gender">
@@ -212,6 +258,11 @@
 	  {{ form.gender}}
 
 		</span>
+		{% if form.gender.errors %}
+		{% for error in form.gender.errors %}
+			<p class="text-warning">{{ error }}</p>
+		{% endfor %}
+	{% endif %}
 		</div>
 	</div>		
 	<div class="form-row-8">
@@ -221,7 +272,12 @@
 	
 			{{ form.residential_address}}
 
-			<br>		
+			<br>	
+			{% if form.residential_address.errors %}
+			{% for error in form.residential_address.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 		</div>
 	</div>
 	
@@ -235,6 +291,11 @@
 					  
 				{{ form.country }}				
 				<br>
+				{% if form.country.errors %}
+			{% for error in form.country.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 				</span>
 		</div>
 				
@@ -258,6 +319,11 @@
 				<legend>City Name</legend>
 			{{ form.city}}
 			</fieldset>
+			{% if form.city.errors %}
+			{% for error in form.city.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 			 <br>
 			</span>
 		</div>
@@ -267,6 +333,11 @@
 				<legend>State Security Number(SSN, NI, SIN etc.)</legend>
 			{{ form.ssn}}
 			</fieldset>
+			{% if form.ssn.errors %}
+			{% for error in form.ssn.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 			<br>
 				</span>
 		</div>
@@ -277,6 +348,11 @@
 				<span id="spryselect_acctype">
 				{{ form.Currency_type }}
 		  <br>
+		  {% if form.currency_type.errors %}
+			{% for error in form.currency_type.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 		</span>
 		</div>
 		<div class="form-holder" id="firstname">
@@ -284,6 +360,11 @@
 				<span id="spryselect_acctype">	
 				{{ form.account_type}}
 		  <br>
+		  {% if form.account_type.errors %}
+			{% for error in form.account_type.errors %}
+				<p class="text-warning">{{ error }}</p>
+			{% endfor %}
+		{% endif %}	
 
 		</span>
 		</div>

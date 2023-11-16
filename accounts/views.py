@@ -197,7 +197,8 @@ def enroll_step4(request,uidb64):
                sq2_select = form.cleaned_data.get('sq1_select')
 
                if password != password_confirm:
-                    raise forms.ValidationError('Passwords do not match')
+
+                    raise form.EmploymentInfoError('Passwords do not match')
                     # msg = 'Passwords do not match'
 
                # print(form.cleaned_data)
@@ -261,8 +262,12 @@ def enroll_step5(request, uidb64):
 
 
 
-def enroll_complete(request):
-     return render(request, 'account_templates/enroll_complete.html', {})
+def enroll_complete(request,uidb64):
+     uid = urlsafe_base64_decode(uidb64).decode()
+     UserModel = get_user_model()
+     user = UserModel.objects.get(id=uid)
+
+     return render(request, 'account_templates/enroll_complete.html', {"user":user})
 
 # class enroll_complete(TemplateView):
 #     """View upon successfull registration"""
