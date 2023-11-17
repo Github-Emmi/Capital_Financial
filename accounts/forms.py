@@ -29,7 +29,11 @@ class SignUpForm(forms.ModelForm):
         required = True,
         widget=forms.TextInput(
             attrs={
+<<<<<<< HEAD
                 # "placeholder" : "Firstname",                
+=======
+                "placeholder" : "Firstname",                
+>>>>>>> origin/master
                 "class": "form-control",
 
             }
@@ -37,12 +41,17 @@ class SignUpForm(forms.ModelForm):
     lastname = forms.CharField(
     widget=forms.TextInput(
         attrs={
+<<<<<<< HEAD
             # "placeholder" : "lastname",                
+=======
+            "placeholder" : "lastname",                
+>>>>>>> origin/master
             "class": "form-control",
             "required": True
 
         }
     ))
+<<<<<<< HEAD
     # middlename = forms.CharField(
     # widget=forms.TextInput(
     #     attrs={
@@ -58,16 +67,24 @@ class SignUpForm(forms.ModelForm):
     #         "class": "form-control"
     #     }
     # ))
+=======
+   
+>>>>>>> origin/master
 
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
+<<<<<<< HEAD
                 # "placeholder" : "Email",                
+=======
+                "placeholder" : "Email",                
+>>>>>>> origin/master
                 "class": "form-control",
                 "required": True
             }
         ))
 
+<<<<<<< HEAD
     # phone_number = forms.IntegerField(
     #     widget=forms.TextInput(
     #         attrs={
@@ -98,6 +115,9 @@ class SignUpForm(forms.ModelForm):
     #             "class": "form-control"
     #         }
     #     ))
+=======
+    
+>>>>>>> origin/master
 
 # 'email','first_name','last_name'
     class Meta: 
@@ -125,6 +145,40 @@ class SignUpForm(forms.ModelForm):
         #     'DateInput'
         # })
         # forms.SelectDateWidget
+<<<<<<< HEAD
+=======
+        self.fields['phone_number'].widget.attrs.update({
+            "placeholder" :  'Phone Number',
+            "required": True
+            })
+
+        self.fields['city'].widget.attrs.update({
+                "placeholder" :  'city',
+                "required": True
+            })
+        self.fields['ssn'].widget.attrs.update({
+                
+                "placeholder" :  'SSN',
+                "required": True
+            })
+        self.fields['nick_name'].widget.attrs.update({
+                
+                "placeholder" :  'Nick Name',
+                "required": True
+            })
+        self.fields['middle_name'].widget.attrs.update({
+                "placeholder" :  'Middle Name',
+                "required": True
+            })
+        self.fields['date_of_birth'].widget.attrs.update({
+                "placeholder" :  'YYYY-MM-DD',
+                "required": True
+            })
+        self.fields['zip_code'].widget.attrs.update({
+                "placeholder" :  'Zip code',
+                "required": True
+            })
+>>>>>>> origin/master
     
 
         self.fields['state'].queryset = State.objects.none()
@@ -183,7 +237,17 @@ class EmploymentInfo(forms.ModelForm):
                 'class': (
                     'form-control'
                 ),
+<<<<<<< HEAD
                 "placeholder" :  'Next Of Kin Residential Address'
+=======
+                "placeholder" :  'Next Of Kin Residential Address',
+                "required": True
+            })
+        self.fields['beneficiary_legal_name'].widget.attrs.update({
+                
+                "placeholder" :  'Beneficiary\'s Legal Name',
+                "required": True
+>>>>>>> origin/master
             })
 
     

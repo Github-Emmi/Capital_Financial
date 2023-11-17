@@ -113,6 +113,14 @@
                      <legend>Type of Employment</legend>
                      {{ form.employment_type}}
                         <br>
+<<<<<<< HEAD
+=======
+                        {% if form.employment_type.errors %}
+                            {% for error in form.employment_type.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                         
                     </div>
             <div class="form-holder">
@@ -120,7 +128,15 @@
                       {{ form.salary_range }}
                         
                          <br>
+<<<<<<< HEAD
                          
+=======
+                         {% if form.salary_range.errors %}
+                            {% for error in form.salary_range.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                 </div>
                 
                 </div>
@@ -136,6 +152,14 @@
                     <legend>Beneficiary Legal Name</legend>
                     {{ form.beneficiary_legal_name }}
                 </fieldset>
+<<<<<<< HEAD
+=======
+                {% if form.beneficiary_legal_name.errors %}
+                            {% for error in form.beneficiary_legal_name.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                 </span>
                   <br>
             </div>
@@ -144,13 +168,31 @@
                 <div class="form-holder">
                     <span>
                         {{ form.nok_address}}
+<<<<<<< HEAD
                 </span> <br>
+=======
+                </span>
+                {% if form.nok_address.errors %}
+                        {% for error in form.nok_address.errors %}
+                            <p class="text-warning">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
+                 <br>
+>>>>>>> origin/master
                     </div></div>
              <div class="form-row">
                     <div class="form-holder">
                      <legend>Please select Relationship</legend>
                         {{ form.nok_relationship}}
                         <br>
+<<<<<<< HEAD
+=======
+                        {% if form.nok_relationship.errors %}
+                            {% for error in form.nok_relationship.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                     </div>
                     
             <div class="form-holder">
@@ -158,6 +200,14 @@
                      <legend>Please select Age</legend>
                      {{ form.nok_age}}
                          <br>
+<<<<<<< HEAD
+=======
+                         {% if form.nok_age.errors %}
+                            {% for error in form.nok_age.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                 </div>
                 
                 </div>
@@ -172,6 +222,14 @@
                             {{ form.password}}
                             <!-- <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Account Password" required=""> -->
                         </fieldset>
+<<<<<<< HEAD
+=======
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                         <br>
                         </span>
                     </div>
@@ -182,6 +240,14 @@
                             {{ form.password1}}
                             <!-- <input type="password" class="form-control" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm A/C Password" required=""> -->
                         </fieldset>
+<<<<<<< HEAD
+=======
+                        {% if form.password1.errors %}
+                            {% for error in form.password1.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                         <br>
                         </span>
                     </div>
@@ -194,6 +260,14 @@
                         {{ form.PIN}}
                         <!-- <input type="number" class="form-control" id="secretCode" autocomplete="off" name="secretCode" placeholder="Account PIN" required=""> -->
                     </fieldset>
+<<<<<<< HEAD
+=======
+                    {% if form.PIN.errors %}
+                            {% for error in form.PIN.errors %}
+                                <p class="text-warning">{{ error }}</p>
+                            {% endfor %}
+                        {% endif %}
+>>>>>>> origin/master
                      <br>
                         </span>
                 </div>
