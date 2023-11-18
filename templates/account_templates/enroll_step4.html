@@ -113,14 +113,6 @@
                      <legend>Type of Employment</legend>
                      {{ form.employment_type}}
                         <br>
-<<<<<<< HEAD
-=======
-                        {% if form.employment_type.errors %}
-                            {% for error in form.employment_type.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                         
                     </div>
             <div class="form-holder">
@@ -128,15 +120,7 @@
                       {{ form.salary_range }}
                         
                          <br>
-<<<<<<< HEAD
                          
-=======
-                         {% if form.salary_range.errors %}
-                            {% for error in form.salary_range.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                 </div>
                 
                 </div>
@@ -152,14 +136,6 @@
                     <legend>Beneficiary Legal Name</legend>
                     {{ form.beneficiary_legal_name }}
                 </fieldset>
-<<<<<<< HEAD
-=======
-                {% if form.beneficiary_legal_name.errors %}
-                            {% for error in form.beneficiary_legal_name.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                 </span>
                   <br>
             </div>
@@ -168,31 +144,13 @@
                 <div class="form-holder">
                     <span>
                         {{ form.nok_address}}
-<<<<<<< HEAD
                 </span> <br>
-=======
-                </span>
-                {% if form.nok_address.errors %}
-                        {% for error in form.nok_address.errors %}
-                            <p class="text-warning">{{ error }}</p>
-                        {% endfor %}
-                    {% endif %}
-                 <br>
->>>>>>> origin/master
                     </div></div>
              <div class="form-row">
                     <div class="form-holder">
                      <legend>Please select Relationship</legend>
                         {{ form.nok_relationship}}
                         <br>
-<<<<<<< HEAD
-=======
-                        {% if form.nok_relationship.errors %}
-                            {% for error in form.nok_relationship.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                     </div>
                     
             <div class="form-holder">
@@ -200,14 +158,6 @@
                      <legend>Please select Age</legend>
                      {{ form.nok_age}}
                          <br>
-<<<<<<< HEAD
-=======
-                         {% if form.nok_age.errors %}
-                            {% for error in form.nok_age.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                 </div>
                 
                 </div>
@@ -222,14 +172,6 @@
                             {{ form.password}}
                             <!-- <input type="password" class="form-control" id="password" name="password" autocomplete="off" placeholder="Account Password" required=""> -->
                         </fieldset>
-<<<<<<< HEAD
-=======
-                        {% if form.password.errors %}
-                            {% for error in form.password.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                         <br>
                         </span>
                     </div>
@@ -240,14 +182,6 @@
                             {{ form.password1}}
                             <!-- <input type="password" class="form-control" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm A/C Password" required=""> -->
                         </fieldset>
-<<<<<<< HEAD
-=======
-                        {% if form.password1.errors %}
-                            {% for error in form.password1.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                         <br>
                         </span>
                     </div>
@@ -260,14 +194,6 @@
                         {{ form.PIN}}
                         <!-- <input type="number" class="form-control" id="secretCode" autocomplete="off" name="secretCode" placeholder="Account PIN" required=""> -->
                     </fieldset>
-<<<<<<< HEAD
-=======
-                    {% if form.PIN.errors %}
-                            {% for error in form.PIN.errors %}
-                                <p class="text-warning">{{ error }}</p>
-                            {% endfor %}
-                        {% endif %}
->>>>>>> origin/master
                      <br>
                         </span>
                 </div>
@@ -313,7 +239,20 @@
         </div>   
         </div>      
                 </div>
-                {% block custom_js %}
+                
+                                </div>	
+                </div> 
+                    </div>
+         
+                </div>
+    
+    <!--content end-->
+
+
+
+{% endblock main_content %}
+
+{% block custom_js %}
 			<script src="{% static 'account-assets/js/registration.js' %}"></script>
 			<script type="text/javascript" src="{% static 'account-assets/js/amcharts' %}"></script> 
 			<link rel="stylesheet" href="{% static 'account-assets/js/enroll.css' %}"> 
@@ -324,8 +263,7 @@
             <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationConfirm.js' %}"> 
             <link rel="stylesheet" href="{% static 'account-assets/js/SpryValidationTextField.js' %}"> 
 
-             {% endblock custom_js %}
-                <script type="text/javascript">
+            <script type="text/javascript">
     
                 $(document).ready(function () {
           $('.secondstep').click(function (e) {
@@ -358,34 +296,27 @@
           });
         });
                 </script>
-                                </div>	
-                </div> 
-                    </div>
-          <script>
-                        function openCity(evt, cityName) {
-                            var i, tabcontent, tablinks;
-                            tabcontent = document.getElementsByClassName("tabcontent");
-                            for (i = 0; i < tabcontent.length; i++) {
-                                tabcontent[i].style.display = "none";
-                            }
-                            tablinks = document.getElementsByClassName("tablinks");
-                            for (i = 0; i < tablinks.length; i++) {
-                                tablinks[i].className = tablinks[i].className.replace(" active", "");
-                            }
-                            document.getElementById(cityName).style.display = "block";
-                            evt.currentTarget.className += " active";
+
+                <script>
+                    function openCity(evt, cityName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                            tabcontent[i].style.display = "none";
                         }
-    
-                        // Get the element with id="defaultOpen" and click on it
-                        document.getElementById("defaultOpen").click();
-                    </script>
-                </div>
-    
-    <!--content end-->
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                            tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(cityName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
 
+                    // Get the element with id="defaultOpen" and click on it
+                    document.getElementById("defaultOpen").click();
+                </script>
 
-
-{% endblock main_content %}
+             {% endblock custom_js %}
 
 
 

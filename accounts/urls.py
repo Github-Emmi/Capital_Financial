@@ -1,5 +1,5 @@
 from django.urls import include, path
-from accounts import views, users
+from accounts import views
 from django.conf import settings
 from django.conf.urls.static import static 
 
@@ -7,7 +7,7 @@ app_name = 'accounts'
 
 urlpatterns = [
 path('', views.index, name='index'),
-path('user-profile', users.user_profile, name='user_profile'),
+
        ###########          ###########
           ##     sign up urls  ##
        ###########          ###########

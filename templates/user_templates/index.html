@@ -16,8 +16,8 @@
                     </div><!-- .nk-block-head-content -->
                     <div class="nk-block-head-content">
                         <ul class="nk-block-tools gx-3">
-                            <li><a href="https://veritasfinancial.cc/personal-banking/check-deposit" class="btn btn-primary"><span>Deposit</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
-                            <li><a href="https://veritasfinancial.cc/personal-banking/transfer" class="btn btn-secondary btn-light text-light"><span>Transfer Fund</span> <em class="icon ni ni-arrow-long-right d-none d-sm-inline-block"></em></a></li>
+                            <li><a href="" class="btn btn-primary"><span>Deposit</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
+                            <li><a href="{% url 'adminapp:transfer' %}" class="btn btn-secondary btn-light text-light"><span>Transfer Fund</span> <em class="icon ni ni-arrow-long-right d-none d-sm-inline-block"></em></a></li>
                         </ul>
                     </div><!-- .nk-block-head-content -->
                 </div><!-- .nk-block-between -->
@@ -36,35 +36,20 @@
                                     <div class="card-inner">
                                         <div class="nk-wg7">
                                             <div class="nk-wg7-stats-group">
-                                                <div class="nk-wg7-stats w-50" style="background-image: url(../protected/passport/); border-color: white; border-width: 5px; border-radius: 50%;">
-<<<<<<< HEAD
-                                                                                                                   <img class="img img-rounded" src="./LoginHome_files/Screenshot_20230904-224505.jpg" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
+                                                <div class="nk-wg7-stats w-50" style="background-image: url({{ user.avatar }}); border-color: white; border-width: 5px; border-radius: 50%;">
+                                                                                                                   <img class="img img-rounded" src="{{ user.avatar }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
                                                                                                        </div>
                                             <div class="nk-wg7-stats w-50">
                                                 <div class="nk-wg7-title">Available balance</div>
-                                                <div class="number-lg amount">USD 3,833,000.00</div>
-                                                Michael  Wilson  James                                                             </div> 
-=======
-                                                    {% if user.avatar %}                                                      
-                                                    <img class="img img-rounded" src="media/{{user.avatar}}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
-                                                    {% endif %}  
-                                                
-                                                </div>
-                                            <div class="nk-wg7-stats w-50">
-                                                <div class="nk-wg7-title">Available balance</div>
-                                                <div class="number-lg amount">USD 3,833,000.00</div>
-                                                {{ user.get_full_name}}                                                             </div> 
->>>>>>> origin/master
+                                                <div class="number-lg amount">USD 3,833,000</div>
+                                                {{user.get_full_name}}                                                            </div> 
                                             </div>
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50">
                                                     <div class="nk-wg7-title">Linked Cards</div>
                                                     <div class="number-lg">3</div>
                                                 </div>
-                                                <div class="nk-wg7-stats w-50"> 
-                                                    <div class="nk-wg7-title">Your IP address</div>
-                                                    <div class="number"><img src="./LoginHome_files/ng.png"> 129.205.113.156</div>
-                                                </div>
+                                               
                                             </div>
                                         </div><!-- .nk-wg7 -->
                                     </div><!-- .card-inner -->
@@ -81,7 +66,7 @@
                                         <h5 class="nk-block-title title">Business Account</h5>
                                     </div>
                                     <div class="nk-block-head-content">
-                                        <a href="https://veritasfinancial.cc/personal-banking/transfer" class="link link-primary">Transfer Fund</a>
+                                        <a href="{% url 'adminapp:transfer' %}" class="link link-primary">Transfer Fund</a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
@@ -89,7 +74,7 @@
                                 <div class="col-sm-12">
                                     <div class="card bg-light">
                                         <div class="nk-wgw sm">
-                                            <a class="nk-wgw-inner" href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#">
+                                            <a class="nk-wgw-inner" href="#">
                                                 <div class="nk-wgw-name">
                                                     <div class="nk-wgw-icon">
                                                         <em class="icon ni ni-sign-cc-alt"></em>       </div>
@@ -111,7 +96,7 @@
                                         <h6 class="nk-block-title title">Loans and lines of credit</h6>
                                     </div>
                                     <div class="nk-block-head-content">
-                                        <a href="https://veritasfinancial.cc/personal-banking/pay-bills" class="link link-primary">Pay bills</a>
+                                        <a href="pay-bills" class="link link-primary">Pay bills</a>
                                     </div>
                                 </div>
                             </div><!-- .nk-block-head -->
@@ -119,7 +104,7 @@
                                 <div class="col-sm-6">
                                     <div class="card bg-light">
                                         <div class="nk-wgw sm">
-                                            <a class="nk-wgw-inner" href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#">
+                                            <a class="nk-wgw-inner" href="#">
                                                 <div class="nk-wgw-name">
                                                     <div class="nk-wgw-icon">
                                                         <em class="icon ni ni-check-circle"></em>
@@ -137,7 +122,7 @@
                                 <div class="col-sm-6">
                                     <div class="card bg-light">
                                         <div class="nk-wgw sm">
-                                            <a class="nk-wgw-inner" href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#">
+                                            <a class="nk-wgw-inner" href="#">
                                                 <div class="nk-wgw-name">
                                                     <div class="nk-wgw-icon">
                                                         <em class="icon ni ni-sign-cc-alt2"></em>
@@ -155,7 +140,8 @@
                         </div> <!-- .nk-block -->
                     </div><!-- .col -->
                 </div><!-- .row -->
-            </div><!-- .nk-block -->
+            </div>
+            <!-- .nk-block -->
              <div class="nk-block nk-block-lg">
                 <div class="row gy-gs">
                     <div class="col-md-6">
@@ -165,7 +151,7 @@
                             </div>
                             <div class="card-tools">
                                 <ul class="card-tools-nav">
-                                    <li class="active"><a href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#">All</a></li>
+                                    <li class="active"><a href="{% url 'adminapp:account_summary' %}">All</a></li>
                                 </ul>
                             </div>
                         </div><!-- .card-head -->
@@ -195,12 +181,13 @@
                               </div>
                       </div>
              </div><!-- .tranx-item -->
+<!-- .tranx-details -->
 <div class="modal fade" tabindex="-1" id="modalDefault1676">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header bg-primary text-light">
     <h5 class="modal-title text-light">Transaction Details</h5>
-    <a href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#" class="close text-light" data-dismiss="modal" aria-label="Close">
+    <a href="#" class="close text-light" data-dismiss="modal" aria-label="Close">
         <em class="icon ni ni-cross"></em>
     </a>
 </div>
@@ -226,12 +213,12 @@
             </ul>
 </div>
 <div class="modal-footer bg-light">
-    <span class="sub-text text-primary">Proccessed by Veritas Financial Union E-Service services.</span>
+    <span class="sub-text text-primary">Capital Funding Financial E-Service services.</span>
 </div>
 </div>
 </div>
 </div>
-                                                                    <div class="tranx-item">
+                                                                    <div class="tranx-item"><!-- tranx-item start -->
                                 <div class="tranx-col">
                                     <div class="tranx-info">
                                         <div class="tranx-data">
@@ -256,6 +243,7 @@
                               </div>
                       </div>
              </div><!-- .tranx-item -->
+<!-- .tranx-details -->             
 <div class="modal fade" tabindex="-1" id="modalDefault1660">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
@@ -292,190 +280,8 @@
 </div>
 </div>
 </div>
-                                                                    <div class="tranx-item">
-                                <div class="tranx-col">
-                                    <div class="tranx-info">
-                                        <div class="tranx-data">
-                                            <div class="tranx-label">VER/WTNKVCWN7-0923<em class="tranx-icon sm icon ni ni-wallet-out"></em></div>
-                                            <div class="tranx-date">18 Aug 2023, 20:45 pm</div>
-                                            <div class="text-primary">Payment for equipment </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="tranx-date">Amount</div>
-                               <div class="text-danger fs-16px">- 425,000.00 
-                                 <span class="currency currency-usd"><span class="currency currency-btc">USD</span></span></div>
-                                        <div class="number-sm"><strong class="text-success">Completed</strong></div>
-                                    </div>
-                                </div>
-                                 <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="number">Debit<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1659">View Details</span>
-                              </div>
-                      </div>
-             </div><!-- .tranx-item -->
-<div class="modal fade" tabindex="-1" id="modalDefault1659">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header bg-primary text-light">
-    <h5 class="modal-title text-light">Transaction Details</h5>
-    <a href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#" class="close text-light" data-dismiss="modal" aria-label="Close">
-        <em class="icon ni ni-cross"></em>
-    </a>
-</div>
-<div class="modal-body">
-      <ul class="buysell-overview-list">
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount:</span></span>
-                    <span class="pm-title">USD 425,000.00</span>
-                </li>
-                 <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
-                    <span class="pm-title">VER/WTNKVCWN7-0923</span>
-                </li>
-                                                                                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                    <span class="pm-title">18 Aug 2023, 20:45 pm</span>
-                </li>
+                                                                    
 
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">USD 825,000.00</span>
-                </li>
-            </ul>
-</div>
-<div class="modal-footer bg-light">
-    <span class="sub-text text-primary">Proccessed by Veritas Financial Union E-Service services.</span>
-</div>
-</div>
-</div>
-</div>
-                                                                    <div class="tranx-item">
-                                <div class="tranx-col">
-                                    <div class="tranx-info">
-                                        <div class="tranx-data">
-                                            <div class="tranx-label">VER/6K1ULFCPZ-0923<em class="tranx-icon sm icon ni ni-wallet-out"></em></div>
-                                            <div class="tranx-date">08 Aug 2023, 2:58 pm</div>
-                                            <div class="text-primary">Payment for equipment </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="tranx-date">Amount</div>
-                               <div class="text-danger fs-16px">- 600,000.00 
-                                 <span class="currency currency-usd"><span class="currency currency-btc">USD</span></span></div>
-                                        <div class="number-sm"><strong class="text-success">Completed</strong></div>
-                                    </div>
-                                </div>
-                                 <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="number">Debit<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1658">View Details</span>
-                              </div>
-                      </div>
-             </div><!-- .tranx-item -->
-<div class="modal fade" tabindex="-1" id="modalDefault1658">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header bg-primary text-light">
-    <h5 class="modal-title text-light">Transaction Details</h5>
-    <a href="#" class="close text-light" data-dismiss="modal" aria-label="Close">
-        <em class="icon ni ni-cross"></em>
-    </a>
-</div>
-<div class="modal-body">
-      <ul class="buysell-overview-list">
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount:</span></span>
-                    <span class="pm-title">USD 600,000.00</span>
-                </li>
-                 <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
-                    <span class="pm-title">VER/6K1ULFCPZ-0923</span>
-                </li>
-                                                                                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                    <span class="pm-title">08 Aug 2023, 2:58 pm</span>
-                </li>
-
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">USD 1,250,000.00</span>
-                </li>
-            </ul>
-</div>
-<div class="modal-footer bg-light">
-    <span class="sub-text text-primary">Proccessed by Veritas Financial Union E-Service services.</span>
-</div>
-</div>
-</div>
-</div>
-                                                                    <div class="tranx-item">
-                                <div class="tranx-col">
-                                    <div class="tranx-info">
-                                        <div class="tranx-data">
-                                            <div class="tranx-label">VER/KTZWFP6K5-0923<em class="tranx-icon sm icon ni ni-wallet-out"></em></div>
-                                            <div class="tranx-date">04 Aug 2023, 03:57 pm</div>
-                                            <div class="text-primary">Payment for equipment </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="tranx-date">Amount</div>
-                               <div class="text-danger fs-16px">- 450,000.00 
-                                 <span class="currency currency-usd"><span class="currency currency-btc">USD</span></span></div>
-                                        <div class="number-sm"><strong class="text-success">Completed</strong></div>
-                                    </div>
-                                </div>
-                                 <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="number">Debit<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1657">View Details</span>
-                              </div>
-                      </div>
-             </div><!-- .tranx-item -->
-
-<div class="modal fade" tabindex="-1" id="modalDefault1657">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header bg-primary text-light">
-    <h5 class="modal-title text-light">Transaction Details</h5>
-    <a href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#" class="close text-light" data-dismiss="modal" aria-label="Close">
-        <em class="icon ni ni-cross"></em>
-    </a>
-</div>
-<div class="modal-body">
-      <ul class="buysell-overview-list">
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount:</span></span>
-                    <span class="pm-title">USD 450,000.00</span>
-                </li>
-                 <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
-                    <span class="pm-title">VER/KTZWFP6K5-0923</span>
-                </li>
-                                                                                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                    <span class="pm-title">04 Aug 2023, 03:57 pm</span>
-                </li>
-
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">USD 1,850,000.00</span>
-                </li>
-            </ul>
-</div>
-<div class="modal-footer bg-light">
-    <span class="sub-text text-primary">Proccessed by Veritas Financial Union E-Service services.</span>
-</div>
-</div>
-</div>
-</div>
                                                                   
                         </div><!-- .tranx-list -->
                     </div><!-- .col -->
@@ -543,7 +349,7 @@
                                 </div>
                             </div>
                             <div class="nk-block-content flex-shrink-0">
-                                <a href="https://veritasfinancial.cc/personal-banking/contact" class="btn btn-lg btn-outline-primary">Get Support Now</a>
+                                <a href="contact" class="btn btn-lg btn-outline-primary">Get Support Now</a>
                             </div>
                         </div>
                     </div><!-- .card-inner -->

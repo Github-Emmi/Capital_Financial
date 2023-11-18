@@ -56,6 +56,9 @@ class Country(models.Model):
     def __str__(self):
         return self.name
     
+    class Meta:
+        verbose_name_plural = "Countries"
+    
 
 class State(models.Model):
     name = models.CharField(('state name'), max_length=55, blank=True)
@@ -63,6 +66,9 @@ class State(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural = "States"
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
@@ -138,6 +144,9 @@ class Profile(models.Model):
     gender = models.CharField(max_length=17, choices=Gender, default='none')
     account_type = models.CharField(max_length=37, choices=Account_Type, default='none')
     Currency_type = models.CharField(max_length=97, choices=Currency, default='USD')
+
+    class Meta:
+        verbose_name_plural = "Profiles"
     
 
 class Beneficiary_Security_Details(models.Model):
@@ -191,11 +200,7 @@ class Balance(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dep = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="deposits")
     trans = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="transfers")
-<<<<<<< HEAD
     bal = models.IntegerField()
-=======
-    bal = models.DecimalField(decimal_places=2, max_digits=11, default= 0.00)
->>>>>>> origin/master
 
 # @receiver(post_save, sender=Book)
 # def create_author(sender, instance, created, **kwargs):

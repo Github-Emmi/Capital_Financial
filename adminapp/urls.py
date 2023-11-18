@@ -1,8 +1,15 @@
-from django.urls import path
+from django.urls import include, path
 from adminapp import views
+from django.conf import settings
+from django.conf.urls.static import static 
 
 app_name = 'adminapp'
-
 urlpatterns = [
-    
+path('user-profile', views.user_profile, name='user_profile'),
+path('account-summary', views.account_sumarry, name='account_summary'),
+path('transfer', views.transfer, name='transfer'),
+path('transfer-step1', views.transfer_step1, name='transfer_step1'),
+path('deposit-check', views.deposit_check, name='deposit_check'),
+path('pay-bills', views.pay_bills, name='pay_bills'),
+path('add-card', views.add_card, name='add_card'),
 ]

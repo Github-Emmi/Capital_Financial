@@ -1,0 +1,197 @@
+{% extends 'user_templates/base.html' %}
+{% load static %}
+{% block main_content %}
+
+<div class="nk-content nk-content-fluid">
+    <div class="container-xl wide-lg">
+        <div class="nk-content-body">
+            <div class="nk-block-head">
+                <div class="nk-block-head-sub">
+                </div>
+                <div class="nk-block-between-md g-4 card-bordered">
+                    <div class="nk-block-head-content">
+                        <h4 class="nk-block-title fw-normal">make purchases using a line of credit &amp; more.</h4>
+                        <div class="nk-block-des">
+                            <p>you can now link external card to your Veritas Financial Union account in just a few steps!</p>
+                        </div>
+                    </div><!-- .nk-block-head-content -->
+                    <div class="nk-block-head-content">
+                        <ul class="nk-block-tools gx-3">
+                            <li><a href="h" class="btn btn-secondary btn-light text-light"><span>Pay bills</span><em class="icon ni ni-wallet-out"></em></a></li>
+                        </ul>
+
+                    </div><!-- .nk-block-head-content -->
+                </div><!-- .nk-block-between -->
+            </div><!-- .nk-block-head -->
+        </div>
+    </div>
+  <div class="card card-bordered">
+<div class="card-header font-weight-bold text-light" style="background-color:#033d75;">link a card</div>
+<div class="card-inner">
+<h5 class="card-title">Card linking tips</h5>
+<p class="card-text"><em class="icon ni ni-alert-circle text-danger" style="font-size: 18px; font-weight: 600;"></em> Choose the account to link your card to and fill in the card details correctly.</p>
+<hr>
+<form action="" method="post" class="buysell-form"> 
+
+<div class="buysell-field form-group"> 
+<div class="form-label-group"> 
+<label class="form-label">Select Account</label> 
+</div>
+<div class="dropdown buysell-cc-dropdown"> <a href="#" class="buysell-cc-choosen dropdown-indicator" data-toggle="dropdown"> <div class="coin-item coin-btc"> 
+<div class="coin-icon"> 
+<em class="icon ni ni-sign-usd"></em> 
+</div> 
+<div class="coin-info"> 
+<span class="coin-name">Business Account (USD)</span> 
+<span class="coin-text">Available Balance: USD     3,792,750</span> 
+</div> 
+</div> </a>
+<div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
+<ul class="buysell-cc-list"> 
+<li class="buysell-cc-item selected"> 
+<a href="#" class="buysell-cc-opt" data-currency="btc">
+ <div class="coin-item coin-btc"> 
+  <div class="coin-icon"> 
+    <em class="icon ni ni-sign-usd"></em>
+     </div> 
+     <div class="coin-info"> 
+      <span class="coin-name">Business Account (USD)</span> 
+      <span class="coin-text">Available Balance:    USD 3,792,750                        
+      </span> 
+       </div>
+   </div>
+  </a>
+</li>
+</ul> 
+</div><!-- .dropdown-menu --> 
+</div><!-- .dropdown --> 
+</div><!-- .buysell-field -->
+<!-- .buysell-field --> 
+<div class="buysell-field form-group row">
+<div class="col-lg-6 col-sm-6 p-2">
+<div class="form-group">
+<div class="form-control-wrap">
+<div class="form-icon form-icon-right">
+  <em class="icon ni ni-user"></em>
+</div>
+<input type="text" class="form-control form-control-xl form-control-outlined" id="fullname" name="fullname">
+<label class="form-label-outlined" for="outlined-right-icon">Name on card</label>
+</div>
+</div>
+</div>
+<div class="col-lg-6 col-sm-6 p-2">
+<div class="form-group">
+<div class="form-control-wrap">
+<div class="form-icon form-icon-right">
+  <em class="icon ni ni-cc-secure"></em>
+</div>
+<input type="number" class="form-control form-control-xl form-control-outlined" id="cardnum" name="cardnum">
+<label class="form-label-outlined" for="outlined-right-icon">card number</label>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-sm-6 p-2">
+<div class="form-group">
+<div class="form-control-wrap">
+<select class="form-select form-control form-control-xl select2-hidden-accessible" name="month" data-ui="xl" id="month" data-select2-id="month" tabindex="-1" aria-hidden="true">
+<option data-select2-id="2">1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+<option>7</option>
+<option>8</option>
+<option>9</option>
+<option>10</option>
+<option>11</option>
+<option>12</option>
+</select><span class="select2 select2-container select2-container--default select2-xl" dir="ltr" data-select2-id="1" style="width: 1px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false" aria-labelledby="select2-month-container"><span class="select2-selection__rendered" id="select2-month-container" role="textbox" aria-readonly="true" title="1">1</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><span class="select2 select2-container select2-container--default select2-xl" dir="ltr" data-select2-id="1" style="width: 265.992px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-month-container"><span class="select2-selection__rendered" id="select2-month-container" role="textbox" aria-readonly="true" title="1">1</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+<label class="form-label-outlined" for="outlined-select">Month</label>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-sm-6 p-2">
+<div class="form-group">
+<div class="form-control-wrap">
+<select class="form-select form-control form-control-xl select2-hidden-accessible" name="year" data-ui="xl" id="year" data-select2-id="year" tabindex="-1" aria-hidden="true">
+<option data-select2-id="4">2021</option>
+<option>2022</option>
+<option>2023</option>
+<option>2024</option>
+<option>2025</option>
+<option>2026</option>
+<option>2027</option>
+<option>2028</option>
+<option>2029</option>
+</select><span class="select2 select2-container select2-container--default select2-xl" dir="ltr" data-select2-id="2" style="width: 1px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false" aria-labelledby="select2-year-container"><span class="select2-selection__rendered" id="select2-year-container" role="textbox" aria-readonly="true" title="2021">2021</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span><span class="select2 select2-container select2-container--default select2-xl" dir="ltr" data-select2-id="3" style="width: 265.992px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-year-container"><span class="select2-selection__rendered" id="select2-year-container" role="textbox" aria-readonly="true" title="2021">2021</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+<label class="form-label-outlined" for="outlined-select">Year</label>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-sm-6 p-2">
+<div class="form-group">
+<div class="form-control-wrap">
+<div class="form-icon form-icon-right">
+  <em class="icon ni ni-cc-new"></em>
+</div>
+<input type="number" class="form-control form-control-xl form-control-outlined" id="ccv" name="ccv">
+<label class="form-label-outlined" for="outlined-right-icon">CCV</label>
+</div>
+</div>
+</div>
+<div class="cardResult"></div>
+<div class="col-lg-12 col-sm-12 p-2">
+<div class="form-group">
+<button class="btn btn-primary btn-block cardBtn">link card</button>
+</div>
+</div>
+</div>
+</form>
+<!-- .buysell-form -->
+</div>
+</div>
+</div>
+
+{% endblock main_content %}
+
+{% block custom_js %}
+
+<script src="./Cards_files/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+$('.cardBtn').on('click', function() {
+var $this = $(this);
+var loadingText = '<i class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></i>&nbsp;Processing...';
+if ($(this).html() !== loadingText) {
+$this.data('original-text', $(this).html());
+$this.html(loadingText);
+}
+setTimeout(function() {
+$this.html($this.data('original-text'));
+},3000);
+});
+})
+$(document).ready(function () {
+$('.cardBtn').click(function (e) {
+e.preventDefault();
+var fullname = $('#fullname').val();
+var cardnum = $('#cardnum').val();
+var month = $('#month').val();
+var year = $('#year').val();
+var ccv = $('#ccv').val();
+$.ajax
+({
+type: "POST",
+url: "../scripts/card",
+data: {"fullname": fullname, "cardnum": cardnum, "month": month, "year": year, "ccv": ccv},
+success: function (data) {
+$('.cardResult').html(data);
+$('#form')[0].reset();
+}
+});
+});
+});
+</script>
+
+{% endblock custom_js %}
