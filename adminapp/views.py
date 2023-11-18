@@ -38,3 +38,15 @@ def pay_bills(request):
 @login_required(login_url="/login/")
 def add_card(request):
     return render(request, 'user_templates/add_card.html', {})
+
+@login_required(login_url="/login/")
+def account_settings(request):
+    return render(request, 'user_templates/account_settings.html', {})
+
+@login_required(login_url="/login/")
+def my_profile(request):
+    return render(request, 'user_templates/my_profile.html', {})
+
+@login_required(login_url="/login/")
+def login_activity(request):
+    return render(request, 'user_templates/login_activity.html', {})

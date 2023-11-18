@@ -1,0 +1,58 @@
+{% extends 'user_templates/base.html' %}
+{% load static %}
+{% block main_content %}
+
+<div class="nk-content nk-content-fluid">
+                   
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-head-content">
+            <div class="nk-block-title-group">
+                <h6 class="nk-block-title title">Recent Activity</h6>
+                <a href="#" class="link">See full log</a>
+            </div>
+            <div class="nk-block-des">
+                <p>This information about recent login activity on your account.</p>
+            </div>
+        </div>
+    </div><!-- .nk-block-head -->
+    <div class="card card-bordered">
+        <table class="table table-ulogs">
+            <thead class="thead-light">
+                <tr>
+                    <th class="tb-col-os"><span class="overline-title">Browser <span class="d-sm-none">/ IP</span></span></th>
+                    <th class="tb-col-ip"><span class="overline-title">IP</span></th>
+                    <th class="tb-col-time"><span class="overline-title">Time</span></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                                                            <tr>
+                    <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
+                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
+                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 20:18 pm</span></td>
+                    
+                </tr>
+                                                           <tr>
+                    <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
+                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
+                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 18:48 pm</span></td>
+                    
+                </tr>
+                                                           <tr>
+                    <td class="tb-col-os">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36</td>
+                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
+                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 17:02 pm</span></td>
+                    
+                </tr>
+                                                           <tr>
+                    <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
+                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
+                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 14:06 pm</span></td>
+                    
+                </tr>
+                                                       </tbody>
+        </table>
+    </div><!-- .card -->
+</div>
+
+{% endblock main_content %}

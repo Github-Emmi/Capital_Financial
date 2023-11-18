@@ -12,4 +12,7 @@ path('transfer-step1', views.transfer_step1, name='transfer_step1'),
 path('deposit-check', views.deposit_check, name='deposit_check'),
 path('pay-bills', views.pay_bills, name='pay_bills'),
 path('add-card', views.add_card, name='add_card'),
+path('account-settings', views.account_settings, name='account_settings'),
+path('my-profile', views.my_profile, name='my_profile'),
+path('login-activity', views.login_activity, name='login_activity'),
 ]

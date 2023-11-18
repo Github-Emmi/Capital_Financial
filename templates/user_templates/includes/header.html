@@ -58,14 +58,14 @@
                                 <h6 class="overline-title-alt">{{user.profile.account_type}}</h6>
                                 <div class="user-balance">    3,833,000 <small class="currency currency-btc">USD</small></div>
                                 <div class="user-balance-sub">Local <span>3,833,000 <span class="currency currency-btc">USD</span></span></div>
-                                <a href=" transfer fund" class="link"><span>Transfer Funds</span> <em class="icon ni ni-wallet-out"></em></a>
+                                <a href="{% url 'adminapp:transfer' %}" class="link"><span>Transfer Funds</span> <em class="icon ni ni-wallet-out"></em></a>
                             </div>
                             <div class="dropdown-inner">
                                 <ul class="link-list">
-                                    <li><a href="https://veritasfinancial.cc/personal-banking/profile"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                    <li><a href="https://veritasfinancial.cc/personal-banking/account-setting"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                    <li><a href="https://veritasfinancial.cc/personal-banking/activity-logs"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
-                                    <li><a class="dark-switch" href="https://veritasfinancial.cc/personal-banking/activity-logs"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
+                                    <li><a href="{% url 'adminapp:my_profile' %}"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                    <li><a href="{% url 'adminapp:account_settings' %}"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                    <li><a href="{% url 'adminapp:login_activity' %}"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                                    <li><a class="dark-switch" href=""><em class="icon ni ni-moon"></em><span>Dark Mode here</span></a></li>
                                 </ul>
                             </div>
                             <div class="dropdown-inner">
