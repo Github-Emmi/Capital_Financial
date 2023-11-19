@@ -44,6 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "adminapp.middleware.UserActivityMiddleware" ### user broswer, ip and date
 ]
 
 ROOT_URLCONF = "bank_project.urls"
@@ -121,6 +122,7 @@ USE_TZ = True
 
 
 AUTH_USER_MODEL = 'accounts.User'
+SESSION_COOKIE_AGE = 180
 
 
 # Static files (CSS, JavaScript, Images)

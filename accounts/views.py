@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from .models import State, Profile, User, Beneficiary_Security_Details
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
+HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 
 
@@ -35,7 +36,7 @@ def index(request):
                if user is not None:
                     login(request, user)
                     request.session['cred'] = user.pk
-                    return redirect("user/user-profile")
+                    return redirect("/user/user-profile")
                else:    
                     msg = 'Invalid credentials'    
           else:
@@ -91,7 +92,7 @@ def login_user(request):
                if user is not None:
                     login(request, user)
                     request.session['cred'] = user.pk
-                    return redirect("/user-profile")
+                    return redirect("/user/user-profile")
                else:    
                     msg = 'Invalid credentials'    
           else:
