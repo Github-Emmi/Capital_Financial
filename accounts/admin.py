@@ -19,5 +19,5 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['first_name','last_name','account_number']
+    list_display = ['first_name','last_name','email']
 

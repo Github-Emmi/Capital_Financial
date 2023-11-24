@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     function logout(){
         // Redirect the user to logout or login page
-        window.location.href = "login/"
+        window.location.href = "/login"
     }
 
     function resetTmer(){

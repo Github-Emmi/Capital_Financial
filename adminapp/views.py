@@ -3,7 +3,9 @@ from django.shortcuts import render
 # Create your views here
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
-
+from django.views.decorators.csrf import csrf_exempt
+from accounts.models import Transfer, User
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 # Create your views here
 @login_required(login_url="/login")
@@ -11,9 +13,11 @@ def user_profile(request):
      user_id = request.session['cred']
      userModel = get_user_model()
      user = userModel.objects.get(pk=user_id)
+     first_name = user.first_name[0] if user.first_name else ''
+     last_name = user.last_name[0] if user.last_name else ''
      
      
-     return render(request, 'user_templates/index.html', {"user": user})
+     return render(request, 'user_templates/index.html', {"user": user, 'first_name':first_name,'last_name':last_name,})
 
 @login_required(login_url="/login")
 def account_sumarry(request):
@@ -24,13 +28,21 @@ def account_sumarry(request):
     return render(request, 'user_templates/account_summary.html', {})
 
 @login_required(login_url="/login")
+@csrf_exempt
 def transfer(request):
     return render(request, 'user_templates/transfer.html', {})
 
 @login_required(login_url="/login")
+# @csrf_exempt
 def transfer_step1(request):
-    return render(request, 'user_templates/transfer_step1.html', {})
+    if request.method=="POST":
+        amount = request.POST.get('amount')
+    return render(request, 'user_templates/transfer_step1.html', {'amount':amount})    
 
+@login_required(login_url="/login")
+def transasction_successful(request):
+    return render(request, 'user_templates/transaction_successful.html', {})
+    
 @login_required(login_url="/login")
 def deposit_check(request):
     return render(request, 'user_templates/deposit_check.html', {})

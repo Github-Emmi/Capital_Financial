@@ -58,7 +58,7 @@ $(document).ready(function () {
     $.ajax
       ({
         type: "POST",
-        url: "../scripts/transfer.php",
+        url: "/user/transfer-s",
         data: { "amount": amount },
         success: function (data) {
           $('.result').html(data);

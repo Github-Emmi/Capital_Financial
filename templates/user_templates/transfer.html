@@ -71,7 +71,8 @@
                                         <h2 class="title">Capital Funding Financial Online Service Transfer.</h2>
                                     </div><!-- .buysell-title -->
                                                                     <div class="buysell-block">
-                                        <form action="#" method="post" class="buysell-form">
+                                        <form action="{% url 'adminapp:transfer_step1' %}" method="post" class="buysell-form" id="myForm">
+                                            {% csrf_token %}
                                             <div class="buysell-field form-group">
                                                 <div class="form-label-group">
                                                     <label class="form-label">Select Account</label>
@@ -114,7 +115,7 @@
                                                     <label class="form-label" for="buysell-amount">Amount to Transfer</label>
                                                 </div>
                                                 <div class="form-control-group">
-                                                    <input type="number" class="form-control form-control-lg form-control-number" id="amount" name="amount" placeholder="2000">
+                                                    <input type="number" class="form-control form-control-lg form-control-number" id="amount" name="amount" placeholder="2000" required="required">
                                                     <div class="form-dropdown">
                                                         <div class="text">USD<span></span></div>
                                                     </div>
@@ -127,7 +128,9 @@
                                             <div class="buysell-field form-group">
                                             </div><!-- .buysell-field -->
                                             <div class="buysell-field form-action">
-                                                <button type="submit" class="btn btn-lg btn-block btn-primary stepOne">Continue to next step</button>
+                                                <a class="buysell-cc-opt" href="{% url 'adminapp:transfer_step1' %}">
+                                                    <button type="submit" class="btn btn-lg btn-block btn-primary stepOne">Continue to next step</button>
+                                                </a>
                                             </div><!-- .buysell-field -->
                                             <div class="form-note text-base text-center">Note: our transfer fee is included.</div>
                                         </form>
@@ -139,3 +142,6 @@
             </div>
 
             {% endblock main_content%}
+
+            
+            
