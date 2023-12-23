@@ -43,9 +43,17 @@ def index(request):
                msg = '' 
           return render(request, 'account_templates/index.html',{"form": form, "msg" : msg})
 
+def capitalfunding_account(request):
+     return render(request, 'account_templates/capitalfunding_account.html',{})
 
+def advanced_account(request):
+     return render(request, 'account_templates/advanced_account.html',{})
 
+def student_account(request):
+     return render(request, 'account_templates/student_account.html',{})
 
+def bank_account(request):
+     return render(request, 'account_templates/bank_account.html',{})
 # def register_user(request):
 
 #     msg     = None

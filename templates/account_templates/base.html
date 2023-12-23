@@ -64,6 +64,7 @@
 	<script src="{% static 'account-assets/css/twk-runtime.css' %}" charset="UTF-8" crossorigin="*"></script> {% endcomment %}
 	{% comment %} <script src="{% static 'account-assets/css/twk-app.css' %}" charset="UTF-8" crossorigin="*"></script> {% endcomment %}
 	<script type="text/javascript" src="{% static 'account-assets/js/weglot.min.js' %}"></script>
+	
 	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/css/m=el_main_css.css' %}"></script>
 	<link rel="stylesheet" id="ColorSwitcherLinkHolder">
 	<script charset="utf-8" src="{% static 'account-assets/js/twk-chunk-2c78ba82.js' %}"></script>
@@ -77,7 +78,8 @@
 
     <script src="{% static 'account-assets/js/emojione.min.js" type="text/javascript' %}" async="" defer=""></script>
 	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/js/common.js' %}"></script>
-	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/js/util.js' %}"></script></head>
+	<script type="text/javascript" charset="UTF-8" src="{% static 'account-assets/js/util.js' %}"></script>
+</head>
 <!--header open in header-->
 
 
@@ -89,6 +91,10 @@
           margin-top:2px;
       }
   </style>
+  <!-- Preloader -->
+  <div id="fakeloader" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(255, 255, 255); z-index: 999999; display: none;">
+	<div class="fl spinner1" style="position: absolute; left: 615px; top: 332px;">
+	<div class="double-bounce1"></div><div class="double-bounce2"></div></div></div>
 	
 	<div class="top-menu-1x">
 		<div class="container">
@@ -177,6 +183,15 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 
 
 	<!-- Start Footer -->
+	<!--home content end-->
+<div class="col-sm-12 connectus">
+    <div class="container">
+        <div class="inner-connect">
+            <h5> Connect with us </h5>
+            <a href="https://veritasfinancial.cc/index">Listening to what you have to say about our services matters to us.</a>
+        </div>
+    </div>
+</div>
 	<footer class="bussiness-footer-1x">		
 	    <div class="bussiness-footer-content ">
 			<div class="container">
@@ -272,7 +287,8 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
     <!-- Color switcher js -->
 	<script src="{% static 'account-assets/js/color-switcher.js' %}"></script> 
     <!-- Color-switcher-active -->  
-    <script src="{% static 'account-assets/js/color-switcher-active.js' %}"></script><div class="ColorSwitcher"><button class="ColorSwitcher__control"></button><div class="ColorSwitcher__switchs"><button class="ColorSwitcher__switch" title="Blue to Red" data-index="0" style="background-color: rgb(3, 61, 117);"></button><button class="ColorSwitcher__switch" title="Cyan to Orange" data-index="1" style="background-color: rgb(31, 166, 154);"></button><button class="ColorSwitcher__switch" title="Blue to Orange" data-index="2" style="background-color: rgb(6, 116, 236);"></button><button class="ColorSwitcher__switch" title="Green to Violet" data-index="3" style="background-color: rgb(46, 158, 4);"></button><button class="ColorSwitcher__switch" title="Sky" data-index="4" style="background-color: rgb(88, 201, 233);"></button><button class="ColorSwitcher__switch" title="Red" data-index="5" style="background-color: rgb(255, 106, 109);"></button></div></div>      
+    <script src="{% static 'account-assets/js/color-switcher-active.js' %}"></script>
+	<div class="ColorSwitcher"><button class="ColorSwitcher__control"></button><div class="ColorSwitcher__switchs"><button class="ColorSwitcher__switch" title="Blue to Red" data-index="0" style="background-color: rgb(3, 61, 117);"></button><button class="ColorSwitcher__switch" title="Cyan to Orange" data-index="1" style="background-color: rgb(31, 166, 154);"></button><button class="ColorSwitcher__switch" title="Blue to Orange" data-index="2" style="background-color: rgb(6, 116, 236);"></button><button class="ColorSwitcher__switch" title="Green to Violet" data-index="3" style="background-color: rgb(46, 158, 4);"></button><button class="ColorSwitcher__switch" title="Sky" data-index="4" style="background-color: rgb(88, 201, 233);"></button><button class="ColorSwitcher__switch" title="Red" data-index="5" style="background-color: rgb(255, 106, 109);"></button></div></div>      
 	<!-- Custom script -->
     <script src="{% static 'account-assets/js/custom.js' %}"></script>
     <script src="{% static 'account-assets/js/jquery.bxslider.min.js' %}"></script>

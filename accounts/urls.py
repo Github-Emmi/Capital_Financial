@@ -7,6 +7,10 @@ app_name = 'accounts'
 
 urlpatterns = [
 path('', views.index, name='index'),
+path('capital-funding-account', views.capitalfunding_account, name='capitalfunding_account'),
+path('advanced-account', views.advanced_account, name='advanced_account'),
+path('student-account', views.student_account, name='student_account'),
+path('bank-account', views.bank_account, name='bank_account'),
 
        ###########          ###########
           ##     sign up urls  ##
