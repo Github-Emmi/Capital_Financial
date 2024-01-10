@@ -23,13 +23,12 @@ def user_profile(request):
 def account_sumarry(request):
     #### Retrive user's IP address
     
-
-
     return render(request, 'user_templates/account_summary.html', {})
 
 @login_required(login_url="/login")
 @csrf_exempt
 def transfer(request):
+
     return render(request, 'user_templates/transfer.html', {})
 
 @login_required(login_url="/login")
@@ -37,7 +36,17 @@ def transfer(request):
 def transfer_step1(request):
     if request.method=="POST":
         amount = request.POST.get('amount')
+        bank_name = request.POST.get('bankname')
+        routing_number = request.POST.get('sortcode')
+        account_number = request.POST.get('accountnumber')
+        account_holder = request.POST.get('accountholder')
+        description = request.POST.get('description')
     return render(request, 'user_templates/transfer_step1.html', {'amount':amount})    
+
+@login_required(login_url="/login")
+def review_transaction(request):
+
+    return render(request, 'user_templates/review_transaction.html',)    
 
 @login_required(login_url="/login")
 def transasction_successful(request):

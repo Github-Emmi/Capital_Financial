@@ -1,6 +1,9 @@
 {% load static %}
 
 <div class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu">
+    
+    {% block sidebar %}
+
     <div class="nk-sidebar-element nk-sidebar-head" style="border-bottom: solid #fe473a;">
         <div class="nk-sidebar-brand">
             <a href="{% url 'adminapp:user_profile' %}" class="logo-link nk-sidebar-logo">
@@ -207,4 +210,7 @@ body {top:0 !important;}
             </div><!-- .nk-sidebar-content -->
         </div></div></div></div><div class="simplebar-placeholder" style="width: auto; height: 907px;"></div></div><div class="simplebar-track simplebar-horizontal" style="visibility: hidden;"><div class="simplebar-scrollbar" style="width: 0px; display: none;"></div></div><div class="simplebar-track simplebar-vertical" style="visibility: visible;"><div class="simplebar-scrollbar" style="height: 907px; transform: translate3d(0px, 0px, 0px); display: block;"></div></div></div><!-- .nk-sidebar-body -->
     </div><!-- .nk-sidebar-element -->
+
+    {% endblock sidebar %}
 </div>
+    

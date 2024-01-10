@@ -1,10 +1,70 @@
 {% extends 'user_templates/base.html' %}
 {% load static %}
+
+{% block sidebar %}
+
+<div class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu">
+    <div class="nk-sidebar-element nk-sidebar-head" style="border-bottom: solid #fe473a;">
+        <div class="nk-sidebar-brand">
+            <a href="{% url 'adminapp:user_profile' %}" class="logo-link nk-sidebar-logo">
+                <img class="logo-light logo-img" src="{% static 'account-assets/media/img/capital_logo.png' %}" srcset="{% static 'account-assets/media/img/capital_logo.png' %} 2x" alt="logo">
+                <img class="logo-dark logo-img" src="{% static 'account-assets/media/img/capital_logo.png' %}" srcset="{% static 'account-assets/media/img/capital_logo.png' %} 2x" alt="logo-dark">
+                
+            </a>
+        </div>
+        <div class="nk-menu-trigger mr-n2">
+            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
+        </div>
+    </div><!-- .nk-sidebar-element -->
+    <div class="nk-sidebar-element">
+        <div class="nk-sidebar-body" data-simplebar="init"><div class="simplebar-wrapper" style="margin: 0px;"><div class="simplebar-height-auto-observer-wrapper"><div class="simplebar-height-auto-observer">
+        </div></div><div class="simplebar-mask">
+            <div class="simplebar-offset" style="right: 0px; bottom: 0px;"><div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;"><div class="simplebar-content" style="padding: 0px;">
+            <div class="nk-sidebar-content">
+                <div class="nk-sidebar-widget d-none d-xl-block">
+                    <div class="user-account-info between-center">
+                        <div class="user-account-main">
+                            <h6 class="overline-title-alt">Available Balance</h6>
+                            <div class="user-balance">833,000 <small class="currency currency-btc">USD</small></div>
+                            <div class="user-balance-alt">3,833,000 <span class="currency currency-btc">USD</span></div>
+                        </div>
+                        <a href="#" class="btn btn-white btn-icon btn-light"><em class="icon ni ni-line-chart"></em></a>
+                    </div>
+                    <ul class="user-account-data gy-1">
+                        <li>
+                            <div class="user-account-label">
+                                <span class="sub-text">Income</span>
+                            </div>
+                            <div class="user-account-value">
+
+                                <span class="text-success ml-2">66.12% <em class="icon ni ni-arrow-long-up"></em></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-account-label">
+                                <span class="sub-text">Debits</span>
+                            </div>
+                            <div class="user-account-value">
+                               <span class="text-danger ml-2">24.18% <em class="icon ni ni-arrow-long-down"></em></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="user-account-actions">
+                        <ul class="g-3">
+                            <li><a href="{% url 'adminapp:transfer' %}" class="btn btn-lg btn-primary"><span><em class="icon ni ni-arrow-long-right"></em> Transfer</span></a></li>
+                            <li><a href="pay-bills" class="btn btn-lg btn-secondary"><span><em class="icon ni ni-arrow-long-right"></em> Pay Bills</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+{% endblock sidebar %}
+
+
 {% block main_content %}
 
 
 <div class="nk-content">
-             <div class="nk-content nk-content-fluid">
+           <div class="nk-content nk-content-fluid">
                         <div class="container-xl wide-lg">
                             <div class="nk-content-body">
                                 <div class="buysell wide-xs m-auto">
@@ -13,87 +73,16 @@
                                     </div><!-- .buysell-title -->
                                                                        <form action="" method="post">
                                                                         {% csrf_token %}
-                                           <div class="resultForTwo">
-
-                                            <script>document.getElementById('bankname').style.borderColor='green';</script>
-                                            <script>document.getElementById('sortcode').style.borderColor='green';</script>
-                                            <script>document.getElementById('accountholder').style.borderColor='green';</script>
-                                            <script>document.getElementById('accountnumber').style.borderColor='green';</script>
-                                            <script>$("#modalAlert").modal("show"); </script>
-
-                                           </div>
+                                           
                                         <div class="card card-preview">
                                             <div class="card-inner">
                                                 <div class="preview-block">
-                                                    <span class="preview-title-lg text-primary overline-title">Amount to transfer: {{ amount }}</span>
-                                                    <div class="row">
-                                                        <div class="col-lg-12 col-sm-12 p-2">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap focused">
-                                                                    <div class="form-icon form-icon-right">
-                                                                        <em class="icon ni ni-template"></em>
-                                                                    </div>
-
-                                                                    <!-- @sBank list -->
-                                                                    {% include "user_templates/includes/bank.html" %}
-                                                                    <!-- @eBank list -->
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 p-2">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-right">
-                                                                        <em class="icon ni ni-card-view"></em>
-                                                                    </div>
-                                                                    <input type="text" class="form-control form-control-xl form-control-outlined" name="sortcode" id="sortcode">
-                                                                    <label class="form-label-outlined" for="sortcode">Bank routing number</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6 col-sm-6 p-2">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-right">
-                                                                        <em class="icon ni ni-card-view"></em>
-                                                                    </div>
-                                                                    <input type="text" class="form-control form-control-xl form-control-outlined" name="accountnumber" id="accountnumber">
-                                                                    <label class="form-label-outlined" for="accountnumber">Account Number:</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                   
-                                                        <div class="col-lg-12 col-sm-12 p-2">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-right">
-                                                                    <em class="icon ni ni-user-alt"></em>
-                                                                    </div>
-                                                                    <input type="text" class="form-control form-control-xl form-control-outlined" name="accountholder" id="accountholder">
-                                                                    <label class="form-label-outlined" for="accountholder">Account holder:</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                         <div class="col-lg-12 col-sm-12 p-2">
-                                                            <div class="form-group">
-                                                                <div class="form-control-wrap">
-                                                                    <div class="form-icon form-icon-right">
-                                                                        <em class="icon ni ni-chat-fill"></em>
-                                                                    </div>
-                                                                    <input type="text" class="form-control form-control-xl form-control-outlined" name="description" id="description">
-                                                                    <label class="form-label-outlined" for="accountholder">Description(optional):</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    
+                                                    
                                                     <div class="buysell-field form-action">
                                                         <!-- Modal Trigger Code -->
-                                                        <a class="buysell-cc-opt" href="{% url 'adminapp:review_transaction' %}">
-                                                            <button type="button" class="btn btn-lg btn-block btn-primary">Continue to next step</button>
-                                                        </a>
+                                                        
 <!-- Modal Content Code -->
-<div class="modal fade show" tabindex="-1" id="modalDefault">   
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">      
        <div class="modal-content">
            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
@@ -169,7 +158,6 @@
            </div><!-- .modal-body -->
        </div><!-- .modal-content -->
        </div>
-   </div>
                                                 <br>
                                                 <p> </p>
                                                 <center>
@@ -235,3 +223,8 @@
          </script>
     
     {% endblock custom_js %}
+
+
+
+
+
