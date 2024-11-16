@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn school_management_system.wsgi
+web: gunicorn bank_project.wsgi
