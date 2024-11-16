@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Country, State, Profile, User, Beneficiary_Security_Details, Deposit, Transfer, Balance
+from .models import * 
+# Country, State, Profile, User, Beneficiary_Security_Details, Deposit, Transfer, Balance
 # Register your models here.
 
 @admin.register(Country)
@@ -17,7 +18,17 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ['user','date_of_birth','country','state',]
     list_filter = ['user',]
 
+@admin.register(Deposit)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['txnId','amount','date','action', 'user_id']
+
+@admin.register(Transfer)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['txnId','amount','date','action', 'user_id']
+
+
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['first_name','last_name','email']
+    list_display = ['email','first_name','last_name','account_number','id']
 

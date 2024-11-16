@@ -31,10 +31,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <div class="user-toggle">
                                 <div class="user-avatar sm">
-                                    {% if user.avatar %}  
-                                    <!-- <em class="icon ni ni-user-alt"></em> -->
-                                    <img src="media/{{user.avatar}}" alt="">
-                                    {% endif %}  
+                                    <!-- {% if user.avatar %}   -->
+                                    <em class="icon ni ni-user-alt"></em>
+                                    <!-- <img src="media/{{user.avatar}}" alt=""> -->
+                                    <!-- {% endif %}   -->
                                 </div>
                                 <div class="user-info d-none d-md-block">
                                     <div class="user-status user-status-verified">Connected</div>
@@ -46,7 +46,9 @@
                             <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
                                 <div class="user-card">
                                     <div class="user-avatar">
-                                        <span>{{ first_initial }}</span>
+                                        <!-- <span> -->
+                                            <img src="media/{{user.avatar}}" alt="">
+                                        <!-- </span> -->
                                     </div>
                                     <div class="user-info">
                                         <span class="lead-text">{{user.get_full_name}} </span>
@@ -56,8 +58,8 @@
                             </div>
                             <div class="dropdown-inner user-account-info">
                                 <h6 class="overline-title-alt">{{user.profile.account_type}}</h6>
-                                <div class="user-balance">    3,833,000 <small class="currency currency-btc">USD</small></div>
-                                <div class="user-balance-sub">Local <span>3,833,000 <span class="currency currency-btc">USD</span></span></div>
+                                <div class="user-balance">   usd equivalent <small class="currency currency-btc">USD</small></div>
+                                <div class="user-balance-sub">Local <span>{{user.bal}} <span class="currency currency-btc">{{user.profile.Currency_type}}</span></span></div>
                                 <a href="{% url 'adminapp:transfer' %}" class="link"><span>Transfer Funds</span> <em class="icon ni ni-wallet-out"></em></a>
                             </div>
                             <div class="dropdown-inner">

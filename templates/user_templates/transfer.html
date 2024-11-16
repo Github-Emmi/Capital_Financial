@@ -73,42 +73,8 @@
                                                                     <div class="buysell-block">
                                         <form action="{% url 'adminapp:transfer_step1' %}" method="post" class="buysell-form" id="myForm">
                                             {% csrf_token %}
-                                            <div class="buysell-field form-group">
-                                                <div class="form-label-group">
-                                                    <label class="form-label">Select Account</label>
-                                                </div>
-                                                <input type="hidden" value="btc" name="bs-currency" id="buysell-choose-currency">
-                                                <div class="dropdown buysell-cc-dropdown">
-                                                    <a href="#" class="buysell-cc-choosen dropdown-indicator" data-toggle="dropdown">
-                                                        <div class="coin-item coin-btc">
-                                                            <div class="coin-icon">
-                                                                <em class="icon ni ni-sign-usd"></em>
-                                                            </div>
-                                                            <div class="coin-info">
-                                                                <span class="coin-name">Business Account (USD)</span>
-                                                                <span class="coin-text">Available Balance: USD 3,792,950.00</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
-                                                        <ul class="buysell-cc-list">
-                                                            <li class="buysell-cc-item selected">
-                                                                <a href="#" class="buysell-cc-opt" data-currency="btc">
-                                                                    <div class="coin-item coin-btc">
-                                                                        <div class="coin-icon">
-                                                                            <em class="icon ni ni-sign-usd"></em>
-                                                                        </div>
-                                                                        <div class="coin-info">
-                                                                            <span class="coin-name">Business Account (USD)</span>
-                                                                            <span class="coin-text">Available Balance:USD 3,792,950.00</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div><!-- .dropdown-menu -->
-                                                </div><!-- .dropdown -->
-                                            </div><!-- .buysell-field -->
+                                            {% include "user_templates/includes/account_type.html" %}
+                                            
                                             <div class="buysell-field form-group">
                                                 <div class="result"></div>
                                                 <div class="form-label-group">

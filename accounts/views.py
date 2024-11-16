@@ -2,7 +2,7 @@ from .modules import *
 
 # Create your views here
 
-from .forms import LoginForm, SignUpForm, EmploymentInfo,ImageForm
+from .forms import LoginForm, SignUpForm, EmploymentInfo,ImageForm, forgotPassForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
@@ -12,6 +12,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.tokens import default_token_generator
+
 
 
 
@@ -152,7 +154,7 @@ def enroll_step3(request):
                     first_name=first_name,
                     last_name=last_name
                )
-               print(user)
+          
                if user:
                     # state,country,dob,
                     Profile.objects.create(
@@ -230,18 +232,21 @@ def enroll_step4(request,uidb64):
                return redirect('/enroll-step5/'+uidb64)     
      return render(request, 'account_templates/enroll_step4.html', {"form": form, "msg": msg})
 
-def send_activation_email(self, user):
-        """Send activation email to user"""
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        token = default_token_generator.make_token(user)
-        activation_url = reverse('accounts:activate_email', kwargs={
-                                  'uidb64': uid, 'token': token})
-        activation_url = self.request.build_absolute_uri(activation_url)
-        context = {'user': user, 'activation_url': activation_url}
-        message = render(
-            self.request, 'accounts/activation_email.html', context)
-        user.email_user(subject='Activate your account',
-                         message=message.content.decode('utf-8'))
+
+def activate_email(request, uidb64, token):
+    """View to activate user account"""
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Your account has been activated. You can now login.')
+    else:
+        messages.error(request, 'Invalid activation link.')
+    return HttpResponseRedirect(reverse_lazy('accounts:user_login'))
 
 
 
@@ -259,7 +264,11 @@ def enroll_step5(request, uidb64):
                if 'avatar' in request.FILES:
                     user.avatar = request.FILES['avatar']
                     user.save()
-                    send_activation_email()
+                    context = {'user': user}
+                    message = render(request, 'account_templates/activation_email.html', context)
+        
+                    user.email_user(subject='Activate your account',message=message.content.decode('utf-8'))
+
                     return redirect('/enroll-complete/'+uidb64)
                else:
                     msg = 'Picture could not be uploaded'    
@@ -270,8 +279,12 @@ def enroll_step5(request, uidb64):
 
 
 
-def enroll_complete(request):
-     return render(request, 'account_templates/enroll_complete.html', {})
+def enroll_complete(request, uidb64):
+     uid = urlsafe_base64_decode(uidb64).decode()
+     UserModel = get_user_model()
+     user = UserModel.objects.get(id=uid)
+
+     return render(request, 'account_templates/enroll_complete.html', {'user':user})
 
 # class enroll_complete(TemplateView):
 #     """View upon successfull registration"""
@@ -307,6 +320,10 @@ def enroll_complete(request):
 #             )
 #         )
 
+def forgot_password(request):
+     form = forgotPassForm(request.POST or None)
+     return render(request, 'account_templates/forgot_password.html', {'form':form}) 
+
     
 
 def LogoutView(request):
@@ -318,6 +335,5 @@ def LogoutView(request):
 
 def load_cities(request):
     country_id = request.GET.get('country_id')
-    print(country_id)
     cities = State.objects.filter(country_id=country_id).order_by('name')
     return render(request, 'account_templates/dropdown.html', {'cities': cities})

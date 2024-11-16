@@ -3,7 +3,14 @@
 {% block main_content %}
 
 <div class="nk-content nk-content-fluid">
-                   
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message}}
+    </div>
+{% endfor %}
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-head-content">
             <div class="nk-block-title-group">
@@ -26,30 +33,27 @@
                 </tr>
             </thead>
             <tbody>
-                                                            <tr>
+                <!-- <tr>
                     <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
                     <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
                     <td class="tb-col-time"><span class="sub-text">16 Nov 23, 20:18 pm</span></td>
                     
-                </tr>
-                                                           <tr>
-                    <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
-                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
-                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 18:48 pm</span></td>
+                </tr> -->
+                <tr>
+                    <td class="tb-col-os">{{activity.os_type}}/{{activity.browser_type}}</td>
+                    <td class="tb-col-ip"><span class="sub-text">{{activity.ip}}</span></td>
+                    <td class="tb-col-time"><span class="sub-text">{% now "d F Y H:i" %}</span></td>
                     
                 </tr>
-                                                           <tr>
-                    <td class="tb-col-os">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36</td>
-                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
-                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 17:02 pm</span></td>
+                {% for log in logs %}           
+
+                <tr>
+                    <td class="tb-col-os">{{log.os_type}}/{{log.browser_type}}</td>
+                    <td class="tb-col-ip"><span class="sub-text">{{log.ip}}</span></td>
+                    <td class="tb-col-time"><span class="sub-text">{{log.time}}</span></td>
                     
                 </tr>
-                                                           <tr>
-                    <td class="tb-col-os">Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36</td>
-                    <td class="tb-col-ip"><span class="sub-text">129.205.124.219</span></td>
-                    <td class="tb-col-time"><span class="sub-text">16 Nov 23, 14:06 pm</span></td>
-                    
-                </tr>
+      {% endfor %}   
                                                        </tbody>
         </table>
     </div><!-- .card -->

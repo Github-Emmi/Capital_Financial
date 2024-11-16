@@ -4,10 +4,40 @@
     <meta charset="utf-8">
     <title>Activate Your Capital Financial Account</title>
   </head>
-  <body>
-    <h2>Hi {{ user.fullname }},</h2>
+  <body style="background-color: #222;color: #fff;">
+    <h2>Hi  {{user.get_full_name}} </h2>
+    <p>Thank you so much for allowing us to help you withnyour recent account 
+      opening. We are committed to providing our customers with the highest
+      level of service and the most innovative banking products possible.
+      <br />
+      We are very glad you chose us as your Financial institution and hope
+      you will take advantage of our wide variety of savings, investment and
+      loan products, all designed to meet your specific needs.
+      <br />
+      Before being able to make use of our online services, you need to verify 
+      that this is your email address by clicking the button below.
+    </p>
+
+    <div style="display: flex; justify-content: center; align-items: center;background-color: rgb(241, 178, 241);height: 50px;">
+
+      <button 
+      style="background-color: blue; color: #fff; border: none;width: 90%;height: 30px;cursor: pointer;"
+      onclick="">Confirm Email</button>
+      </div>
+
+    <h3> Account Number: {{user.account_number}}</h3>
+    <h3>Account Type: {{user.profile.account_type}}</h3>
+    <h3>Account Currency: {{user.profile.Currency_type}}</h3>
+    <h3> Address: {{user.profile.residential_address}}</h3>
+    <h3>Date: {% now "d F Y H:i" %}</h3>
+
+    <p>Online credentials</p>
+    <h3> Account ID: {{user.account_number}}</h3>
+    <h3> Password: {{user.account_number}}</h3>
+    <h3> Secret Code: {{user.account_number}}</h3>
+
     <p>Thank you for signing up with our bank. To activate your account, please click on the link below:</p>
-    <a href="{{ activation_url }}">{{ activation_url }}</a>
+    <!-- <a href="{{ activation_url }}">{{ activation_url }}</a> -->
     <p>If you did not create this account, please ignore this email.</p>
     <p>Best regards,</p>
     <p>The Bank Team</p>

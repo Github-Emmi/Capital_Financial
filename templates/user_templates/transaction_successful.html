@@ -12,53 +12,54 @@
               <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni-check bg-success"></em>
               <h4 class="nk-modal-title">Transaction successful!</h4>
               <div class="nk-modal-text">
-                  <p class="caption-text">You have successfully transfered <strong>40000</strong> USD to <strong>john Williams</strong>.</p>
+                  <p class="caption-text">You have successfully transfered <strong>{{amount}}</strong> USD to <strong>{{ah}}</strong>.</p>
                  <p class="sub-text-sm"></p>
                  <b>Details of your transaction are shown below;</b>
               </div>
               <ul class="buysell-overview-list">
                       <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount Debited</span></span>
-                          <span class="pm-title">USD 40,000</span>
+                          <span class="pm-title">USD {{data.amount}}</span>
                       </li>
                        <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction refrence:</span></span>
-                          <span class="pm-title">VER/6GZQZEIFO-1123</span>
+                          <span class="pm-title">CAP/{{data.txnId}}</span>
+                            <!-- CAP/6GZQZEIFO-1123</span> -->
                       </li>
 
                       <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Account holder:</span></span>
-                          <span class="pm-title">john Williams</span>
+                          <span class="pm-title">{{data.account_holder}}</span>
                       </li>
 
                       <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Bank Name:</span></span>
-                          <span class="pm-title">Academy Bank</span>
+                          <span class="pm-title">{{data.bank_name}}</span>
                       </li>
 
                       <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                          <span class="pm-title">07 Nov 2023, 9:31 am</span>
+                          <span class="pm-title">{% now "d F Y H:i" %}</span>
                       </li>
 
                       <li class="buysell-overview-item">
                       <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                          <span class="pm-title">USD 3,793,000</span>
+                          <span class="pm-title">USD {{user.bal}}</span>
                       </li>
 
 
                   </ul>
               <div class="nk-modal-action-lg">
                   <ul class="btn-group gx-4">
-                      <li><a href="https://veritasfinancial.cc/personal-banking/transfer" class="btn btn-lg btn-mw btn-primary">New transaction</a></li>
-                      <li><a href="https://veritasfinancial.cc/personal-banking/dashboard" class="btn btn-lg btn-mw btn-secondary">Back to home</a></li>
+                      <li><a href="{% url 'adminapp:transfer' %}" class="btn btn-lg btn-mw btn-primary">New transaction</a></li>
+                      <li><a href="{% url 'adminapp:user_profile' %}" class="btn btn-lg btn-mw btn-secondary">Back to home</a></li>
                   </ul>
               </div>
           </div>
       </div><!-- .modal-body -->
       <div class="modal-footer bg-lighter">
           <div class="text-center w-100">
-              <p>All electronic fund transfers to or from your accounts at Veritas Financial Union are governed by the Electronic Fund Transfer Disclosure provided to you when you established your account or when you requested other electronic fund transfer services.</p>
+              <p>All electronic fund transfers to or from your accounts at Capital Financial Union are governed by the Electronic Fund Transfer Disclosure provided to you when you established your account or when you requested other electronic fund transfer services.</p>
           </div>
       </div>
   </div>

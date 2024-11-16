@@ -48,7 +48,7 @@
                                     <div class="col-sm-7">
                                         <h2>Discover our new 82% mortgages</h2>
                                         <p>If you’re thinking of buying your dream home, we’re here to help seven days a week (except bank holidays). Call our mortgage experts any day.</p>
-                                        <a href="https://veritasfinancial.cc/first-time-buyers">Find out more</a>
+                                        <a href="">Find out more</a>
                                         <p></p>
                                     </div>
                                     <div class="col-sm-5">
@@ -221,6 +221,8 @@
 				            {% csrf_token %} 
                              
                             <h3>Login Here</h3>
+                            <h6 style="color: rgb(190, 36, 36);">{{msg}}</h6>
+
                              <div class="logResult"></div>
                               &nbsp;	
                               <div class="form-group">
@@ -257,7 +259,7 @@
                                     <a href="{% url 'accounts:enroll_step1' %}">Not enrolled? Sign up now.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <a href="customer_reset">Forget Password.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
+                                    <a href="{% url 'accounts:forgot_password' %}">Forget Password.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
                                 </div></center>
                               </div>
                          </form>

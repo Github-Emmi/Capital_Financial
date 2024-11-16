@@ -9,8 +9,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
-from .choices import Title,Employment,Gender,Status, Salary,Account_Type,nok_Age,Security_Question_One,Security_Question_Two,Currency
-
+from .choices import Title,Employment,Gender,Status,Salary,Account_Type,nok_Age,Security_Question_One,Security_Question_Two,Currency,nok_relationship
+from django.core.mail import EmailMessage, get_connection
 
 
 
@@ -72,8 +72,8 @@ class State(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
-    first_name = models.CharField(('first name'), max_length=30, blank=True)
-    last_name = models.CharField(('middle name'), max_length=30, blank=True)
+    first_name = models.CharField(('first name'), max_length=30)
+    last_name = models.CharField(('middle name'), max_length=30)
     
     
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
@@ -81,6 +81,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
+    bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
     objects = UserManager()
 
@@ -102,13 +103,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         '''
         Returns the short name for the user.
         '''
-        return self.first_name
+        short_name = '%s %s' % (self.first_name[:1],self.last_name[:1])
+        return short_name.strip()
+    
 
     def email_user(self, subject, message, from_email=None, **kwargs):
+
         '''
         Sends an email to this User.
         '''
-        send_mail(subject, message, from_email, [self.email], **kwargs)
+        with get_connection(
+            host=settings.EMAIL_HOST,
+            port=settings.EMAIL_PORT,
+            username=settings.EMAIL_HOST_USER,
+            password=settings.EMAIL_HOST_PASSWORD,
+            use_tls=settings.EMAIL_USE_TLS
+            )as connection:
+            email=EmailMessage(subject, message, from_email, [self.email],connection=connection, **kwargs)
+            email.send()
 
 
 
@@ -129,16 +141,16 @@ def create_author(sender, instance, created, **kwargs):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    middle_name = models.CharField(('last name'), max_length=30, blank=True)
-    nick_name = models.CharField(('nick name'), max_length=30, blank=True)
-    date_of_birth = models.DateField(('date of birth'), max_length=30, blank=True)
+    middle_name = models.CharField(('last name'), max_length=30)
+    nick_name = models.CharField(('nick name'), max_length=30)
+    date_of_birth = models.DateField(('date of birth'), max_length=30)
     zip_code = models.PositiveIntegerField(('zip code'))
-    residential_address = models.CharField(('residential address'), max_length=300, blank=True)
+    residential_address = models.CharField(('residential address'), max_length=300)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, blank=True, null=True)
-    city = models.CharField(('city'),max_length=55, blank=True)
-    ssn = models.CharField(('ssn'), max_length=30, blank=True)
-    phone_number = models.CharField(('phone number'), max_length=30, blank=True)
+    city = models.CharField(('city'),max_length=55)
+    ssn = models.CharField(('ssn'), max_length=30)
+    phone_number = models.CharField(('phone number'), max_length=30)
     
     title = models.CharField(max_length=17, choices=Title, default='none')
     gender = models.CharField(max_length=17, choices=Gender, default='none')
@@ -153,7 +165,7 @@ class Beneficiary_Security_Details(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     beneficiary_legal_name = models.CharField(('ben_legal_name'), max_length=30, blank=True)
     nok_address = models.CharField(('next of kin address'), max_length=300, blank=True)
-    nok_relationship = models.CharField(max_length=37, choices=Account_Type, default='none')
+    nok_relationship = models.CharField(max_length=37, choices=nok_relationship, default='none')
     nok_age = models.CharField(max_length=37, choices=nok_Age, default='none')
     
     employment_type = models.CharField(max_length=37, choices=Employment, default='none')
@@ -173,31 +185,35 @@ class Deposit(models.Model):
     txnType = models.CharField(max_length=10,default="Credit", editable=False)
     amount = models.CharField(max_length=30)
     action = models.CharField(max_length=200)
-    status = models.CharField(max_length=50, choices=Status, default='pending')
+    status = models.CharField(max_length=50, choices=Status, default='Successful')
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-            return f'Deposit details {self.Deposit.txnId}'
+            return f'Deposit details {self.txnId}'
 
 
 class Transfer(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     txnId = models.UUIDField(default=uuid.uuid4, editable=False)
     txnType = models.CharField(max_length=10,default="Debit", editable=False)
-    amount = models.CharField(max_length=30)
-    action = models.CharField(max_length=30)
-    status = models.CharField(max_length=50, choices=Status, default='pending')
+    amount = models.CharField(max_length=30,null=True)
+    bank_name = models.CharField(max_length=30, null=True)
+    action = models.CharField(max_length=30,null=True)
+    routing_number = models.CharField(max_length=30,null=True)
+    account_number = models.CharField(max_length=30,null=True)
+    account_holder = models.CharField(max_length=60,null=True)
+    status = models.CharField(max_length=50, choices=Status, default='Successful')
     date = models.DateTimeField(auto_now_add=True)
     
 
 
     def __str__(self):
-        return f'Transfer details  {self.Transfer.txnId}'
+        return f'Transfer details  {self.txnId}'
 
 
 
 class Balance(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dep = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="deposits")
     trans = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="transfers")
     bal = models.IntegerField()
@@ -212,3 +228,6 @@ class Balance(models.Model):
 # @receiver(post_save, sender=Book)
 # def save_author(sender, instance, **kwargs):
 #     instance.author.save()
+
+
+

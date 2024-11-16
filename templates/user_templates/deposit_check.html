@@ -2,6 +2,14 @@
 {% load static %}
 {% block main_content %}
 <div class="nk-content nk-content-fluid">
+  {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message}}
+    </div>
+{% endfor %}
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
             <div class="nk-block-head">
@@ -35,39 +43,18 @@
 </p>
 <hr>
 <form action="" method="post" class="buysell-form" enctype="multipart/form-data"> 
-            <div class="buysell-field form-group"> 
-<div class="form-label-group"> 
-    <label class="form-label">Select Account</label> 
-</div>
-<div class="dropdown buysell-cc-dropdown"> <a href="#" class="buysell-cc-choosen dropdown-indicator" data-toggle="dropdown"> <div class="coin-item coin-btc"> 
-    <div class="coin-icon"> 
-        <em class="icon ni ni-sign-usd"></em> 
-    </div> 
-    <div class="coin-info"> 
-        <span class="coin-name">Business Account (USD)</span> 
-        <span class="coin-text">Available Balance: USD     3,792,750</span> 
-    </div> 
-</div> </a>
-<div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
-<ul class="buysell-cc-list"> 
-  <li class="buysell-cc-item selected"> 
-      <a href="#" class="buysell-cc-opt" data-currency="btc">
-       <div class="coin-item coin-btc"> 
-           <div class="coin-icon"> 
-               <em class="icon ni ni-sign-usd"></em>
-                </div> 
-                <div class="coin-info"> 
-                    <span class="coin-name">Business Account (USD)</span> 
-                    <span class="coin-text">Available Balance:    USD 3,792,750        	  		 		 		
-                    </span> 
-           </div>
-       </div>
-      </a>
-   </li>
- </ul> 
-</div><!-- .dropdown-menu --> </div><!-- .dropdown --> </div><!-- .buysell-field --> <div class="buysell-field form-group"> <div class="result"></div> <div class="form-label-group"> <label class="form-label" for="buysell-amount">Check Amount</label> </div> <div class="form-control-group"> 
-    <input type="number" class="form-control form-control-lg form-control-number" id="amount" name="amount" placeholder="2000"> <div class="form-dropdown"> <div class="text">USD<span></span></div> </div> </div> <div class="form-note-group"> <span class="buysell-min form-note-alt"></span> <span class="buysell-rate form-note-alt">You can deposit upto USD for each federal check</span> </div> </div>
-<!-- .buysell-field --> 
+    {% csrf_token %} 
+
+    <div class="form-label-group">
+      <label class="form-label">Select Account</label>
+  </div>
+    {% include "user_templates/includes/account_type.html" %}
+    
+
+<div class="form-label-group"> <label class="form-label" for="buysell-amount">Check Amount</label> </div> <div class="form-control-group"> 
+    <!-- <input type="number" class="form-control form-control-lg form-control-number" id="amount" name="amount" placeholder="2000"> <div class="form-dropdown"> <div class="text">USD<span></span></div> </div> </div> <div class="form-note-group"> <span class="buysell-min form-note-alt"></span> <span class="buysell-rate form-note-alt">You can deposit upto USD for each federal check</span> </div> </div> -->
+{{ form.amount}}
+    <!-- .buysell-field --> 
 <div class="buysell-field form-group row">
 <div class="form-group col-md-6">
 <label class="form-label" for="customFileLabel">Front of the check</label>
@@ -77,7 +64,8 @@
 <p class="clear-fix"></p>
 <div class="form-control-wrap">
 <div class="custom-file">
-<input type="file" name="fileToUpload" class="custom-file-input" id="fileTag" accept="image/*" onchange="preview_imageB(event)">
+<!-- <input type="file" name="fileToUpload" class="custom-file-input" id="fileTag" accept="image/*" onchange="preview_imageB(event)"> -->
+{{ form.front_check}}
 <label class="custom-file-label" for="customFile">Choose file</label>
 </div>
 </div>
@@ -90,32 +78,92 @@
 <p class="clear-fix"></p>
 <div class="form-control-wrap">
 <div class="custom-file">
-<input type="file" class="custom-file-input" name="back" accept="image/*" onchange="preview_image(event)">
+<!-- <input type="file" class="custom-file-input" name="back" accept="image/*" onchange="preview_image(event)"> -->
+{{form.back_check}}
+
 <label class="custom-file-label" for="customFile">Choose file</label>
 </div>
 </div>
 </div>
 <script type="text/javascript">
-function preview_image(event) 
-{
-var reader = new FileReader();
-reader.onload = function()
-{
-var output = document.getElementById('output_image');
-output.src = reader.result;
-}
-reader.readAsDataURL(event.target.files[0]);
-}
-function preview_imageB(event) 
-{
-var reader = new FileReader();
-reader.onload = function()
-{
-var output = document.getElementById('output_imageB');
-output.src = reader.result;
-}
-reader.readAsDataURL(event.target.files[0]);
-}
+
+var fileTag = document.getElementById("filetag")
+var fileTag_back = document.getElementById("filetag_back"),
+
+    preview = document.getElementById("output_imageB");
+    preview_back = document.getElementById("output_image");
+
+        
+    fileTag.addEventListener("change", function() {
+      changeImage(this);
+    });
+    
+    fileTag_back.addEventListener("change", function() {
+      changeBackImage(this);
+    })
+
+
+    function changeImage(input) {
+      var reader;
+    
+      if (input.files && input.files[0]) {
+        reader = new FileReader();
+    
+        reader.onload = function(e) {
+          preview.setAttribute('src', e.target.result);
+        }
+    
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    function changeBackImage(input) {
+      var reader;
+    
+      if (input.files && input.files[0]) {
+        reader = new FileReader();
+    
+        reader.onload = function(e) {
+          preview_back.setAttribute('src', e.target.result);
+        }
+    
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+
+
+
+
+    //  var fileTag = document.getElementById("filetag"),
+    //     preview = document.getElementById("preview");
+        
+    // fileTag.addEventListener("change", function() {
+    //   preview_image(this);
+    // });
+// function preview_image(event) 
+// {
+// var reader = new FileReader();
+// reader.onload = function()
+// {
+// var output = document.getElementById('output_image');
+// output.src = reader.result;
+// }
+// reader.readAsDataURL(event.target.files[0]);
+// }
+
+// function preview_imageB(event) 
+// {
+// var reader = new FileReader();
+// reader.onload = function()
+
+// {
+// var output = document.getElementById('output_imageB');
+// output.src = reader.result;
+
+// }
+// reader.readAsDataURL(event.target.files[0]);
+// }
 </script>
 
 </div>
@@ -124,7 +172,7 @@ reader.readAsDataURL(event.target.files[0]);
 <button type="submit" name="check" class="btn btn-lg btn-block btn-primary dep">Submit check</button> 
 </div>
 <!-- .buysell-field --> 
-<div class="form-note text-base text-center">Note: our Flash fund fee will be debucted from your account following the completion of this deposit.</div> 
+<div class="form-note text-base text-center">Note: our Flash fund fee will be deducted from your account following the completion of this deposit.</div> 
 </form>
 <!-- .buysell-form -->
 </div>

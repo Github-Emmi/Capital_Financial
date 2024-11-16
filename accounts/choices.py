@@ -14,6 +14,11 @@ Employment =(
 ("Self Employed","Politician/Celebrity"),
 )
 
+payment_method = (
+    ("check", "Check"),
+    ("Wire Transfer", "Wire Transfer"),
+)
+
 Salary =(
 ("none","Select Salary Range"),
 ("$100.00 - $500.00","$100.00 - $500.00"), 

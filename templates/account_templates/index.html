@@ -22,7 +22,7 @@
                             {% csrf_token %} 
                              
                             <h3>Account Login</h3>
-                            {{msg}}
+                            <h6 style="color: rgb(190, 36, 36);">{{msg}}</h6>
                              <div class="logResult"></div>
                               &nbsp;	
                               <div class="form-group">
@@ -60,7 +60,7 @@
                                     <a href="{% url 'accounts:enroll_step1' %}">Not enrolled? Sign up now.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
                                 </div>
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <a href="forgot_password url">Forget Password.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
+                                    <a href="{% url 'accounts:forgot_password' %}">Forget Password.<i class="fa fa-angle-right" style="margin-left: 5px;" aria-hidden="true"></i></a>
                                 </div></center>
                               </div>
                          </form>
@@ -121,7 +121,7 @@ $('.loginbtn').click(function (e) {
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/blog-1.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/advance-accounts">Up to $20,000 this tax year<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Up to $20,000 this tax year<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Make the most of your 2019/<script>
 function myFunction() {
 var d = new Date();
@@ -136,7 +136,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="../static/account-assets/media/img/appointment.jpeg" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/quality-conversations">Book an appointment<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Book an appointment<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>You can now book an appointment online. Existing customers may prefer to log on to Online Service to make booking even simpler.</span>
                         
                     </div>
@@ -146,7 +146,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/ring_fence.jpeg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/ways-we-can-help">Ring-fencing<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Ring-fencing<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>We’re changing the way bank is structured in the EU.</span>
                     </div>
                 </div>
@@ -162,7 +162,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/blog-7.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/home-insurance">Insurance<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Insurance<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Protect your family and property.</span>
                     </div>
                 </div>
@@ -171,7 +171,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/activate_card.jpeg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/32-month-balance-transfer">Activate your card<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Activate your card<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>There are several ways to easily activate your card. Choose the option that's best for you.</span>
                     </div>
                 </div>
@@ -180,7 +180,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src=".{% static 'account-assets/media/img/security.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/protecting-what-matters">Security centre<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Security centre<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Handy tips designed to help you stay safe online.</span>
                     </div>
                 </div>
@@ -189,7 +189,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/blog-4.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/contactandsupport">Helpful guides<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Helpful guides<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>A range of guides and articles from understanding APRs to saving tips.</span>
                     </div>
                 </div>
@@ -199,7 +199,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/security_key.jpeg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/investment-funds-online">Secure Key<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Secure Key<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Handy demos to help you activate, reset and use your Secure Key</span>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/voice.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/investment-funds-online">Voice ID<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Voice ID<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Make your voice your password for telephone banking</span>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/card.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/advance">Card support<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">Card support<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Activate, lost or stolen, and general card support</span>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="single-bolg hover01">
                     <figure><img src="{% static 'account-assets/media/img/credit.jpg' %}" alt="slide 1" class=""></figure>
                     <div class="blog-content">
-                        <a href="https://veritasfinancial.cc/advance">PPI<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        <a href="">PPI<i style="margin-left: 10px;" class="fa fa-angle-right" aria-hidden="true"></i></a>
                         <span>Payment Protection Insurance claim deadlines</span>
                     </div>
                 </div>
@@ -261,7 +261,7 @@ document.getElementById("demo").innerHTML = n;
                               <div class="media-body">
                                 <h2>Account questions? Just ask me.</h2>
                                 <p>I’m just a few taps away — open your Veritas® mobile app and say hello.</p>
-                                <a class="bussiness-btn-larg" href="https://veritasfinancial.cc/index">ask questions</a>
+                                <a class="bussiness-btn-larg" href="">ask questions</a>
                               </div>
                             </div>
                         </div>		
@@ -282,7 +282,7 @@ document.getElementById("demo").innerHTML = n;
                 <div class="cta-content">
                     <h2>Open our most popular savings account</h2>
                     <h3>Apply for a new Savings<sup>℠</sup> account in minutes.</h3>
-                    <a href="https://veritasfinancial.cc/register" class="bussiness-btn-larg">apply Now</a>
+                    <a href="" class="bussiness-btn-larg">apply Now</a>
                 </div>									
             </div>		
         </div>		

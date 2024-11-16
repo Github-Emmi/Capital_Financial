@@ -2,6 +2,14 @@
 {% load static %}
 {% block main_content %}
 <div class="nk-content nk-content-fluid">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message}}
+    </div>
+{% endfor %}
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
             <div class="nk-block-head">
@@ -21,7 +29,7 @@
                     <a class="nav-link" href="{% url 'adminapp:account_settings' %}">Security</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://veritasfinancial.cc/personal-banking/profile#">Notifications</a>
+                    <a class="nav-link" href="#">Notifications</a>
                 </li>
             </ul><!-- .nk-menu -->
             <!-- NK-Block @s -->
@@ -48,49 +56,49 @@
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit">
                         <div class="data-col">
                             <span class="data-label">Full Name</span>
-                            <span class="data-value">Michael  Wilson  James </span>
+                            <span class="data-value">{{user.get_full_name}} {{user.profile.middle_name}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit">
                         <div class="data-col">
                             <span class="data-label">Display Name</span>
-                            <span class="data-value">Wilson </span>
+                            <span class="data-value">{{user.profile.nick_name}} </span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item">
                         <div class="data-col">
                             <span class="data-label">Email</span>
-                            <span class="data-value">michealwilson19761</span>
+                            <span class="data-value">{{user.email}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-lock-alt"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit">
                         <div class="data-col">
                             <span class="data-label">Phone Number</span>
-                            <span class="data-value text-soft">+1 (716) 436-1972</span>
+                            <span class="data-value text-soft">{{user.profile.phone_number}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit">
                         <div class="data-col">
-                            <span class="data-label">Security Question</span>
-                            <span class="data-value">your favorite music?</span>
+                            <span class="data-label">Security Question 1</span>
+                            <span class="data-value">{{user.beneficiary_security_details.sq1_select}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit">
                         <div class="data-col">
                             <span class="data-label">Security Answer</span>
-                            <span class="data-value">Post Malone goodbyes </span>
+                            <span class="data-value">{{user.beneficiary_security_details.sq1_answer}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->
                     <div class="data-item" data-toggle="modal" data-target="#profile-edit" data-tab-target="#address">
                         <div class="data-col">
                             <span class="data-label">Address</span>
-                            <span class="data-value">4906 SW 154th Ct Miami, FL 33185 </span>
+                            <span class="data-value">{{user.profile.residential_address}}</span>
                         </div>
                         <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                     </div><!-- .data-item -->

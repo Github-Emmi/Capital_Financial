@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
 <link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
 <link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+
 {% endblock custom_css %}
 {% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
 
@@ -97,7 +98,7 @@
 		        	<div id="form-total">
 		        		<!-- SECTION 1 -->
 			             
-			            <section style="width100%; align:center; padding:10px;">
+			            <section style="width:100%; align:center; padding:10px;">
 			                <div class="inner">
 							
 							<div class="errorMessage" align="center">&nbsp;</div>
@@ -173,8 +174,10 @@
 		<span id="sprytf_dob">
 			<fieldset>
 				<legend>Date of Birth</legend>
-			{{ form.date_of_birth }}
+			{{ form.date_of_birth}}
+			
 			</fieldset>
+			
 			 <br>
 				</span>
 		</div>
@@ -292,7 +295,6 @@
 	<button type="submit" class="firststep" style="width: 250px; height:50px; background-color: green; color: white; font-size: 19px;">continue </button>
 	</div></section></div></form>
 	<a style="padding-left: 20px;" href="{% url 'accounts:login' %}">Already registered?  Login Here</a>
-	<a style="padding-left: 20px;" href="">Already registered?  Login Here</a>
 	  <br><br><br><br>
 	    </div>    
 		   </div>       

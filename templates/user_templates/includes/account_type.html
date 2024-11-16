@@ -1,0 +1,37 @@
+
+
+<div class="buysell-field form-group">
+    
+    <input type="hidden" value="btc" name="bs-currency" id="buysell-choose-currency">
+    <div class="dropdown buysell-cc-dropdown">
+        <a href="#" class="buysell-cc-choosen dropdown-indicator" data-toggle="dropdown">
+            <div class="coin-item coin-btc">
+                <div class="coin-icon">
+                    <em class="icon ni ni-sign-usd"></em>
+                </div>
+                <div class="coin-info">
+                    <span class="coin-name">{{user.profile.account_type}} ({{user.profile.Currency_type}})</span>
+                    <span class="coin-text">Available Balance: {{user.profile.Currency_type}} {{user.bal}}</span>
+                </div>
+            </div>
+        </a>
+        <!-- <div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
+            <ul class="buysell-cc-list">
+                <li class="buysell-cc-item selected">
+                    <a href="#" class="buysell-cc-opt" data-currency="btc">
+                        <div class="coin-item coin-btc">
+                            <div class="coin-icon">
+                                <em class="icon ni ni-sign-usd"></em>
+                            </div>
+                            <div class="coin-info">
+                                <span class="coin-name">Business Account (USD)</span>
+                                <span class="coin-text">Available Balance:USD 3,792,950.00</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+        <!-- .dropdown-menu -->
+    </div><!-- .dropdown -->
+</div><!-- .buysell-field -->

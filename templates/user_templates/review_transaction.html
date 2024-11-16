@@ -25,8 +25,8 @@
                     <div class="user-account-info between-center">
                         <div class="user-account-main">
                             <h6 class="overline-title-alt">Available Balance</h6>
-                            <div class="user-balance">833,000 <small class="currency currency-btc">USD</small></div>
-                            <div class="user-balance-alt">3,833,000 <span class="currency currency-btc">USD</span></div>
+                            <div class="user-balance">{{user.bal}} <small class="currency currency-btc">USD</small></div>
+                             <div class="user-balance-alt">{{user.bal}} <span class="currency currency-btc">USD</span></div>
                         </div>
                         <a href="#" class="btn btn-white btn-icon btn-light"><em class="icon ni ni-line-chart"></em></a>
                     </div>
@@ -71,6 +71,15 @@
                                     <div class="buysell-title text-center">
                                         <h2 class="title">Capital Funding Financial Online Service Transfer.</h2>
                                     </div><!-- .buysell-title -->
+                                    <form>
+                                        <input type="hidden" id="amount" value="{{amount}}" name="amount">
+                                        <input type="hidden" id="bank_name" value="{{bank_name}}" name="bank_name">
+                                        <input type="hidden" id="account_number" value="{{account_number}}" name="account_number">
+                                        <input type="hidden" id="account_holder" value="{{account_holder}}" name="account_holder">
+                                        <input type="hidden" id="routing_no" value="{{routing_number}}" name="routing_no">
+                                        <input type="hidden" id="description" value="{{description}}" name="description">
+
+                                    </form>
                                                                        <form action="" method="post">
                                                                         {% csrf_token %}
                                            
@@ -85,7 +94,7 @@
 <!-- Modal Content Code -->
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">      
        <div class="modal-content">
-           <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+           <a href='{% url "adminapp:transfer" %}' class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
            <div class="modal-body modal-body-lg">
                <div class="nk-block-head nk-block-head-xs text-center">
                    <h5 class="nk-block-title">Review transaction</h5>
@@ -98,27 +107,27 @@
                        <ul class="buysell-overview-list">
                            <li class="buysell-overview-item">
                            <span class="pm-title"><em class="icon ni ni-alert-circle"></em> <span>Amount</span></span>
-                               <span class="pm-title">USD 30</span>
+                               <span class="pm-title">{{amount}}</span>
                            </li>
                            <li class="buysell-overview-item">
                                <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Bank Name</span>
-                               <span class="pm-currency">Academy Bank</span>
+                               <span class="pm-currency">{{bank_name}}</span>
                            </li>
                            <li class="buysell-overview-item">
                                <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Routing number</span>
-                               <span class="pm-currency">00346783905</span>
+                               <span class="pm-currency">{{routing_number}}</span>
                            </li>
                            <li class="buysell-overview-item">
                                <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Account Number</span>
-                               <span class="pm-currency">0529038457</span>
+                               <span class="pm-currency">{{account_number}}</span>
                            </li>
                            <li class="buysell-overview-item">
                                <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Account Holder</span>
-                               <span class="pm-currency">john Williams</span>
+                               <span class="pm-currency">{{account_holder}}</span>
                            </li>
                             <li class="buysell-overview-item">
                                <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Description </span>
-                               <span class="pm-currency">contract</span>
+                               <span class="pm-currency">{{description}}</span>
                            </li>
                        </ul>
                    </div>
@@ -127,19 +136,8 @@
                            <label class="form-label">Sending from:</label>
                        </div>
                        <input type="hidden" value="btc" name="bs-currency" id="buysell-choose-currency-modal">
-                       <div class="dropdown buysell-cc-dropdown">
-                           <a href="#" class="buysell-cc-choosen dropdown-indicator" data-toggle="dropdown">
-                               <div class="coin-item coin-btc">
-                                   <div class="coin-icon">
-                                       <em class="icon ni ni-wallet-out"></em>
-                                   </div>
-                                   <div class="coin-info">
-                                       <span class="coin-name">BUSINESS ACCOUNT</span>
-                                       <span class="coin-text">9560******</span>
-                                   </div>
-                               </div>
-                           </a>
-                       </div>
+                       {% include "user_templates/includes/account_type.html" %}
+                       
                        <div class="clearfix"></div>
                        <div class="sub-text-sm text-primary">* Our transaction fee are included.</div>
                    </div><!-- .buysell-field -->
@@ -147,22 +145,17 @@
                        <div>
                            <form action="" method="post">
                            <input type="hidden" value="1">
-                           <button href="#" class="btn btn-primary btn-block btn-lg eg-swal-av5" data-dismiss="modal" name="confirm" data-toggle="modal" data-target="#confirm-coin"> continue transaction</button>
+                           <button id="modalDefault" class="btn btn-primary btn-block btn-lg eg-swal-av5" data-dismiss="modal" name="confirm" data-toggle="modal" data-target="#confirm-coin"> continue transaction</button>
                            </form>
                        </div>
                        <div class="pt-3">
-                           <a href="#" data-dismiss="modal" class="link link-danger">Cancel transaction</a>
+                           <a href='{% url "adminapp:transfer" %}' data-dismiss="modal" class="link link-danger">Cancel transaction</a>
                        </div>
                    </div>
                </div><!-- .nk-block -->
            </div><!-- .modal-body -->
        </div><!-- .modal-content -->
        </div>
-                                                <br>
-                                                <p> </p>
-                                                <center>
-                                                 <a class="btn btn-sm btn-light" href="transfer?action=edit"><em class="icon ni ni-edit"></em> Edit</a>
-                                             </center>
                                             </div>
     
                                                             </div>
@@ -179,7 +172,16 @@
     {% block custom_js %}
     <script>
         $('.eg-swal-av5').on("click", function (e) {
-         var timerInterval;
+            var accountnumber = $("#account_number").val();
+              var bankname = $("#bank_name").val();
+              var routing_no = $("#routing_no").val();
+              var accountholder = $("#account_holder").val();
+              var amount = $("#amount").val();
+              var description = $("#description").val();
+              var timerInterval;
+            //   console.log(bankname, routing_no, accountnumber)
+
+            
             Swal.fire({
               title: 'Proccessing Transaction!',
               html: 'Please wait...',
@@ -193,20 +195,21 @@
               },
               onClose: function onClose() {
                 clearInterval(timerInterval);
-                window.location.href='/user/transaction-successful';
+                window.location.href="/user/transaction-successful";
               }
             }).then(function (result) {
               if (
             
               result.dismiss === Swal.DismissReason.timer) {
                 console.log('I was closed by the timer'); // eslint-disable-line
+               
               }
             });
             e.preventDefault();
             });
             </script>
 
-            <script type="text/javascript">
+            <!-- <script type="text/javascript">
                 $(document).ready(function(){
                 $("#accountnumber").change(function(){
                   var accountnumber = $("#accountnumber").val();
@@ -220,7 +223,41 @@
                   });
                 });
             });
-         </script>
+         </script> -->
+         <script type="text/javascript">
+            $(document).ready(function(){
+            $("#modalDefault").click(function(){
+              var accountnumber = $("#account_number").val();
+              var bankname = $("#bank_name").val();
+              var routing_no = $("#routing_no").val();
+              var accountholder = $("#account_holder").val();
+              var amount = $("#amount").val();
+              var description = $("#description").val();
+
+              
+            //   console.log(accountholder , accountnumber , bankname , sortcode,  routing_no )
+
+              $.ajax({
+             type:"post",
+            //  url:"../scripts/user_account_name.php",
+            url: "{% url 'adminapp:transaction_successful' %}",
+             data: { 
+
+                bankname,
+                routing_no,
+                accountholder,
+                accountnumber,
+                amount,
+                description,
+            },
+             
+             success:function(data){
+              $("#accountholder").val(data);
+             }
+              });
+            });
+        });
+     </script>
     
     {% endblock custom_js %}
 

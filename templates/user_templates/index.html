@@ -2,6 +2,14 @@
 {% load static %}
 {% block main_content %}
 <div class="nk-content nk-content-fluid">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible shadow fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message}}
+    </div>
+{% endfor %}
     <div class="container-xl wide-lg">
         <div class="nk-content-body">
             <div class="nk-block-head">
@@ -36,18 +44,23 @@
                                     <div class="card-inner">
                                         <div class="nk-wg7">
                                             <div class="nk-wg7-stats-group">
-                                                <div class="nk-wg7-stats w-50" style="background-image: url({{ user.avatar }}); border-color: white; border-width: 5px; border-radius: 50%;">
-                                                                                                                   <img class="img img-rounded" src="{{ user.avatar }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
-                                                                                                       </div>
+                                                <div class="nk-wg7-stats w-50" style="background-image: url(); border-color: white; border-width: 5px; border-radius: 50%;">
+                                                    <!-- {% if user.avatar %}   -->
+                                                    
+                                                    <img class="img img-rounded" src="media/{{ user.avatar }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
+                                                    <!-- {% endif %}   -->
+                                                
+                                                </div>
                                             <div class="nk-wg7-stats w-50">
                                                 <div class="nk-wg7-title">Available balance</div>
-                                                <div class="number-lg amount">USD 3,833,000</div>
+                                                <div class="number-lg amount">{{user.profile.Currency_type}} {{user.bal}}</div>
                                                 {{user.get_full_name}}                                                            </div> 
                                             </div>
+                                            
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50">
                                                     <div class="nk-wg7-title">Linked Cards</div>
-                                                    <div class="number-lg">3</div>
+                                                    <div class="number-lg">{{card_len}}</div>
                                                 </div>
                                                
                                             </div>
@@ -63,7 +76,7 @@
                             <div class="nk-block-head-xs">
                                 <div class="nk-block-between-md g-2">
                                     <div class="nk-block-head-content">
-                                        <h5 class="nk-block-title title">Business Account</h5>
+                                        <h5 class="nk-block-title title">{{user.profile.account_type}}</h5>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <a href="{% url 'adminapp:transfer' %}" class="link link-primary">Transfer Fund</a>
@@ -78,10 +91,10 @@
                                                 <div class="nk-wgw-name">
                                                     <div class="nk-wgw-icon">
                                                         <em class="icon ni ni-sign-cc-alt"></em>       </div>
-                                                    <h5 class="nk-wgw-title title">*****41714</h5>
+                                                    <h5 class="nk-wgw-title title">{{card.card_number}}</h5>                                                
                                                 </div>
                                                 <div class="nk-wgw-balance">
-                                                    <div class="amount">3,833,000.00<span class="currency currency-nio">USD</span></div>
+                                                    <div class="amount">{{user.bal}}<span class="currency currency-nio">{{user.profile.Currency_type}}</span></div>
                                                 </div>
                                             </a>
                                         </div>
@@ -156,27 +169,36 @@
                             </div>
                         </div><!-- .card-head -->
                         <div class="tranx-list card card-bordered">
-                                                                        <div class="tranx-item">
+                  {% for account_data in account_data %}           
+
+                            <div class="tranx-item">
                                 <div class="tranx-col">
                                     <div class="tranx-info">
                                         <div class="tranx-data">
-                                            <div class="tranx-label">VER/5YONLFIT1-0923<em class="tranx-icon sm icon ni ni-wallet-in"></em></div>
-                                            <div class="tranx-date">06 Sep 2023, 7:43 pm</div>
-                                            <div class="text-primary">Contract payment.</div>
+                                            <div class="tranx-label">CAP/{{account_data.txnId}}
+                                                <!-- {if account_data.txnType == 'Debit'} -->
+                                                <!-- <em class="tranx-icon sm icon ni ni-wallet-out"></em> -->
+                                                <!-- {else account_data.txnType == 'Credit'} -->
+                                                <!-- <em class="tranx-icon sm icon ni ni-wallet-in"></em> -->
+
+                                                <!-- {endif} -->
+                                            </div>
+                                            <div class="tranx-date">{{account_data.date}}</div>
+                                            <div class="text-primary">{{account_data.action}}.</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tranx-col">
                                     <div class="tranx-amount">
                                         <div class="tranx-date">Amount</div>
-                               <div class="text-success fs-16px">+ 3,000,000.00 
-                                 <span class="currency currency-usd"><span class="currency currency-btc">USD</span></span></div>
-                                        <div class="number-sm"><strong class="text-success">Completed</strong></div>
+                               <div class="text-success fs-16px">{{account_data.amount}} 
+                                 <span class="currency currency-usd"><span class="currency currency-btc">{{user.profile.Currency_type}}</span></span></div>
+                                        <div class="number-sm"><strong class="text-success">{{account_data.status}}</strong></div>
                                     </div>
                                 </div>
                                  <div class="tranx-col">
                                     <div class="tranx-amount">
-                                        <div class="number">Credit<span class="currency currency-btc"></span></div>
+                                        <div class="number">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
                                         <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1676">View Details</span>
                               </div>
                       </div>
@@ -195,20 +217,20 @@
       <ul class="buysell-overview-list">
                 <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount:</span></span>
-                    <span class="pm-title">USD 3,000,000.00</span>
+                    <span class="pm-title">{{user.profile.Currency_type}} {{account_data.amount}}</span>
                 </li>
                  <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
-                    <span class="pm-title">VER/5YONLFIT1-0923</span>
+                    <span class="pm-title">CAP/{{account_data.txnId}}</span>
                 </li>
                                                                                 <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                    <span class="pm-title">06 Sep 2023, 7:43 pm</span>
+                    <span class="pm-title">{{account_data.date}}</span>
                 </li>
 
                 <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">USD 3,833,000.00</span>
+                    <span class="pm-title">{{user.profile.Currency_type}} {{user.bal}}</span>
                 </li>
             </ul>
 </div>
@@ -218,69 +240,9 @@
 </div>
 </div>
 </div>
-                                                                    <div class="tranx-item"><!-- tranx-item start -->
-                                <div class="tranx-col">
-                                    <div class="tranx-info">
-                                        <div class="tranx-data">
-                                            <div class="tranx-label">VER/RG4XTSCTL-0923<em class="tranx-icon sm icon ni ni-wallet-in"></em></div>
-                                            <div class="tranx-date">25 Aug 2023, 10:00 pm</div>
-                                            <div class="text-primary">Logistics </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="tranx-date">Amount</div>
-                               <div class="text-success fs-16px">+ 8,000.00 
-                                 <span class="currency currency-usd"><span class="currency currency-btc">USD</span></span></div>
-                                        <div class="number-sm"><strong class="text-success">Completed</strong></div>
-                                    </div>
-                                </div>
-                                 <div class="tranx-col">
-                                    <div class="tranx-amount">
-                                        <div class="number">Credit<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1660">View Details</span>
-                              </div>
-                      </div>
-             </div><!-- .tranx-item -->
-<!-- .tranx-details -->             
-<div class="modal fade" tabindex="-1" id="modalDefault1660">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-<div class="modal-header bg-primary text-light">
-    <h5 class="modal-title text-light">Transaction Details</h5>
-    <a href="https://veritasfinancial.cc/personal-banking/dashboard.php?viewSource=SmpcO9pZk6OgwfP4Q6WR9ZElWe4t81fboVDDe2nO9B55qU9GbghkGwWnbbfjcLLRqYeV#" class="close text-light" data-dismiss="modal" aria-label="Close">
-        <em class="icon ni ni-cross"></em>
-    </a>
-</div>
-<div class="modal-body">
-      <ul class="buysell-overview-list">
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Amount:</span></span>
-                    <span class="pm-title">USD 8,000.00</span>
-                </li>
-                 <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
-                    <span class="pm-title">VER/RG4XTSCTL-0923</span>
-                </li>
-                                                                                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
-                    <span class="pm-title">25 Aug 2023, 10:00 pm</span>
-                </li>
 
-                <li class="buysell-overview-item">
-                <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">USD 833,000.00</span>
-                </li>
-            </ul>
-</div>
-<div class="modal-footer bg-light">
-    <span class="sub-text text-primary">Proccessed by Veritas Financial Union E-Service services.</span>
-</div>
-</div>
-</div>
-</div>
-                                                                    
+{% endfor %}           
+
 
                                                                   
                         </div><!-- .tranx-list -->

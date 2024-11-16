@@ -25,8 +25,8 @@
                     <div class="user-account-info between-center">
                         <div class="user-account-main">
                             <h6 class="overline-title-alt">Available Balance</h6>
-                            <div class="user-balance">833,000 <small class="currency currency-btc">USD</small></div>
-                            <div class="user-balance-alt">3,833,000 <span class="currency currency-btc">USD</span></div>
+                            <div class="user-balance">{{user.bal}} <small class="currency currency-btc">USD</small></div>
+                            <div class="user-balance-alt">{{user.bal}} <span class="currency currency-btc">{{user.profile.Currency_type}}</span></div>
                         </div>
                         <a href="#" class="btn btn-white btn-icon btn-light"><em class="icon ni ni-line-chart"></em></a>
                     </div>
@@ -62,11 +62,11 @@
                         <div class="user-card-wrap">
                             <div class="user-card">
                                 <div class="user-avatar">
-                                    <span>MJ</span>
+                                    <span>{{user.get_short_name|upper}}</span>
                                 </div>
                                 <div class="user-info">
-                                    <span class="lead-text">Michael  Wilson  James </span>
-                                    <span class="sub-text">9560741714</span>
+                                    <span class="lead-text">{{user.get_full_name}} </span>
+                                    <span class="sub-text">{{user.account_number}}</span>
                                 </div>
                                 <div class="user-action">
                                     <em class="icon ni ni-chevron-down"></em>
@@ -78,8 +78,8 @@
                         <div class="user-account-info between-center">
                             <div class="user-account-main">
                                 <h6 class="overline-title-alt">Available Balances</h6>
-                                <div class="user-balance">    3,833,000<small class="currency currency-btc">USD</small></div>
-                                <div class="user-balance-alt">3833000 <span class="currency currency-btc">USD</span></div>
+                                <div class="user-balance"> {{user.bal}}equivalent<small class="currency currency-btc">USD</small></div>
+                                <div class="user-balance-alt">{{user.profiles.account_type}}{{user.bal}} <span class="currency currency-btc">USD</span></div>
                             </div>
                             <a href="#" class="btn btn-icon btn-light"><em class="icon ni ni-line-chart"></em></a>
                         </div>
@@ -104,13 +104,13 @@
                             </li>
                         </ul>
                         <ul class="user-account-links">
-                            <li><a href="transfer.php" class="link"><span> Transfer Funds</span> <em class="icon ni ni-wallet-out"></em></a></li>
-                            <li><a href="authenticate" class="link"><span>Pay Bills</span> <em class="icon ni ni-wallet-in"></em></a></li>
+                            <li><a href="transfer" class="link"><span> Transfer Funds</span> <em class="icon ni ni-wallet-out"></em></a></li>
+                            <li><a href="pay-bills" class="link"><span>Pay Bills</span> <em class="icon ni ni-wallet-in"></em></a></li>
                         </ul>
                         <ul class="link-list">
-                            <li><a href="profile"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                            <li><a href="account-setting"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                            <li><a href="activity-logs"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                            <li><a href="my-profile"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                            <li><a href="{% url 'adminapp:account_settings' %}"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                            <li><a href="{% url 'adminapp:login_activity' %}"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
                         </ul>
                         <ul class="link-list">
                             <li><a href="logout"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
@@ -136,15 +136,15 @@
                             </a>
                         </li>
                         <li class="nk-menu-item">
-                            <a href="transfer" class="nk-menu-link" data-original-title="" title="">
-                                <span class="nk-menu-icon"><em class="icon ni ni-wallet-out"></em></span>
+                            <a href="{% url 'adminapp:transfer' %}" class="nk-menu-link" data-original-title="" title="">
+                                <span class="nk-menu-icon"><em class="icon ni ni-arrow-long-right"></em></span>
                                 <span class="nk-menu-text">Transfer</span>
                             </a>
                         </li>
                            
                         <li class="nk-menu-item">
                             <a href="{% url 'adminapp:deposit_check' %}" class="nk-menu-link" data-original-title="" title="">
-                                <span class="nk-menu-icon"><em class="icon ni ni-wallet-in"></em></span>
+                                <span class="nk-menu-icon"><em class="icon ni ni-arrow-long-right"></em></span>
                                 <span class="nk-menu-text">Deposit Check</span>
                             </a>
                         </li>

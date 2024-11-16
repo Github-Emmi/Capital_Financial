@@ -112,7 +112,7 @@
 								<tbody>
 									<tr>
 											<td style="padding-top: 25px;">
-												<a href="#" style="background-color:white; color:black; border: 2px red; padding:2px;"><i class="fa fas fa-lock"></i> sign in</a></td><td>  &nbsp;&nbsp;&nbsp;</td>
+												<a href="{% url 'accounts:login'%}" style="background-color:white; color:black; border: 2px red; padding:2px;"><i class="fa fas fa-lock"></i> sign in</a></td><td>  &nbsp;&nbsp;&nbsp;</td>
 	                                        <td>
 		<ul>  
   <style type="text/css">
@@ -188,7 +188,7 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
     <div class="container">
         <div class="inner-connect">
             <h5> Connect with us </h5>
-            <a href="https://veritasfinancial.cc/index">Listening to what you have to say about our services matters to us.</a>
+            <a href="">Listening to what you have to say about our services matters to us.</a>
         </div>
     </div>
 </div>
@@ -202,7 +202,7 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 					</div>
 					<div class="col-md-3">
 						<h5> Find a branch </h5>
-						<a href="">Find your nearest Veritas Banking location</a>
+						<a href="">Find your nearest Capital Financial Banking location</a>
 					</div>							
 					<div class="col-md-3">	
 						<h5> Our performance </h5>
@@ -210,7 +210,7 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 					</div>
 
 					<div class="col-md-3">	
-						<h5> About Veritas </h5>								
+						<h5> About Capital Finance </h5>								
 						<a href="">Careers, media, investor and corporate information</a>							
 					</div>					
 
@@ -247,10 +247,33 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 					</div>
 				</div>					
 			</div>			
-	    </div>		  
+	    </div>
+		
+		  <!-- Placeholder for the modal -->
+		  <div id="modal" class="modal fade">
+			<div id="dialog" class="modal-dialog" hx-target="this"></div>
+		  </div>
+	  
+		  <!-- Empty toast to show the message -->
+		  <div class="toast-container position-fixed top-0 end-0 p-3">
+			<div id="toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+			  <div class="d-flex">
+				<div id="toast-body" class="toast-body"></div>
+				<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+			  </div>
+			</div>
+		  </div>
 	</footer>	
 
+	{% if messages %}
+    <script>
+        $(document).ready(function () {
+        $('.toast').toast('show');
+        });
+    </script>
+    {% endif %}
 	<!-- End Footer -->	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
    <script src="{% static 'account-assets/js/jquery.min(1).js' %}"></script>
    <script src="{% static 'account-assets/js/jquery.min.js' %}"></script>
 	<script src="https://veritasfinancial.cc/cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>

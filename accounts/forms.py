@@ -34,15 +34,22 @@ class LoginForm(forms.Form):
             }
         ))
 
+class XYZ_DateInput(forms.DateInput):
+    input_type = "date"
+    def __init__(self, **kwargs):
+        kwargs["format"] = "%Y-%m-%d"
+        # kwargs["format"] = '%d/%m/%Y'
+        super().__init__(**kwargs)
+
 
 class SignUpForm(forms.ModelForm):
     firstname = forms.CharField(
-        required = True,
+        # required = True,
         widget=forms.TextInput(
             attrs={
                 # "placeholder" : "Firstname",                
                 "class": "form-control",
-
+                
             }
         ))
     lastname = forms.CharField(
@@ -54,21 +61,7 @@ class SignUpForm(forms.ModelForm):
 
         }
     ))
-    # middlename = forms.CharField(
-    # widget=forms.TextInput(
-    #     attrs={
-    #         "placeholder" : "Middlename",                
-    #         "class": "form-control"
-    #     }
-    # ))
-
-    # nickname = forms.CharField(
-    # widget=forms.TextInput(
-    #     attrs={
-    #         "placeholder" : "Nickname",                
-    #         "class": "form-control"
-    #     }
-    # ))
+    
 
     email = forms.EmailField(
         widget=forms.EmailInput(
@@ -79,42 +72,16 @@ class SignUpForm(forms.ModelForm):
             }
         ))
 
-    # phone_number = forms.IntegerField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "placeholder" : "Phone number",                
-    #             "class": "form-control"
-    #         }
-    #     ))
+    
 
-    # dob = forms.DateField(
-    #     widget=forms.DateInput(
-    #         attrs={
-    #             "placeholder" : "Date Of Birth",                
-    #             "class": "form-control"
-    #         }
-    #     ))
-        
-    # password1 = forms.CharField(
-    #     widget=forms.PasswordInput(
-    #         attrs={
-    #             "placeholder" : "Password",                
-    #             "class": "form-control"
-    #         }
-    #     ))
-    # password2 = forms.CharField(
-    #     widget=forms.PasswordInput(
-    #         attrs={
-    #             "placeholder" : "Password check",                
-    #             "class": "form-control"
-    #         }
-    #     ))
 
-# 'email','first_name','last_name'
     class Meta: 
         model = Profile
         fields = '__all__'
         exclude = ['user']
+        widgets = {
+            'date_of_birth': XYZ_DateInput(format=["%Y-%m-%d"], ),
+        }
         # [
         # 'middle_name', 'phone_number','nick_name', 'date_of_birth', 'title', 'gender',
         # 'zip_code','residential_address','account_type', 'city','ssn', 
@@ -214,3 +181,14 @@ class ImageForm(forms.ModelForm):
                     'filetag'
                 ),
             })
+
+
+
+class forgotPassForm(forms.Form):
+    account_number = forms.CharField(
+    widget=forms.TextInput(
+        attrs={
+            "placeholder" : "Account Number",                
+            "class": "form-control"
+        }
+    ))
