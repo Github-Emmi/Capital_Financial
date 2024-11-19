@@ -34,8 +34,8 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "adminapp.apps.AdminappConfig",
     'django_user_agents',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',
+    # 'cloudinary_storage',
 ]
 
 MIDDLEWARE = [

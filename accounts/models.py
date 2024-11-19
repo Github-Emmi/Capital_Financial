@@ -79,7 +79,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='media/uploads/', null=True, blank=True)
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
@@ -218,10 +218,10 @@ class Balance(models.Model):
     trans = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="transfers")
     bal = models.IntegerField()
 
-# @receiver(post_save, sender=Book)
+# @receiver(post_save, sender=Profile)
 # def create_author(sender, instance, created, **kwargs):
 #     if created:
-#         author = Author.objects.create(id=your_id,author_name=your_author_name,author_description=your_author_description)
+#         author = Profile.objects.create(id=your_id,author_name=your_author_name,author_description=your_author_description)
 #         Book.objects.objects.filter(pk=instance.id).update(author=author)
 
 
