@@ -15,18 +15,18 @@
                                                 {% csrf_token %}
                                            <div class="resultForTwo">
 
-                                            <!-- <script>document.getElementById('bankname').style.borderColor='green';</script>
+                                            <script>document.getElementById('bankname').style.borderColor='green';</script>
                                             <script>document.getElementById('sortcode').style.borderColor='green';</script>
                                             <script>document.getElementById('accountholder').style.borderColor='green';</script>
                                             <script>document.getElementById('accountnumber').style.borderColor='green';</script>
-                                            <script>$("#modalAlert").modal("show"); </script> -->
+                                            <script>$("#modalAlert").modal("show"); </script>
                                             <input type="hidden" name="amount" value="{{amount}}" id="amount" />
 
                                            </div>
                                         <div class="card card-preview">
                                             <div class="card-inner">
                                                 <div class="preview-block">
-                                                    <span class="preview-title-lg text-primary overline-title">Amount to transfer: {{ amount }}</span>
+                                                    <span class="preview-title-lg text-primary overline-title">Amount to transfer: {{ formatted_amount }}</span>
                                                     <div class="row">
                                                         <div class="col-lg-12 col-sm-12 p-2">
                                                             <div class="form-group">

@@ -11,11 +11,11 @@
                 </div>
                 <div class="coin-info">
                     <span class="coin-name">{{user.profile.account_type}} ({{user.profile.Currency_type}})</span>
-                    <span class="coin-text">Available Balance: {{user.profile.Currency_type}} {{user.bal}}</span>
+                    <span class="coin-text">Available Balance: {{user.profile.Currency_type}} {{user.formatted_balance}}</span>
                 </div>
             </div>
         </a>
-        <!-- <div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
+        <div class="dropdown-menu dropdown-menu-auto dropdown-menu-mxh">
             <ul class="buysell-cc-list">
                 <li class="buysell-cc-item selected">
                     <a href="#" class="buysell-cc-opt" data-currency="btc">
@@ -24,14 +24,14 @@
                                 <em class="icon ni ni-sign-usd"></em>
                             </div>
                             <div class="coin-info">
-                                <span class="coin-name">Business Account (USD)</span>
-                                <span class="coin-text">Available Balance:USD 3,792,950.00</span>
+                                <span class="coin-name">{{user.profile.account_type}} ({{user.profile.Currency_type}})</span>
+                                <span class="coin-text">Available Balance: {{user.profile.Currency_type}} {{user.formatted_balance}}</span>
                             </div>
                         </div>
                     </a>
                 </li>
             </ul>
-        </div> -->
+        </div>
         <!-- .dropdown-menu -->
     </div><!-- .dropdown -->
 </div><!-- .buysell-field -->

@@ -101,22 +101,17 @@ def transfer(request):
 # @csrf_exempt
 def transfer_step1(request):
     if request.method=="POST":
-        amount = request.POST.get('amount')        
+        amount = request.POST.get('amount')
+        formatted_amount = f"{float(amount):,.2f}"       
         bank_name = request.POST.get('bankname')
         routing_number = request.POST.get('sortcode')
         account_number = request.POST.get('accountnumber')
         account_holder = request.POST.get('accountholder')
-        description = request.POST.get('description')
-
-        
-
-    # return render(request, 'user_templates/transfer_step1.html', {'amount':amount})    
+        description = request.POST.get('description')   
     user_id = request.session['cred']
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
-    
-
-    return render(request, 'user_templates/transfer_step1.html', {"user": user, 'amount':amount})
+    return render(request, 'user_templates/transfer_step1.html', {"user": user, 'amount':amount, 'formatted_amount':formatted_amount})
 
 @login_required(login_url="/login")
 def review_transaction(request):
@@ -125,7 +120,8 @@ def review_transaction(request):
     user = userModel.objects.get(pk=user_id)
 
     if request.method=="POST":
-        amount = request.POST.get('amount')        
+        amount = request.POST.get('amount')  
+        formatted_amount = f"{float(amount):,.2f}"      
         bank_name = request.POST.get('bankname')
         
         routing_number = request.POST.get('sortcode')
@@ -147,8 +143,7 @@ def review_transaction(request):
                 action=description,
                 user = user
             )
-            # return redirect('/user/transaction-successful',{"resolve":resolve})
-
+           
         else:
             messages.error(
                 request,
@@ -158,12 +153,9 @@ def review_transaction(request):
                     
                 ))
             return redirect('/user/user-profile')
-            
+    return render(request, 'user_templates/review_transaction.html',{"amount":amount,"formatted_amount":formatted_amount, "bank_name":bank_name,"routing_number":routing_number,"account_number":account_number,"account_holder":account_holder,"description":description})    
 
 
-
-
-    return render(request, 'user_templates/review_transaction.html',{"amount":amount, "bank_name":bank_name,"routing_number":routing_number,"account_number":account_number,"account_holder":account_holder,"description":description})    
 
 @login_required(login_url="/login")
 @csrf_exempt

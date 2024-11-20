@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from .choices import Title,Employment,Gender,Status,Salary,Account_Type,nok_Age,Security_Question_One,Security_Question_Two,Currency,nok_relationship
 from django.core.mail import EmailMessage, get_connection
+from django.utils.html import format_html  # For optional HTML formatting
 
 
 
@@ -79,7 +80,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to='media/uploads/', null=True, blank=True)
+    avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
@@ -121,6 +122,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             )as connection:
             email=EmailMessage(subject, message, from_email, [self.email],connection=connection, **kwargs)
             email.send()
+    
+    @property
+    def formatted_balance(self):
+        '''
+        Returns the balance formatted with commas and two decimal places.
+        '''
+        return f"{self.bal:,.2f}"
 
 
 
@@ -190,6 +198,13 @@ class Deposit(models.Model):
 
     def __str__(self):
             return f'Deposit details {self.txnId}'
+    @property
+    def formatted_balance(self):
+        '''
+        Returns the balance formatted with commas and two decimal places.
+        '''
+        return f"{self.amount:,.2f}"
+    
 
 
 class Transfer(models.Model):
@@ -205,18 +220,28 @@ class Transfer(models.Model):
     status = models.CharField(max_length=50, choices=Status, default='Successful')
     date = models.DateTimeField(auto_now_add=True)
     
-
-
     def __str__(self):
         return f'Transfer details  {self.txnId}'
-
-
+    @property
+    def formatted_balance(self):
+        '''
+        Returns the balance formatted with commas and two decimal places.
+        '''
+        return f"{self.amount:,.2f}"
+    
 
 class Balance(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     dep = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="deposits")
     trans = models.ForeignKey(Deposit, on_delete=models.CASCADE, related_name="transfers")
     bal = models.IntegerField()
+
+    @property
+    def formatted_balance(self):
+        '''
+        Returns the balance formatted with commas and two decimal places.
+        '''
+        return f"{self.bal:,.2f}"
 
 # @receiver(post_save, sender=Profile)
 # def create_author(sender, instance, created, **kwargs):

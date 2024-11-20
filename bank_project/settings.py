@@ -1,8 +1,10 @@
-
 import os
 from pathlib import Path
 # from dotenv import load_dotenv
 from django.contrib import messages
+import cloudinary  
+import cloudinary.uploader  
+import cloudinary.api 
 
 
 # load_dotenv()
@@ -19,10 +21,16 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['whispering-caverns-20318-364325440733.herokuapp.com','capitalfundfinance.com','www.capitalfundfinance.com']
+ALLOWED_HOSTS = ['*','whispering-caverns-20318-364325440733.herokuapp.com','capitalfundfinance.com','www.capitalfundfinance.com']
 
 
 # Application definition
+
+cloudinary.config(  
+    cloud_name='dmkcqgan1',  
+    api_key='716231591674135',  
+    api_secret='lVtlknqZrOUITzpCqmQjWNMUvkQ'  
+)  
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -34,8 +42,8 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "adminapp.apps.AdminappConfig",
     'django_user_agents',
-    # 'cloudinary',
-    # 'cloudinary_storage',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -153,7 +161,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Media folder
-MEDIA_URL = '/user/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type

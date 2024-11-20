@@ -53,7 +53,7 @@
                                                 </div>
                                             <div class="nk-wg7-stats w-50">
                                                 <div class="nk-wg7-title">Available balance</div>
-                                                <div class="number-lg amount">{{user.profile.Currency_type}} {{user.bal}}</div>
+                                                <div class="number-lg amount">{{user.profile.Currency_type}} {{user.formatted_balance}}</div>
                                                 {{user.get_full_name}}                                                            </div> 
                                             </div>
                                             
@@ -94,7 +94,7 @@
                                                     <h5 class="nk-wgw-title title">{{card.card_number}}</h5>                                                
                                                 </div>
                                                 <div class="nk-wgw-balance">
-                                                    <div class="amount">{{user.bal}}<span class="currency currency-nio">{{user.profile.Currency_type}}</span></div>
+                                                    <div class="amount">{{user.formatted_balance}}<span class="currency currency-nio">{{user.profile.Currency_type}}</span></div>
                                                 </div>
                                             </a>
                                         </div>
@@ -230,7 +230,7 @@
 
                 <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Available Balance:</span></span>
-                    <span class="pm-title">{{user.profile.Currency_type}} {{user.bal}}</span>
+                    <span class="pm-title">{{user.profile.Currency_type}} {{user.formatted_balance}}</span>
                 </li>
             </ul>
 </div>

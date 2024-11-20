@@ -29,3 +29,5 @@ path('enroll-complete/<str:uidb64>', enroll_complete, name='enroll_complete'),
 path('query/load-cities/', load_cities, name='query_load_cities'),
 path("forgot-password", forgot_password, name="forgot_password"),
 ]
+
+

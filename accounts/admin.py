@@ -30,5 +30,5 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['email','first_name','last_name','account_number','id']
+    list_display = ['email','first_name','last_name','account_number','id','formatted_balance']
 
