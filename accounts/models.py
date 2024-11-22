@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import uuid
 from django.db import models
+from django.utils.timezone import now
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -77,7 +78,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(('middle name'), max_length=30)
     
     
-    date_joined = models.DateTimeField(('date joined'), auto_now_add=True)
+    date_joined = models.DateTimeField(('date joined'), default=now)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
@@ -194,7 +195,7 @@ class Deposit(models.Model):
     amount = models.CharField(max_length=30)
     action = models.CharField(max_length=200)
     status = models.CharField(max_length=50, choices=Status, default='Successful')
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=now)
 
     def __str__(self):
             return f'Deposit details {self.txnId}'
@@ -218,16 +219,19 @@ class Transfer(models.Model):
     account_number = models.CharField(max_length=30,null=True)
     account_holder = models.CharField(max_length=60,null=True)
     status = models.CharField(max_length=50, choices=Status, default='Successful')
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=now)
     
     def __str__(self):
         return f'Transfer details  {self.txnId}'
-    @property
-    def formatted_balance(self):
-        '''
-        Returns the balance formatted with commas and two decimal places.
-        '''
-        return f"{self.amount:,.2f}"
+    def formatted_amount(self, obj):
+        try:
+            # Convert the amount to a float and format with commas
+            formatted = f"{float(obj.amount):,.2f}"
+            return formatted
+        except (ValueError, TypeError):
+            # Handle cases where the amount is invalid or None
+            return obj.amount  # Display as is if formatting fails
+
     
 
 class Balance(models.Model):

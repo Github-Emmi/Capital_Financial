@@ -18,3 +18,4 @@ urlpatterns = [
     path("my-profile", views.my_profile, name="my_profile"),
     path("login-activity", views.login_activity, name="login_activity"),
 ]
+

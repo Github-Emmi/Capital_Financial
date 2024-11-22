@@ -64,7 +64,7 @@ def user_profile(request):
     #  v = account_data.sorted()
     #  a = account_data.sort(key=lambda Transfer: Transfer.date)
     account_data.sort(key=lambda x: x.date, reverse=True)
-    top_transactions = account_data[-3:]
+    top_transactions = account_data[-4:]
     #  print(dep)
     
 

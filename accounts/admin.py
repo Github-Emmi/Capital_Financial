@@ -23,9 +23,19 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ['txnId','amount','date','action', 'user_id']
 
 @admin.register(Transfer)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['txnId','amount','date','action', 'user_id']
+class TransferAdmin(admin.ModelAdmin):
+    list_display = ['txnId', 'formatted_amount', 'date', 'action', 'user_id']
 
+    def formatted_amount(self, obj):
+        try:
+            # Convert the amount to a float and format with commas
+            formatted = f"{float(obj.amount):,.2f}"
+            return formatted
+        except (ValueError, TypeError):
+            # Handle cases where the amount is invalid or None
+            return obj.amount  # Display as is if formatting fails
+
+    formatted_amount.short_description = "Amount"  # Custom column name
 
 
 @admin.register(User)
