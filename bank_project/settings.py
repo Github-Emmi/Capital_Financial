@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*','whispering-caverns-20318-364325440733.herokuapp.com','capitalfundfinance.com','www.capitalfundfinance.com']
 
@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    ######  apps  ###############
     "accounts.apps.AccountsConfig",
     "adminapp.apps.AdminappConfig",
+    "venexapp.apps.VenexappConfig",
+    ######  Extras ##############
     'django_user_agents',
     'cloudinary',
     'cloudinary_storage',
@@ -83,19 +86,22 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'bankdb',
-        # 'USER': 'postgres',
-        # 'PASSWORD': 'Aghasonemmanuel',
-        # 'PORT': '5432',
-        # 'HOST': 'localhost',
-        # 'CHARSET': 'utf8',
-    }
-}
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.sqlite3',  
+        'NAME': BASE_DIR / 'db.sqlite3',  # Main database 
+    },  
+    'venexapp_db': {  
+        'ENGINE': 'django.db.backends.sqlite3',  
+        'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp  
+    },  
+    'accounts_db': {  
+        'ENGINE': 'django.db.backends.sqlite3',  
+        'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts  
+    },  
+}  
+
+DATABASE_ROUTERS = ['bank_project.db_router.AppDatabaseRouter']
 
 
 # Password validation
@@ -168,3 +174,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+

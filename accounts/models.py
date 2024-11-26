@@ -76,8 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30)
     last_name = models.CharField(('middle name'), max_length=30)
-    
-    
     date_joined = models.DateTimeField(('date joined'), default=now)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
@@ -130,6 +128,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns the balance formatted with commas and two decimal places.
         '''
         return f"{self.bal:,.2f}"
+    
 
 
 

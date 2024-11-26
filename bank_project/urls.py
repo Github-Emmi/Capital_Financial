@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls', namespace='accounts')),
     path('user/', include('adminapp.urls', namespace='adminapp')),
+    path('venex_btc/', include('venexapp.urls', namespace='venexapp')),
 ]
 
 admin.site.site_header = "Capital Finance Admin"
