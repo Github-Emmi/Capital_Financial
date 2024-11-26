@@ -49,29 +49,7 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-
-
-class Country(models.Model):
-    
-    name = models.CharField(('country name'), max_length=55, blank=True)
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name_plural = "Countries"
-    
-
-class State(models.Model):
-    name = models.CharField(('state name'), max_length=55, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name_plural = "States"
-
+# User model for Online Bank Area
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30)
@@ -83,6 +61,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
+    # Fields for roles User In BTC App
+    USER_TYPE_CHOICES = ((1, "User"), (2, "Client"))
+    user_type = models.IntegerField(default=1, choices=USER_TYPE_CHOICES)
+    fund_amount = models.CharField(max_length=15, choices=[("none", "None"), ("low", "Low"), ("high", "High")], default="none")
+    withdrawal_method = models.CharField(max_length=15, choices=[("none", "None"), ("bank", "Bank"), ("crypto", "Crypto")], default="none")
+    
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -128,7 +112,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         Returns the balance formatted with commas and two decimal places.
         '''
         return f"{self.bal:,.2f}"
-    
 
 
 
@@ -137,14 +120,26 @@ def create_author(sender, instance, created, **kwargs):
     if created:
         User.objects.filter(pk=instance.id).update(account_number=int(str(uuid.uuid4().int)[:10]))
         
+class Country(models.Model):
+    
+    name = models.CharField(('country name'), max_length=55, blank=True)
 
-# @receiver(post_save, sender=User)
-# def save_author(sender, instance, **kwargs):
-#     instance.User.save()
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Countries"
+    
 
+class State(models.Model):
+    name = models.CharField(('state name'), max_length=55, blank=True)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
-
-#  bank model area
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "States"
 
 
 class Profile(models.Model):
