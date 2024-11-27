@@ -100,7 +100,7 @@
   }
   
   .bitcoin-icon {
-	  background: url(../images/bitcoin-icon.png) no-repeat left center;
+	  background: url(../images/bitcoin.png) no-repeat left center;
 	  display: inline-block;
 	  width: 24px;
 	  background-size: 24px auto;
@@ -354,7 +354,7 @@
 	  color: #fff;
 	  font-family: 'UniSansThinCAPS';
 	  margin: 0;
-	  padding: 5px 0;\
+	  padding: 5px 0;
 	  font-weight:bold;
   }
   .ctn-banner-btt a{

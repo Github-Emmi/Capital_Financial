@@ -208,7 +208,7 @@ def enroll_step4(request,uidb64):
                sq2_select = form.cleaned_data.get('sq1_select')
 
                if password != password_confirm:
-                    raise forms.ValidationError('Passwords do not match')
+                    raise form.ValidationError('Passwords do not match')
                     # msg = 'Passwords do not match'
 
                # print(form.cleaned_data)
