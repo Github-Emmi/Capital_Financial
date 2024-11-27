@@ -91,14 +91,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',  
         'NAME': BASE_DIR / 'db.sqlite3',  # Main database 
     },  
-    'venexapp_db': {  
-        'ENGINE': 'django.db.backends.sqlite3',  
-        'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp  
-    },  
-    'accounts_db': {  
-        'ENGINE': 'django.db.backends.sqlite3',  
-        'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts  
-    },  
+    # 'venexapp_db': {  
+    #     'ENGINE': 'django.db.backends.sqlite3',  
+    #     'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp  
+    # },  
+    # 'accounts_db': {  
+    #     'ENGINE': 'django.db.backends.sqlite3',  
+    #     'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts  
+    # },  
 }  
 
 DATABASE_ROUTERS = ['bank_project.db_router.AppDatabaseRouter']
