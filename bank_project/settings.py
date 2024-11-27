@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
+
 # from dotenv import load_dotenv
 from django.contrib import messages
-import cloudinary  
-import cloudinary.uploader  
-import cloudinary.api 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 
 # load_dotenv()
@@ -21,16 +22,21 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','whispering-caverns-20318-364325440733.herokuapp.com','capitalfundfinance.com','www.capitalfundfinance.com']
+ALLOWED_HOSTS = [
+    "*",
+    "whispering-caverns-20318-364325440733.herokuapp.com",
+    "capitalfundfinance.com",
+    "www.capitalfundfinance.com",
+]
 
 
 # Application definition
 
-cloudinary.config(  
-    cloud_name='dmkcqgan1',  
-    api_key='716231591674135',  
-    api_secret='lVtlknqZrOUITzpCqmQjWNMUvkQ'  
-)  
+cloudinary.config(
+    cloud_name="dmkcqgan1",
+    api_key="716231591674135",
+    api_secret="lVtlknqZrOUITzpCqmQjWNMUvkQ",
+)
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -44,21 +50,21 @@ INSTALLED_APPS = [
     "adminapp.apps.AdminappConfig",
     "venexapp.apps.VenexappConfig",
     ######  Extras ##############
-    'django_user_agents',
-    'cloudinary',
-    'cloudinary_storage',
+    "django_user_agents",
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Add this line
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'django_user_agents.middleware.UserAgentMiddleware',
+    "django_user_agents.middleware.UserAgentMiddleware",
 ]
 
 ROOT_URLCONF = "bank_project.urls"
@@ -86,22 +92,22 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.sqlite3',  
-        'NAME': BASE_DIR / 'db.sqlite3',  # Main database 
-    },  
-    # 'venexapp_db': {  
-    #     'ENGINE': 'django.db.backends.sqlite3',  
-    #     'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp  
-    # },  
-    # 'accounts_db': {  
-    #     'ENGINE': 'django.db.backends.sqlite3',  
-    #     'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts  
-    # },  
-}  
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",  # Main database
+    },
+    # 'venexapp_db': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp
+    # },
+    # 'accounts_db': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts
+    # },
+}
 
-DATABASE_ROUTERS = ['bank_project.db_router.AppDatabaseRouter']
+DATABASE_ROUTERS = ["bank_project.db_router.AppDatabaseRouter"]
 
 
 # Password validation
@@ -136,29 +142,29 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST =os.environ.get('EMAIL_HOST')
 # EMAIL_USE_TLS = True
 # EMAIL_PORT =os.environ.get('EMAIL_PORT')
 # EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '69d0a89ccc2ad3'
-EMAIL_HOST_PASSWORD = '3b4f9cab768a6f'
-EMAIL_PORT = '2525'
+EMAIL_HOST = "sandbox.smtp.mailtrap.io"
+EMAIL_HOST_USER = "69d0a89ccc2ad3"
+EMAIL_HOST_PASSWORD = "3b4f9cab768a6f"
+EMAIL_PORT = "2525"
 
 
 MESSAGE_TAGS = {
-    messages.DEBUG: 'alert-info',
-    messages.INFO: 'alert-info',
-    messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning',
-    messages.ERROR: 'alert-danger',
+    messages.DEBUG: "alert-info",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "alert-success",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "alert-danger",
 }
 
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 SESSION_COOKIE_AGE = 180
-# LOGIN_REDIRECT_URL = "/login" 
+# LOGIN_REDIRECT_URL = "/login"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -167,11 +173,10 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Media folder
-MEDIA_URL = '/media/'
+MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
