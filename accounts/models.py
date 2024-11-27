@@ -21,9 +21,6 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
-        """
-        Creates and saves a User with the given email and password.
-        """
         if not email:
             raise ValueError('The given email must be set')
         email = self.normalize_email(email)
@@ -37,23 +34,19 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_staff', True)
 
-        
-        
-
-        if extra_fields.get('is_superuser', 'is_staff') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
+        if not extra_fields.get('is_superuser') or not extra_fields.get('is_staff'):
+            raise ValueError('Superuser must have is_superuser=True and is_staff=True.')
 
         return self._create_user(email, password, **extra_fields)
 
-# User model for Online Bank Area
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30)
-    last_name = models.CharField(('middle name'), max_length=30)
+    last_name = models.CharField(('last name'), max_length=30)
     date_joined = models.DateTimeField(('date joined'), default=now)
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
@@ -61,12 +54,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
-    # Fields for roles User In BTC App
+    # Fields for roles (previously in CustomUser)
     USER_TYPE_CHOICES = ((1, "User"), (2, "Client"))
     user_type = models.IntegerField(default=1, choices=USER_TYPE_CHOICES)
     fund_amount = models.CharField(max_length=15, choices=[("none", "None"), ("low", "Low"), ("high", "High")], default="none")
     withdrawal_method = models.CharField(max_length=15, choices=[("none", "None"), ("bank", "Bank"), ("crypto", "Crypto")], default="none")
-    
+
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -77,40 +70,24 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = ('users')
 
     def get_full_name(self):
-        '''
-        Returns the first_name plus the last_name, with a space in between.
-        '''
-        full_name = '%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
+        return f"{self.first_name} {self.last_name}".strip()
 
     def get_short_name(self):
-        '''
-        Returns the short name for the user.
-        '''
-        short_name = '%s %s' % (self.first_name[:1],self.last_name[:1])
-        return short_name.strip()
-    
+        return f"{self.first_name[:1]} {self.last_name[:1]}".strip()
 
     def email_user(self, subject, message, from_email=None, **kwargs):
-
-        '''
-        Sends an email to this User.
-        '''
         with get_connection(
             host=settings.EMAIL_HOST,
             port=settings.EMAIL_PORT,
             username=settings.EMAIL_HOST_USER,
             password=settings.EMAIL_HOST_PASSWORD,
             use_tls=settings.EMAIL_USE_TLS
-            )as connection:
-            email=EmailMessage(subject, message, from_email, [self.email],connection=connection, **kwargs)
+        ) as connection:
+            email = EmailMessage(subject, message, from_email, [self.email], connection=connection, **kwargs)
             email.send()
-    
+
     @property
     def formatted_balance(self):
-        '''
-        Returns the balance formatted with commas and two decimal places.
-        '''
         return f"{self.bal:,.2f}"
 
 
