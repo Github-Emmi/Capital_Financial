@@ -107,7 +107,7 @@ DATABASES = {
     # },
 }
 
-DATABASE_ROUTERS = ["bank_project.db_router.AppDatabaseRouter"]
+# DATABASE_ROUTERS = ["bank_project.db_router.AppDatabaseRouter"]
 
 
 # Password validation
