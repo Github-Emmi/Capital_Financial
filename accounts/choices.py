@@ -114,7 +114,7 @@ Security_Question_Two = (
 
 
 Currency = (
-# ('USD', 'America United States Dollars – USD'),
+('USD', 'America United States Dollars – USD'),
 ("AFN", "Afghanistan Afghanis – AFN"),
 ("ALL", "Albania Leke – ALL"),
 ("DZD", "Algeria Dinars – DZD"),

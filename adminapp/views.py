@@ -61,16 +61,8 @@ def user_profile(request):
     
     trans = Transfer.objects.filter(user=user_id)
     account_data = list(chain(dep, trans))
-    #  v = account_data.sorted()
-    #  a = account_data.sort(key=lambda Transfer: Transfer.date)
     account_data.sort(key=lambda x: x.date, reverse=True)
     top_transactions = account_data[-4:]
-    #  print(dep)
-    
-
-        # data = json.loads(response.text)['data']['1027']['quote']['USD']['price']
-
-          
     return render(request, 'user_templates/index.html', {"user": user,"account_data":top_transactions,"card":cad,"card_len":card_len})
 
 @login_required(login_url="/login")

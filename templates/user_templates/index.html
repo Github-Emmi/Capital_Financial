@@ -176,18 +176,19 @@
                                     <div class="tranx-info">
                                         <div class="tranx-data">
                                             <div class="tranx-label">CAP/{{account_data.txnId}}
-                                                <!-- {if account_data.txnType == 'Debit'} -->
-                                                <!-- <em class="tranx-icon sm icon ni ni-wallet-out"></em> -->
-                                                <!-- {else account_data.txnType == 'Credit'} -->
-                                                <!-- <em class="tranx-icon sm icon ni ni-wallet-in"></em> -->
+                                                {% if account_data.txnType == 'Debit' %}
+                                                <em class="tranx-icon sm icon ni ni-wallet-out"></em>
+                                                {% elif account_data.txnType == 'Credit' %}
+                                                <em class="tranx-icon sm icon ni ni-wallet-in"></em>
 
-                                                <!-- {endif} -->
+                                                {% endif %}
                                             </div>
                                             <div class="tranx-date">{{account_data.date}}</div>
                                             <div class="text-primary">{{account_data.action}}.</div>
                                         </div>
                                     </div>
                                 </div>
+                                {% if account_data.txnType == 'Credit' %}
                                 <div class="tranx-col">
                                     <div class="tranx-amount">
                                         <div class="tranx-date">Amount</div>
@@ -196,12 +197,32 @@
                                         <div class="number-sm"><strong class="text-success">{{account_data.status}}</strong></div>
                                     </div>
                                 </div>
+                                {% elif account_data.txnType == 'Debit' %}
+                                <div class="tranx-col">
+                                    <div class="tranx-amount">
+                                        <div class="tranx-date">Amount</div>
+                               <div class="text-danger fs-16px">-{{account_data.amount}} 
+                                 <span class="currency currency-usd"><span class="currency currency-btc">{{user.profile.Currency_type}}</span></span></div>
+                                        <div class="number-sm"><strong class="text-danger">{{account_data.status}}</strong></div>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                {% if account_data.txnType == 'Credit' %}
                                  <div class="tranx-col">
                                     <div class="tranx-amount">
-                                        <div class="number">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
+                                        <div class="number text-success">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
                                         <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1676">View Details</span>
                               </div>
                       </div>
+                      {% elif account_data.txnType == 'Debit' %}
+                                 <div class="tranx-col">
+                                    <div class="tranx-amount">
+                                        <div class="number text-danger">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
+                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1676">View Details</span>
+                              </div>
+                      </div>
+                      {% endif %}
              </div><!-- .tranx-item -->
 <!-- .tranx-details -->
 <div class="modal fade" tabindex="-1" id="modalDefault1676">
@@ -223,6 +244,10 @@
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Transaction reference:</span></span>
                     <span class="pm-title">CAP/{{account_data.txnId}}</span>
                 </li>
+                <li class="buysell-overview-item">
+                    <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Description:</span></span>
+                        <span class="pm-title">{{account_data.action}}.</span>
+                    </li>
                                                                                 <li class="buysell-overview-item">
                 <span class="pm-currency"><em class="icon ni ni-check-circle-fill"></em> <span>Date:</span></span>
                     <span class="pm-title">{{account_data.date}}</span>
