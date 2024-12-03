@@ -49,7 +49,16 @@ class Check_DepositForm(forms.ModelForm):
             ),
             "required": True
         })
-        
+
+
+class VerificationForm(forms.Form):
+    verification_code = forms.CharField(
+        max_length=6,
+        label='Enter Verification Code',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+
 class XYZ_MonthInput(forms.DateInput):
     input_type = "date"
     def __init__(self, **kwargs):

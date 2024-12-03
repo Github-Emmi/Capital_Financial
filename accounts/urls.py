@@ -26,6 +26,7 @@ path('enroll-step3', enroll_step3, name='enroll_step3'),
 path('enroll-step4/<str:uidb64>', enroll_step4, name='enroll_step4'),
 path('enroll-step5/<str:uidb64>', enroll_step5, name='enroll_step5'),
 path('enroll-complete/<str:uidb64>', enroll_complete, name='enroll_complete'),
+path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),
 path('query/load-cities/', load_cities, name='query_load_cities'),
 path("forgot-password", forgot_password, name="forgot_password"),
 ]

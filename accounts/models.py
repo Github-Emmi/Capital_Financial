@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import uuid
 from django.db import models
 from django.utils.timezone import now
+from datetime import timedelta
 from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
@@ -12,7 +13,7 @@ from django.conf import settings
 from django.contrib.auth.base_user import BaseUserManager
 from .choices import Title,Employment,Gender,Status,Salary,Account_Type,nok_Age,Security_Question_One,Security_Question_Two,Currency,nok_relationship
 from django.core.mail import EmailMessage, get_connection
-from django.utils.html import format_html  # For optional HTML formatting
+from django.utils.html import format_html
 
 
 
@@ -202,6 +203,22 @@ class Transfer(models.Model):
         except (ValueError, TypeError):
             # Handle cases where the amount is invalid or None
             return obj.amount  # Display as is if formatting fails
+        
+
+def get_expiration_time():  
+    return now() + timedelta(minutes=10)  
+class VerificationCode(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='verification_code')
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(default=get_expiration_time)  
+
+    def is_valid(self):
+        """Check if the code is still valid."""
+        return now() < self.expires_at
+
+    def __str__(self):
+        return f'Verification Code for {self.user.username}'
 
     
 

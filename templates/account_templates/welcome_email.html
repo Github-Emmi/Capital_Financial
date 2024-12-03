@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activate Your Capital Financial Account</title>
+    <style>
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+            border: 1px solid #dddddd;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 24px;
+        }
+        .content {
+            padding: 20px;
+            color: #555555;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #333333;
+            font-size: 22px;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 10px auto;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .details {
+            margin: 20px 0;
+            font-size: 14px;
+            color: #333333;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #777777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            Activate Your Account
+        </div>
+        <div class="content">
+            <h2>Hi {{ user.get_full_name }},</h2>
+            <p>
+                Thank you so much for allowing us to help you with your recent account opening.
+                We are committed to providing our customers with the highest level of service and the most innovative banking products possible.
+            </p>
+            <p>
+                Before being able to make use of our online services, you need to verify that this is your email address by clicking the button below.
+            </p>
+            <div class="button-container">
+                <a href="{{ activation_url }}" class="button">Confirm Email</a>
+            </div>
+            <div class="details">
+                <h3>Account Details:</h3>
+                <p><strong>Account Number:</strong> {{ user.account_number }}</p>
+                <p><strong>Account Type:</strong> {{ user.profile.account_type }}</p>
+                <p><strong>Account Currency:</strong> {{ user.profile.Currency_type }}</p>
+                <p><strong>Residential Address:</strong> {{ user.profile.residential_address }}</p>
+                <p><strong>Date:</strong> {% now "d F Y H:i" %}</p>
+            </div>
+            <p>If you did not create this account, please ignore this email.</p>
+            <p>Best regards,</p>
+            <p>The Bank Team</p>
+        </div>
+        <div class="footer">
+            &copy; 2024 Capital Financial. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

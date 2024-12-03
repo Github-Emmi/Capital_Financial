@@ -19,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*','whispering-caverns-20318-364325440733.herokuapp.com','capitalfundfinance.com','www.capitalfundfinance.com']
 
@@ -137,15 +137,13 @@ USE_L10N = True
 USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST =os.environ.get('EMAIL_HOST')
-# EMAIL_USE_TLS = True
-# EMAIL_PORT =os.environ.get('EMAIL_PORT')
-# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '69d0a89ccc2ad3'
-EMAIL_HOST_PASSWORD = '3b4f9cab768a6f'
-EMAIL_PORT = '2525'
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'capitalfundfinance@capitalfundfinance.com'  # Replace with your Zoho email
+EMAIL_HOST_PASSWORD = 'dm7v1sGV8cjY'  # Replace with your Zoho email password
+DEFAULT_FROM_EMAIL = 'capitalfundfinance@capitalfundfinance.com'
+
 
 
 MESSAGE_TAGS = {
@@ -158,7 +156,8 @@ MESSAGE_TAGS = {
 
 AUTH_USER_MODEL = 'accounts.User'
 SESSION_COOKIE_AGE = 180
-# LOGIN_REDIRECT_URL = "/login" 
+LOGIN_REDIRECT_URL = "/login" 
+SITE_URL = 'https://capitalfundfinance.com/' 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

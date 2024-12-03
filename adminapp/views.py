@@ -1,50 +1,23 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.urls import reverse_lazy, reverse
-
-# Create your views here
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
-from accounts.models import Transfer, User
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.utils.crypto import get_random_string
+from django.core.mail import send_mail
+from django.http import JsonResponse
 from django.db.models import Q
-from accounts.models import Transfer, Deposit
+from accounts.models import Transfer, Deposit, VerificationCode
 from itertools import chain
 from datetime import datetime
+from django.utils.timezone import now
+from datetime import timedelta
 from .forms import *
 from .models import *
 
 
 # Create your views here
-
-# def get_crypto_data_eth():
-#     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-#     parameters = {
-#     'id':'1027',   
-#     'convert':'USD'
-#     }
-#     headers = {
-#     'Accepts': 'application/json',
-    
-#     # my api key
-#     'X-CMC_PRO_API_KEY': '439a6f18-ad33-459b-84e9-16b5f51c81bc',
-
-#     }
-
-#     session = Session()
-#     session.headers.update(headers)
-#     try:
-#         response = session.get(url, params=parameters)
-#         data = json.loads(response.text)['data']['1027']['quote']['USD']['price']
-
-#         # print(data)
-#         # print()
-#         return data
-
-
-#     except (ConnectionError, Timeout, TooManyRedirects) as e:
-#         print(e)
 
 
 @login_required(login_url="/login")
@@ -105,17 +78,17 @@ def transfer_step1(request):
     user = userModel.objects.get(pk=user_id)
     return render(request, 'user_templates/transfer_step1.html', {"user": user, 'amount':amount, 'formatted_amount':formatted_amount})
 
+
 @login_required(login_url="/login")
 def review_transaction(request):
     user_id = request.session['cred']
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
 
-    if request.method=="POST":
+    if request.method == "POST":
         amount = request.POST.get('amount')  
         formatted_amount = f"{float(amount):,.2f}"      
         bank_name = request.POST.get('bankname')
-        
         routing_number = request.POST.get('sortcode')
         account_number = request.POST.get('accountnumber')
         account_holder = request.POST.get('accountholder')
@@ -123,58 +96,176 @@ def review_transaction(request):
         charge = 5 + int(amount)
 
         if user.bal > charge:
-            current_bal = user.bal - charge
-            user.bal = current_bal
-            user.save()
-            resolve = Transfer.objects.create(
-                amount=amount,
-                bank_name=bank_name,
-                routing_number=routing_number,
-                account_number=account_number,
-                account_holder=account_holder,
-                action=description,
-                user = user
-            )
-           
-        else:
-            messages.error(
-                request,
-                (
-                    f'Insufficient Funds. '
-                    f'Try adding more funds to your account'
-                    
-                ))
-            return redirect('/user/user-profile')
-    return render(request, 'user_templates/review_transaction.html',{"amount":amount,"formatted_amount":formatted_amount, "bank_name":bank_name,"routing_number":routing_number,"account_number":account_number,"account_holder":account_holder,"description":description})    
+            # Generate a 6-digit random code
+            verification_code = get_random_string(length=6, allowed_chars='0123456789')
 
+            # Save or update the verification code in the database
+            VerificationCode.objects.update_or_create(
+                user=user,
+                defaults={
+                    'code': verification_code,
+                    'created_at': now(),
+                    'expires_at': now() + timedelta(minutes=10)
+                }
+            )
+
+            # Send verification email
+            subject = 'Transaction Verification Code'
+            message = f'To complete your transaction, verification code is: {verification_code}'
+            recipient_email = user.email
+
+            try:
+                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [recipient_email])
+                messages.success(request, 'A verification code has been sent to your email.')
+            except Exception as e:
+                messages.error(request, f'Failed to send email: {e}')
+                return redirect('/user/user-profile')
+
+            # Save transaction details temporarily in the session
+            request.session['transaction_data'] = {
+                'amount': amount,
+                'formatted_amount': formatted_amount,
+                'bank_name': bank_name,
+                'routing_number': routing_number,
+                'account_number': account_number,
+                'account_holder': account_holder,
+                'description': description,
+                'charge': charge,
+            }
+
+            return redirect('/user/verify-transaction')
+
+        else:
+            messages.error(request, 'Insufficient funds. Please deposit and try again.')
+            return redirect('/user/user-profile')
+    return render(request, 'user_templates/review_transaction.html')
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url="/login")
+def verify_transaction(request):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        user = request.user
+        code_entered = request.POST.get('verification_code')
+
+        try:
+            # Fetch the verification code for the user
+            verification_entry = VerificationCode.objects.get(user=user)
+
+            if verification_entry.is_valid() and verification_entry.code == code_entered:
+                # Complete the transaction
+                transaction_data = request.session.pop('transaction_data', None)
+                if transaction_data:
+                    # Deduct balance and save the transaction
+                    user.bal -= transaction_data['charge']
+                    user.save()
+
+                    Transfer.objects.create(
+                        amount=transaction_data['amount'],
+                        bank_name=transaction_data['bank_name'],
+                        routing_number=transaction_data['routing_number'],
+                        account_number=transaction_data['account_number'],
+                        account_holder=transaction_data['account_holder'],
+                        description=transaction_data['description'],
+                        user=user,
+                        status='Completed'
+                    )
+
+                    # Remove the used verification code
+                    verification_entry.delete()
+
+                    # Return a success response
+                    return JsonResponse({'status': 'success', 'message': 'Transaction completed successfully!'})
+                else:
+                    return JsonResponse({'status': 'error', 'message': 'Transaction data missing. Please try again.'}, status=400)
+            else:
+                return JsonResponse({'status': 'error', 'message': 'Invalid or expired verification code.'}, status=400)
+        except VerificationCode.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'No verification code found for this user.'}, status=404)
+
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method or not an AJAX request.'}, status=400)
 
 
 @login_required(login_url="/login")
-@csrf_exempt
-def transasction_successful(request):
-    user_id = request.session['cred']
-    userModel = get_user_model()
-    user = userModel.objects.get(pk=user_id)
-    data = Transfer.objects.filter(user=user_id).order_by('date').last()
-    # print(request)
+def transaction_successful(request):
+    user = request.user
+    # Fetch the most recent transaction
+    data = Transfer.objects.filter(user=user).order_by('-date').first()
+    return render(request, 'user_templates/transaction_successful.html', {'data': data})
 
-    # if request.method == "POST":
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @login_required(login_url="/login")
+# def review_transaction(request):
+#     user_id = request.session['cred']
+#     userModel = get_user_model()
+#     user = userModel.objects.get(pk=user_id)
+
+#     if request.method=="POST":
+#         amount = request.POST.get('amount')  
+#         formatted_amount = f"{float(amount):,.2f}"      
+#         bank_name = request.POST.get('bankname')
         
-        # amount = request.POST['amount']
-        # print(amount)
-        # bank_name = request.POST['bankname']
-        # account_number = request.POST['accountnumber']
-        # routing_number = request.POST['routing_no']
-        # description = request.POST['description']
-        # account_holder = request.POST['accountholder'] 
-        # description = request.POST['description']
-        # print(description)
+#         routing_number = request.POST.get('sortcode')
+#         account_number = request.POST.get('accountnumber')
+#         account_holder = request.POST.get('accountholder')
+#         description = request.POST.get('description')
+#         charge = 5 + int(amount)
 
-        # context={'amount':amount, 'bn':bank_name, 'user':user,'description':description,
-        # 'ah':account_holder,'an':account_number,'rn':routing_number}
+#         if user.bal > charge:
+#             current_bal = user.bal - charge
+#             user.bal = current_bal
+#             user.save()
+#             resolve = Transfer.objects.create(
+#                 amount=amount,
+#                 bank_name=bank_name,
+#                 routing_number=routing_number,
+#                 account_number=account_number,
+#                 account_holder=account_holder,
+#                 action=description,
+#                 user = user
+#             )
+           
+#         else:
+#             messages.error(
+#                 request,
+#                 (
+#                     f'Insufficient Funds. '
+#                     f'Make some deposit to your account and try again.'
+                    
+#                 ))
+#             return redirect('/user/user-profile')
+#     return render(request, 'user_templates/review_transaction.html',{"amount":amount,"formatted_amount":formatted_amount, "bank_name":bank_name,"routing_number":routing_number,"account_number":account_number,"account_holder":account_holder,"description":description})    
+
+
+
+# @login_required(login_url="/login")
+# @csrf_exempt
+# def transaction_successful(request):
+#     user_id = request.session['cred']
+#     userModel = get_user_model()
+#     user = userModel.objects.get(pk=user_id)
+#     data = Transfer.objects.filter(user=user_id).order_by('date').last()
     
-    
-    return render(request, 'user_templates/transaction_successful.html',{'data':data})
+#     return render(request, 'user_templates/transaction_successful.html',{'data':data})
     
     
 @login_required(login_url="/login")

@@ -7,16 +7,6 @@ from django.db import transaction
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import User
 
-# class CustomUserCreationForm(UserCreationForm):
-#     class Meta(UserCreationForm):
-#         model = User
-#         fields = UserCreationForm.Meta.fields + ('email','first_name','last_name','address','phone_no')
-
-# class CustomUserChangeForm(UserChangeForm):
-#     class Meta(UserChangeForm):
-#         model = User
-#         fields = UserChangeForm.Meta.fields
-
 
 class LoginForm(forms.Form):
     account_number = forms.CharField(
@@ -44,10 +34,10 @@ class XYZ_DateInput(forms.DateInput):
 
 class SignUpForm(forms.ModelForm):
     firstname = forms.CharField(
-        # required = True,
+        required = True,
         widget=forms.TextInput(
             attrs={
-                # "placeholder" : "Firstname",                
+                "placeholder" : "Firstname",                
                 "class": "form-control",
                 
             }
@@ -55,7 +45,7 @@ class SignUpForm(forms.ModelForm):
     lastname = forms.CharField(
     widget=forms.TextInput(
         attrs={
-            # "placeholder" : "lastname",                
+         "placeholder" : "lastname",                
             "class": "form-control",
             "required": True
 
@@ -72,9 +62,6 @@ class SignUpForm(forms.ModelForm):
             }
         ))
 
-    
-
-
     class Meta: 
         model = Profile
         fields = '__all__'
@@ -82,10 +69,6 @@ class SignUpForm(forms.ModelForm):
         widgets = {
             'date_of_birth': XYZ_DateInput(format=["%Y-%m-%d"], ),
         }
-        # [
-        # 'middle_name', 'phone_number','nick_name', 'date_of_birth', 'title', 'gender',
-        # 'zip_code','residential_address','account_type', 'city','ssn', 
-        # 'State', 'country', 'Currency_type']
         
 
 

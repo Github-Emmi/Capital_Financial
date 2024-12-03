@@ -1,0 +1,82 @@
+{% extends 'user_templates/base.html' %}
+{% load static %}
+{% block custom_css %}
+<style>
+    /* Container for the form */
+form {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px; /* Fixed width for the form */
+}
+
+/* Heading styling */
+h2 {
+    text-align: center;
+    color: #333333;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px; /* Space between form elements */
+}
+
+/* Label styling */
+label {
+    display: block;
+    margin-bottom: 5px; /* Space between label and input */
+    font-weight: bold;
+}
+
+/* Input field styling */
+input[type="text"] {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for input text */
+}
+
+/* Input field focus effect */
+input[type="text"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Button styling */
+.btn {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Padding inside the button */
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white; /* White text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size for button text */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Button hover effect */
+.btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+</style>
+{% endblock custom_css %}
+
+
+{% block main_content %}
+
+<h2>Enter Verification Code</h2>
+<form action="{% url 'verify_transaction' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="verification_code">Verification Code</label>
+        <input type="text" id="verification_code" name="verification_code" class="form-control" maxlength="6" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Verify</button>
+</form>
+
+
+
+{% endblock main_content%}

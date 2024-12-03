@@ -171,95 +171,67 @@
 
     {% block custom_js %}
     <script>
-        $('.eg-swal-av5').on("click", function (e) {
-            var accountnumber = $("#account_number").val();
-              var bankname = $("#bank_name").val();
-              var routing_no = $("#routing_no").val();
-              var accountholder = $("#account_holder").val();
-              var amount = $("#amount").val();
-              var description = $("#description").val();
-              var timerInterval;
-            //   console.log(bankname, routing_no, accountnumber)
-
-            
-            Swal.fire({
-              title: 'Proccessing Transaction!',
-              html: 'Please wait...',
-              timer: 5000,
-              timerProgressBar: true,
-              onBeforeOpen: function onBeforeOpen() {
-                Swal.showLoading();
-                timerInterval = setInterval(function () {
-                  Swal.getContent().querySelector('b').textContent = Swal.getTimerLeft();
-                }, 100);
-              },
-              onClose: function onClose() {
-                clearInterval(timerInterval);
-                window.location.href="/user/transaction-successful";
-              }
-            }).then(function (result) {
-              if (
-            
-              result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer'); // eslint-disable-line
-               
-              }
-            });
+        $('#modalDefault').on("click", function (e) {
             e.preventDefault();
-            });
-            </script>
-
-            <!-- <script type="text/javascript">
-                $(document).ready(function(){
-                $("#accountnumber").change(function(){
-                  var accountnumber = $("#accountnumber").val();
-                  $.ajax({
-                 type:"post",
-                 url:"../scripts/user_account_name.php",
-                 data: { "accountnumber": accountnumber},
-                 success:function(data){
-                  $("#accountholder").val(data);
-                 }
-                  });
-                });
-            });
-         </script> -->
-         <script type="text/javascript">
-            $(document).ready(function(){
-            $("#modalDefault").click(function(){
-              var accountnumber = $("#account_number").val();
-              var bankname = $("#bank_name").val();
-              var routing_no = $("#routing_no").val();
-              var accountholder = $("#account_holder").val();
-              var amount = $("#amount").val();
-              var description = $("#description").val();
-
-              
-            //   console.log(accountholder , accountnumber , bankname , sortcode,  routing_no )
-
-              $.ajax({
-             type:"post",
-            //  url:"../scripts/user_account_name.php",
-            url: "{% url 'adminapp:transaction_successful' %}",
-             data: { 
-
-                bankname,
-                routing_no,
-                accountholder,
-                accountnumber,
-                amount,
-                description,
-            },
-             
-             success:function(data){
-              $("#accountholder").val(data);
-             }
-              });
+        
+            Swal.fire({
+                title: 'Verification Required',
+                text: 'A verification code has been sent to your email. Please enter the code to proceed.',
+                input: 'text',
+                inputAttributes: {
+                    maxlength: 6,
+                    pattern: '[0-9]*',
+                    placeholder: 'Enter Verification Code'
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to enter a code!';
+                    }
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                showLoaderOnConfirm: true,
+                preConfirm: (code) => {
+                    return $.ajax({
+                        type: "POST",
+                        url: "{% url 'verify_transaction' %}",
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        data: {
+                            verification_code: code
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 'success') {
+                            return response;
+                        } else {
+                            throw new Error(response.message || 'Verification failed');
+                        }
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(error.message);
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Transaction Verified!',
+                        text: 'Your transaction is now completed.',
+                    }).then(() => {
+                        window.location.href = '/user/transaction-successful';
+                    });
+                }
             });
         });
+        
      </script>
     
     {% endblock custom_js %}
+
+
+
+
 
 
 

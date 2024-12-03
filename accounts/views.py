@@ -1,18 +1,20 @@
 from .modules import *
-
-# Create your views here
-
 from .forms import LoginForm, SignUpForm, EmploymentInfo,ImageForm, forgotPassForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 from .models import State, Profile, User, Beneficiary_Security_Details
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.tokens import default_token_generator
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import send_mail
+from django.utils.encoding import force_str
 
 
 
@@ -56,32 +58,6 @@ def student_account(request):
 
 def bank_account(request):
      return render(request, 'account_templates/bank_account.html',{})
-# def register_user(request):
-
-#     msg     = None
-#     success = False
-
-#     if request.method == "POST":
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get("username")
-#             raw_password = form.cleaned_data.get("password1")
-#             user = authenticate(username=username, password=raw_password)
-#             profile.objects.create(user=user)
-            
-
-#             msg     = 'User created - please login.'
-#             success = True
-            
-#             return redirect("/login/")
-
-#         else:
-#             msg = 'Form is not valid'    
-#     else:
-#         form = SignUpForm()
-
-#     return render(request, "accounts/register.html", {"form": form, "msg" : msg, "success" : success })
 
 def login_user(request):
      form = LoginForm(request.POST or None)
@@ -119,7 +95,6 @@ def enroll_step2(request):
      return render(request, 'account_templates/enroll_step2.html', {})
 
 
-
 def enroll_step3(request):
      form = SignUpForm(request.POST or None)
      msg = ''
@@ -144,11 +119,6 @@ def enroll_step3(request):
                country = form.cleaned_data.get('country')
                city = form.cleaned_data.get('city')
                ssn = form.cleaned_data.get('ssn')
-
-
-               # UserModel = 
-
-
                user = User.objects.create(
                     email=email,
                     first_name=first_name,
@@ -248,13 +218,10 @@ def activate_email(request, uidb64, token):
         messages.error(request, 'Invalid activation link.')
     return HttpResponseRedirect(reverse_lazy('accounts:user_login'))
 
-
-
 def enroll_step5(request, uidb64):
      form = ImageForm(request.POST, request.FILES)
      msg = ''
      uid = urlsafe_base64_decode(uidb64).decode()
-
 
      if request.method == "POST" or "None":
 
@@ -264,18 +231,30 @@ def enroll_step5(request, uidb64):
                if 'avatar' in request.FILES:
                     user.avatar = request.FILES['avatar']
                     user.save()
-                    context = {'user': user}
-                    message = render(request, 'account_templates/activation_email.html', context)
-        
-                    user.email_user(subject='Activate your account',message=message.content.decode('utf-8'))
 
-                    return redirect('/enroll-complete/'+uidb64)
+                    # Send Welcome Email
+                    subject = "Welcome to Our Banking Platform!"
+                    context = {
+                        'user': user,
+                        'full_name': f"{user.first_name} {user.last_name}",
+                    }
+                    html_message = render_to_string('account_templates/welcome_email.html', context)
+                    plain_message = strip_tags(html_message)  # Fallback for non-HTML clients
+                
+                    send_mail(
+                        subject,
+                        plain_message,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [user.email],
+                        html_message=html_message,
+                        fail_silently=False,
+                    )
+
+                    return redirect('/enroll-complete/' + uidb64)
                else:
-                    msg = 'Picture could not be uploaded'    
-
+                    msg = 'Picture could not be uploaded'
 
      return render(request, 'account_templates/enroll_step5.html', {"form": form, "msg": msg})
-
 
 
 
@@ -286,39 +265,32 @@ def enroll_complete(request, uidb64):
 
      return render(request, 'account_templates/enroll_complete.html', {'user':user})
 
-# class enroll_complete(TemplateView):
-#     """View upon successfull registration"""
-#     model = User
-#     form_class = UserRegistrationForm
-#     template_name = 'accounts_templates/enroll_complete.html'
-   
-    
-#     def post(self, request, *args, **kwargs):
-#         """Handle post request"""
-#         registration_form = UserRegistrationForm(self.request.POST)
-#         address_form = UserAddressForm(self.request.POST)
-#         if registration_form.is_valid() and address_form.is_valid():
-#             user = registration_form.save(commit=False)
-#             user.is_active = False
-#             user.save()
-#             address = address_form.save(commit=False)
-#             address.user = user
-#             address.save()
-#             self.send_activation_email(user)
-#             messages.success(
-#                 self.request,
-#                 (
-#                     f'Thank You For Creating A Bank Account. '
-#                     f'Please check your email to activate your account.'
-#                 )
-#             )
-#             return HttpResponseRedirect(reverse_lazy('accounts:user_login'))
-#         return self.render_to_response(
-#             self.get_context_data(
-#                 registration_form=registration_form,
-#                 address_form=address_form
-#             )
-#         )
+def verify_email(request, uidb64, token):
+    """Verifies the user's email and sends a follow-up email."""
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        # Send follow-up email
+        send_mail(
+            'Email Verified',
+            'Your email has been successfully verified. Welcome to Capital Financial!',
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+            fail_silently=False,
+        )
+
+        messages.success(request, 'Your email has been verified successfully.')
+        return redirect('login') 
+    else:
+        messages.error(request, 'The verification link is invalid or has expired.')
+        return redirect('') 
 
 def forgot_password(request):
      form = forgotPassForm(request.POST or None)
