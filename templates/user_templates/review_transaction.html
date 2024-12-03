@@ -194,7 +194,7 @@
                 preConfirm: (code) => {
                     return $.ajax({
                         type: "POST",
-                        url: "{% url 'verify_transaction' %}",
+                        url: "{% url 'adminapp:verify_transaction' %}",
                         headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                         data: {
                             verification_code: code

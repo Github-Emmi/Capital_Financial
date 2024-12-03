@@ -112,21 +112,29 @@
                             <span class="data-label">Language</span>
                             <span class="data-value">English (United States)</span>
                         </div>
-                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary">Change Language</a></div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary"></a></div>
                     </div><!-- .data-item -->
                     <div class="data-item">
                         <div class="data-col">
                             <span class="data-label">Date Format</span>
-                            <span class="data-value">M d, YYYY</span>
+                            <span class="data-value">{{user.profile.date_of_birth}}</span>
                         </div>
-                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary">Change</a></div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary"></a></div>
                     </div><!-- .data-item -->
                     <div class="data-item">
                         <div class="data-col">
                             <span class="data-label">Current Timezone</span>
-                            <span class="data-value"></span>
+                            <span class="data-value" id="timezone"></span>
                         </div>
-                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary">Change</a></div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary"></a></div>
+                    </div><!-- .data-item -->
+
+                    <div class="data-item">
+                        <div class="data-col">
+                            <span class="data-label">Current Time</span>
+                            <span class="data-value" id="current-time"></span>
+                        </div>
+                        <div class="data-col data-col-end"><a href="#" data-toggle="modal" data-target="#profile-language" class="link link-primary"></a></div>
                     </div><!-- .data-item -->
                 </div><!-- .nk-data -->
             </div>
@@ -137,3 +145,20 @@
 </div>
 
 {% endblock main_content %}
+
+
+{% block custom_js %}
+<script>
+    const getUserTimeZone = () => {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone; // e.g., "America/New_York"
+    };
+
+    const getCurrentTime = (timeZone) => {
+        return new Date().toLocaleString("en-US", { timeZone }); // Localized current time
+    };
+
+    const userTimeZone = getUserTimeZone();
+    document.getElementById("timezone").innerText = userTimeZone;
+    document.getElementById("current-time").innerText = getCurrentTime(userTimeZone);
+</script>
+{% endblock custom_js %}

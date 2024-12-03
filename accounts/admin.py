@@ -1,7 +1,5 @@
 from django.contrib import admin
 from .models import * 
-# Country, State, Profile, User, Beneficiary_Security_Details, Deposit, Transfer, Balance
-# Register your models here.
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
@@ -37,6 +35,9 @@ class TransferAdmin(admin.ModelAdmin):
 
     formatted_amount.short_description = "Amount"  # Custom column name
 
+@admin.register(VerificationCode)
+class VerificationCodeEmail(admin.ModelAdmin):
+    list_display = ['user', 'code', 'created_at', 'expires_at']
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

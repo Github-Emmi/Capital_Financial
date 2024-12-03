@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #333; }
+        p { font-size: 16px; }
+        .code { font-weight: bold; background-color: #e7f3fe; padding: 10px; border-radius: 5px; display: inline-block; }
+        .details { margin-top: 20px; }
+        .details ul { list-style-type: none; padding: 0; }
+        .details li { margin-bottom: 10px; }
+        footer { margin-top: 20px; font-size: 14px; color: #777; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Transaction Verification Code</h2>
+        <p>Hello <strong>{{full_name}}</strong>,</p>
+        <p>Before you proceed with your transaction, please copy this verification code to continue:</p>
+        <h3 class="code">{{verification_code}}</h3>
+
+        <div class="details">
+            <h4>Transaction Details:</h4>
+            <ul>
+                <li><strong>Bank Name:</strong>{{bank_name}}</li>
+                <li><strong>Routing Number:</strong> {{routing_number}}</li>
+                <li><strong>Account Number:</strong> {{account_number}}</li>
+                <li><strong>Account Holder:</strong> {{account_holder}}</li>
+                <li><strong>Description:</strong> {{description}}</li>
+            </ul>
+        </div>
+
+        <footer>
+            If you did not initiate this transaction, please contact customer support immediately.
+        </footer>
+    </div>
+</body>
+</html>
