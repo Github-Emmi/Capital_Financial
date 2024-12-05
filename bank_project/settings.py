@@ -168,6 +168,7 @@ SITE_URL = "https://capitalfundfinance.com/"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Media folder
 MEDIA_URL = "/user/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
