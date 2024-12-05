@@ -1,4 +1,3 @@
-import environ
 import os
 from pathlib import Path
 
@@ -7,10 +6,6 @@ from django.contrib import messages
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
-# Initialize environment variables  
-env = environ.Env()  
-environ.Env.read_env()  # Reads the .env file  
 
 
 # load_dotenv()
@@ -97,21 +92,19 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# Configure the DATABASES setting using DATABASE_URL from the .env file  
-# settings.py  
+# Configure the DATABASES setting using DATABASE_URL from the .env file
+# settings.py
 
-DATABASES = {  
-    'default': {  
-        'ENGINE': 'django.db.backends.postgresql', 
-        'NAME': 'dc5r7noa0gfik1',                  
-        'USER': 'u4dtlsn48am1ug',                   
-        'PASSWORD': 'p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4',    
-        'HOST': 'cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com', 
-        'PORT': '5432',               
-    }  
-}  
-
-
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "dc5r7noa0gfik1",
+        "USER": "u4dtlsn48am1ug",
+        "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
+        "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+        "PORT": "5432",
+    }
+}
 
 
 # Password validation
