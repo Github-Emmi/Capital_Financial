@@ -45,10 +45,10 @@
                                         <div class="nk-wg7">
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50" style="background-image: url(); border-color: white; border-width: 5px; border-radius: 50%;">
-                                                    <!-- {% if user.avatar %}   -->
+                                                     {% comment %} {% if user.avatar %}  
                                                     
-                                                    <img class="img img-rounded" src="media/{{ user.avatar }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
-                                                    <!-- {% endif %}   -->
+                                                    <img class="img img-rounded" src="{{ user.avatar.url }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
+                                                    {% endif %}  {% endcomment %}
                                                 
                                                 </div>
                                             <div class="nk-wg7-stats w-50">
