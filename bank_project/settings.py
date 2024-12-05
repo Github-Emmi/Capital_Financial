@@ -1,3 +1,4 @@
+import environ
 import os
 from pathlib import Path
 
@@ -6,6 +7,10 @@ from django.contrib import messages
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
+# Initialize environment variables  
+env = environ.Env()  
+environ.Env.read_env()  # Reads the .env file  
 
 
 # load_dotenv()
@@ -20,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*",
@@ -92,22 +97,21 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",  # Main database
-    },
-    # 'venexapp_db': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'venexapp_db.sqlite3',  # Database for venexapp
-    # },
-    # 'accounts_db': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'accounts_db.sqlite3',  # Database for accounts
-    # },
-}
+# Configure the DATABASES setting using DATABASE_URL from the .env file  
+# settings.py  
 
-# DATABASE_ROUTERS = ['bank_project.db_router.AppDatabaseRouter']
+DATABASES = {  
+    'default': {  
+        'ENGINE': 'django.db.backends.postgresql', 
+        'NAME': 'dc5r7noa0gfik1',                  
+        'USER': 'u4dtlsn48am1ug',                   
+        'PASSWORD': 'p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4',    
+        'HOST': 'cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com', 
+        'PORT': '5432',               
+    }  
+}  
+
+
 
 
 # Password validation

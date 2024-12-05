@@ -1,18 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 venv/
 .vscode/
-=======
-=======
-venv/
-.vscode/
->>>>>>> origin/master
 venv
+adminapp/migrations
 accounts/migrations
 accounts/__pycache__
 adminapp/__pycache__
-<<<<<<< HEAD
->>>>>>> 27d17dc (auth workflow)
-=======
 .env
->>>>>>> origin/master
