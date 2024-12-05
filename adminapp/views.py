@@ -159,12 +159,10 @@ def review_transaction(request):
                     html_message=html_message,
                     fail_silently=False,
                 )
-                messages.success(
-                    request, "A verification code has been sent to your email."
-                )
+
             except Exception as e:
                 messages.error(request, f"Failed to send email: {e}")
-                return redirect("user/user-profile")
+                return redirect("user/transfer")
 
             # Save transaction details temporarily in the session
             request.session["transaction_data"] = {
@@ -183,7 +181,11 @@ def review_transaction(request):
         else:
             messages.error(request, "Insufficient funds. Please deposit and try again.")
             return redirect("/user/user-profile")
-    return render(request, "user_templates/review_transaction.html")
+    return render(
+        request,
+        "user_templates/review_transaction.html",
+        {},
+    )
 
 
 from django.views.decorators.csrf import csrf_exempt

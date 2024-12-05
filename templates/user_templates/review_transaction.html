@@ -94,43 +94,10 @@
 <!-- Modal Content Code -->
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">      
        <div class="modal-content">
-           <a href='{% url "adminapp:transfer" %}' class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+           <a href='{% url "adminapp:transfer" %}' class="close" data-dismiss="modal"></a>
            <div class="modal-body modal-body-lg">
-               <div class="nk-block-head nk-block-head-xs text-center">
-                   <h5 class="nk-block-title">Review transaction</h5>
-                   <div class="nk-block-text">
-                       <div class="caption-text text-primary display-4">Kindly review this transaction before proceeding.</div>
-                   </div>
-               </div>
                <div class="nk-block">
-                   <div class="buysell-overview">
-                       <ul class="buysell-overview-list">
-                           <li class="buysell-overview-item">
-                           <span class="pm-title"><em class="icon ni ni-alert-circle"></em> <span>Amount</span></span>
-                               <span class="pm-title">{{formatted_amount}}</span>
-                           </li>
-                           <li class="buysell-overview-item">
-                               <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Bank Name</span>
-                               <span class="pm-currency">{{bank_name}}</span>
-                           </li>
-                           <li class="buysell-overview-item">
-                               <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Routing number</span>
-                               <span class="pm-currency">{{routing_number}}</span>
-                           </li>
-                           <li class="buysell-overview-item">
-                               <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Account Number</span>
-                               <span class="pm-currency">{{account_number}}</span>
-                           </li>
-                           <li class="buysell-overview-item">
-                               <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Account Holder</span>
-                               <span class="pm-currency">{{account_holder}}</span>
-                           </li>
-                            <li class="buysell-overview-item">
-                               <span class="pm-title"><em class="icon ni ni-alert-circle"></em> Description </span>
-                               <span class="pm-currency">{{description}}</span>
-                           </li>
-                       </ul>
-                   </div>
+                   
                    <div class="buysell-field form-group">
                        <div class="form-label-group">
                            <label class="form-label">Sending from:</label>
@@ -233,7 +200,7 @@
 
 
 
-
+    556554
 
 
 

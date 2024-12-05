@@ -206,7 +206,7 @@ class Transfer(models.Model):
         
 
 def get_expiration_time():  
-    return now() + timedelta(minutes=10)  
+    return now() + timedelta(minutes=5)  
 class VerificationCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='verification_code')
     code = models.CharField(max_length=6)
