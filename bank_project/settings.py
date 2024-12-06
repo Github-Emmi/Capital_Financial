@@ -23,7 +23,6 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "*",
     "whispering-caverns-20318-364325440733.herokuapp.com",
     "capitalfundfinance.com",
     "www.capitalfundfinance.com",
@@ -106,6 +105,26 @@ DATABASES = {
         "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
         "PORT": "5432",
     }
+}
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/tmp/django_errors.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
 }
 
 
