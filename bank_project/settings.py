@@ -96,7 +96,9 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # settings.py
 
 DATABASES = {
-    "default": {
+    'default': {
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "dc5r7noa0gfik1",
         "USER": "u4dtlsn48am1ug",

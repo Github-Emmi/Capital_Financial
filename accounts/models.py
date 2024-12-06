@@ -103,23 +103,23 @@ def create_author(sender, instance, created, **kwargs):
         User.objects.filter(pk=instance.id).update(account_number=account_number)  
         
 class Country(models.Model):
-    
-    name = models.CharField(('country name'), max_length=55, blank=True)
+    id = models.IntegerField(primary_key=True)  # Explicit primary key to match CSV
+    name = models.CharField(('country name'), max_length=55, unique=True)
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = "Countries"
-    
 
 class State(models.Model):
-    name = models.CharField(('state name'), max_length=55, blank=True)
+    id = models.IntegerField(primary_key=True)  # Explicit primary key to match CSV
+    name = models.CharField(('state name'), max_length=55)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = "States"
 
@@ -238,17 +238,4 @@ class Balance(models.Model):
         Returns the balance formatted with commas and two decimal places.
         '''
         return f"{self.bal:,.2f}"
-
-# @receiver(post_save, sender=Profile)
-# def create_author(sender, instance, created, **kwargs):
-#     if created:
-#         author = Profile.objects.create(id=your_id,author_name=your_author_name,author_description=your_author_description)
-#         Book.objects.objects.filter(pk=instance.id).update(author=author)
-
-
-# @receiver(post_save, sender=Book)
-# def save_author(sender, instance, **kwargs):
-#     instance.author.save()
-
-
 
