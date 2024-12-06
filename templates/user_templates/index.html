@@ -17,7 +17,7 @@
                 </div>
                 <div class="nk-block-between-md g-4 card-bordered">
                     <div class="nk-block-head-content">
-                        <h4 class="nk-block-title fw-normal greeting"> {{user.get_full_name}} </h4>
+                        <h4 class="nk-block-title fw-normal greeting" id="greeting"> {{user.get_full_name}} </h4>
                         <div class="nk-block-des">
                             <p>At a glance summary of your account!</p>
                         </div>
@@ -357,7 +357,7 @@
             else if (hour < 17) return "Good Afternoon!";
             else return "Good Evening!";
         }
-        $(".greeting").text(getGreeting());
+        $("#greeting").text(getGreeting());
     });
 </script>
 {% endblock custom_js %}
