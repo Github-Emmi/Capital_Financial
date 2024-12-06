@@ -37,7 +37,7 @@ def user_profile(request):
     trans = Transfer.objects.filter(user=user_id)
     account_data = list(chain(dep, trans))
     account_data.sort(key=lambda x: x.date, reverse=True)
-    top_transactions = account_data[-4:]
+    top_transactions = account_data[:20]
     return render(
         request,
         "user_templates/index.html",
