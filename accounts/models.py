@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 import uuid
 from django.db import models
+import random
 from django.utils.timezone import now
 from datetime import timedelta
 from django.core.mail import send_mail
@@ -52,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(('active'), default=True)
     is_staff = models.BooleanField(default=False)
     avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
-    account_number = models.IntegerField(('account_number'), unique=True, blank=True, null=True)
+    account_number = models.BigIntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
 
     # Fields for roles (previously in CustomUser)
@@ -91,12 +92,15 @@ class User(AbstractBaseUser, PermissionsMixin):
     def formatted_balance(self):
         return f"{self.bal:,.2f}"
 
-
-
-@receiver(post_save, sender=User)
-def create_author(sender, instance, created, **kwargs):
-    if created:
-        User.objects.filter(pk=instance.id).update(account_number=int(str(uuid.uuid4().int)[:10]))
+@receiver(post_save, sender=User)  
+def create_author(sender, instance, created, **kwargs):  
+    if created:  
+        # Generate a random 10-digit number that is unique  
+        while True:  
+            account_number = random.randint(1000000000, 9999999999)  # Generate 10-digit account number  
+            if not User.objects.filter(account_number=account_number).exists():  # Ensure uniqueness  
+                break  
+        User.objects.filter(pk=instance.id).update(account_number=account_number)  
         
 class Country(models.Model):
     
