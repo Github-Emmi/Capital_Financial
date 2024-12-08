@@ -19,6 +19,7 @@ path('accounts/activate/<str:uidb64>',
           ##     sign up urls  ##
        ###########          ###########
 path('login', login_user, name='login'),
+path('account-blocked', account_blocked, name='account_blocked'),
 path('logout', LogoutView, name='logout'),
 path('enroll-step1', enroll_step1, name='enroll_step1'),
 path('enroll-step2', enroll_step2, name='enroll_step2'),

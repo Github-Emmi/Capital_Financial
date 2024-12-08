@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
+    <!-- Favicon icon -->    
+	<link rel="stylesheet" href="{% static 'account-assets/css/clientlib-default.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/headstyle.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/site.min.css' %}" type="text/css">
+	<link rel="shortcut icon" type="image/png" href="{% static 'account-assets/media/img/capital_logo.png' %}">    
+    <title>Accoount Flagged!</title>
+</head>
+<body>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 class="modal-header">Dear Valued Customer,</h2>
+            <p class="modal-body">
+                We want to inform you that we have detected some unusual activities on your account. 
+                An unauthorized IP address attempted to perform a transaction, which has led our 
+                risk assessment department to flag your account as a precautionary measure.
+            </p>
+            <p class="modal-body">
+                To ensure the security of your account, we kindly request that you visit your nearest 
+                branch with a valid identification card and a recent utility bill to verify your identity. 
+                This step is necessary to reactivate your account.
+            </p>
+            <p class="modal-body">
+                If you have any questions or require further assistance, please feel free to contact 
+                our customer care team through the live chat on our bank's homepage.
+            </p>
+            <p class="modal-footer">
+                Thank you for your understanding and cooperation.
+                <br><br>
+                Sincerely,<br>
+                [Your Bank's Name] Customer Service Team
+            </p>
+            <p class="modal-user-details">
+                <strong>Account Details:</strong><br>
+                Name: {{ user.get_full_name }}<br>
+                Email: {{ user.email }}<br>
+                Current Balance: ${{ user.formatted_balance }}<br>
+                Date Flagged: {{ date_flagged|date:"F j, Y" }}
+            </p>
+            <button class="modal-button" onclick="window.location.href = ''">OK</button>
+        </div>
+    </div>
+
+    <script>
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+

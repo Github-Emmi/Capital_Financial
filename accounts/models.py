@@ -55,8 +55,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
     account_number = models.BigIntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
+    is_blocked = models.BooleanField(default=False)
+    date_flagged = models.DateTimeField(('date flagged'), null=True, blank=True)
 
-    # Fields for roles (previously in CustomUser)
+    # Fields for roles (Venex App)
     USER_TYPE_CHOICES = ((1, "User"), (2, "Client"))
     user_type = models.IntegerField(default=1, choices=USER_TYPE_CHOICES)
     fund_amount = models.CharField(max_length=15, choices=[("none", "None"), ("low", "Low"), ("high", "High")], default="none")

@@ -158,7 +158,7 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
-
+MIDDLEWARE.append('accounts.middleware.BlockedUserMiddleware')
 AUTH_USER_MODEL = "accounts.User"
 SESSION_COOKIE_AGE = 180
 LOGIN_REDIRECT_URL = "/login"
