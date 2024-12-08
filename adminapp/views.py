@@ -279,60 +279,6 @@ def transaction_successful(request):
     return render(request, "user_templates/transaction_successful.html", {"data": data})
 
 
-# @login_required(login_url="/login")
-# def review_transaction(request):
-#     user_id = request.session['cred']
-#     userModel = get_user_model()
-#     user = userModel.objects.get(pk=user_id)
-
-#     if request.method=="POST":
-#         amount = request.POST.get('amount')
-#         formatted_amount = f"{float(amount):,.2f}"
-#         bank_name = request.POST.get('bankname')
-
-#         routing_number = request.POST.get('sortcode')
-#         account_number = request.POST.get('accountnumber')
-#         account_holder = request.POST.get('accountholder')
-#         description = request.POST.get('description')
-#         charge = 5 + int(amount)
-
-#         if user.bal > charge:
-#             current_bal = user.bal - charge
-#             user.bal = current_bal
-#             user.save()
-#             resolve = Transfer.objects.create(
-#                 amount=amount,
-#                 bank_name=bank_name,
-#                 routing_number=routing_number,
-#                 account_number=account_number,
-#                 account_holder=account_holder,
-#                 action=description,
-#                 user = user
-#             )
-
-#         else:
-#             messages.error(
-#                 request,
-#                 (
-#                     f'Insufficient Funds. '
-#                     f'Make some deposit to your account and try again.'
-
-#                 ))
-#             return redirect('/user/user-profile')
-#     return render(request, 'user_templates/review_transaction.html',{"amount":amount,"formatted_amount":formatted_amount, "bank_name":bank_name,"routing_number":routing_number,"account_number":account_number,"account_holder":account_holder,"description":description})
-
-
-# @login_required(login_url="/login")
-# @csrf_exempt
-# def transaction_successful(request):
-#     user_id = request.session['cred']
-#     userModel = get_user_model()
-#     user = userModel.objects.get(pk=user_id)
-#     data = Transfer.objects.filter(user=user_id).order_by('date').last()
-
-#     return render(request, 'user_templates/transaction_successful.html',{'data':data})
-
-
 @login_required(login_url="/login")
 def deposit_check(request):
     user_id = request.session["cred"]
