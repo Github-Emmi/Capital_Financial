@@ -1,13 +1,13 @@
 from .modules import *
 from .forms import LoginForm, SignUpForm, EmploymentInfo, ImageForm, forgotPassForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.contrib import messages
 from .models import State, Profile, User, Beneficiary_Security_Details
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
+from django.http import HttpResponse
 
 HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
@@ -67,25 +67,43 @@ def login_user(request):
     form = LoginForm(request.POST or None)
     msg = None
 
-    if request.method == "POST" or "None":
+    if request.method == "POST":
         if form.is_valid():
             username = form.cleaned_data.get("account_number")
             password = form.cleaned_data.get("password")
             UserModel = get_user_model()
-            user_mail = UserModel.objects.get(account_number=username)
-            user = authenticate(email=user_mail, password=password)
 
-            if request.user.is_blocked:
-                return redirect('account_blocked')
+            try:
+                # Check if the account exists based on the account number
+                user_mail = UserModel.objects.get(account_number=username)
 
-            if user is not None:
-                login(request, user)
-                request.session["cred"] = user.pk
-                return redirect("/user/user-profile")
-            else:
-                msg = "Invalid credentials"
+                # Check if the user is blocked
+                if user_mail.is_blocked:
+                    return render(
+                        request,
+                        "account_templates/blocked_account.html",
+                        {
+                            "email": user_mail.email,
+                            "first_name": user_mail.first_name,
+                            "last_name": user_mail.last_name,
+                            "formatted_balance": user_mail.formatted_balance,
+                            "date_flagged": user_mail.date_flagged,
+                        },
+                    )
+
+                # Authenticate the user
+                user = authenticate(email=user_mail.email, password=password)
+                if user is not None:
+                    login(request, user)
+                    request.session["cred"] = user.pk
+                    return redirect("/user/user-profile")
+                else:
+                    msg = "Invalid credentials"
+            except UserModel.DoesNotExist:
+                msg = "Account does not exist"
         else:
-            msg = ""
+            msg = "Invalid form data"
+
     return render(request, "account_templates/login.html", {"form": form, "msg": msg})
 
 

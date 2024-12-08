@@ -10,5 +10,5 @@ class BlockedUserMiddleware:
     def __call__(self, request):
         if request.user.is_authenticated and request.user.is_blocked:
             logout(request)
-            return redirect(reverse('account_blocked'))
+            return redirect('account_blocked')
         return self.get_response(request)
