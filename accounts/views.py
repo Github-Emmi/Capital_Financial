@@ -81,7 +81,7 @@ def login_user(request):
                 if user_mail.is_blocked:
                     return render(
                         request,
-                        "account_templates/blocked_account.html",
+                        "account_templates/account_blocked.html",
                         {
                             "email": user_mail.email,
                             "first_name": user_mail.first_name,
