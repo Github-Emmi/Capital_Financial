@@ -65,7 +65,6 @@ def bank_account(request):
 
 def login_user(request):
     form = LoginForm(request.POST or None)
-
     msg = None
 
     if request.method == "POST" or "None":
@@ -75,6 +74,9 @@ def login_user(request):
             UserModel = get_user_model()
             user_mail = UserModel.objects.get(account_number=username)
             user = authenticate(email=user_mail, password=password)
+
+            if request.user.is_blocked:
+                return redirect('account_blocked')
 
             if user is not None:
                 login(request, user)

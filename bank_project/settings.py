@@ -23,6 +23,7 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "*",
     "whispering-caverns-20318-364325440733.herokuapp.com",
     "capitalfundfinance.com",
     "www.capitalfundfinance.com",
