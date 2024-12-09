@@ -23,7 +23,7 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "*",
+
     "whispering-caverns-20318-364325440733.herokuapp.com",
     "capitalfundfinance.com",
     "www.capitalfundfinance.com",
@@ -97,14 +97,14 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # "ENGINE": "django.db.backends.postgresql",
-        # "NAME": "dc5r7noa0gfik1",
-        # "USER": "u4dtlsn48am1ug",
-        # "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
-        # "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-        # "PORT": "5432",
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "dc5r7noa0gfik1",
+        "USER": "u4dtlsn48am1ug",
+        "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
+        "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+        "PORT": "5432",
     }
 }
 
