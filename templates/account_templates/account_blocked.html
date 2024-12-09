@@ -1,165 +1,211 @@
 {% extends 'user_templates/base.html' %}
+{% load static %}
 
 {% block custom_css %}
 <style>
-    /* Overlay to blur the background and cover the full page */
-    .overlay {
+    /* Overlay for background blur */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+  
+    .modals {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Slightly dark translucent effect */
-      backdrop-filter: blur(5px); /* Add blur to background */
-      z-index: 998; /* Below the modal but above the base content */
+      background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+      backdrop-filter: blur(8px); /* Blurring the background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
     }
   
-    /* Modal styling */
-    .modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-      border-radius: 8px;
-      padding: 20px;
+    /* Modal Content */
+    .modals-content {
+      background: white;
+      border-radius: 10px;
       width: 90%;
-      max-width: 400px;
-      z-index: 999; /* Ensure the modal is above the overlay */
+      max-width: 600px;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       text-align: center;
     }
   
-    /* Heading and text inside the modal */
-    .modal h1 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-  
-    .modal p {
-      font-size: 1em;
-      color: #666;
+    /* Header Style */
+    .modals-header {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2c3e50; /* Dark blue */
       margin-bottom: 20px;
     }
   
-    /* Buttons styling */
-    .modal button {
-      padding: 10px 20px;
-      margin: 5px;
+    /* Body Paragraph Style */
+    .modals-body {
+      font-size: 16px;
+      color: #34495e; /* Slightly lighter blue-gray */
+      margin-bottom: 15px;
+      line-height: 1.6;
+      text-align: justify;
+    }
+  
+    /* User Details Section */
+    .modals-user-details {
+      font-size: 14px;
+      color: #2c3e50;
+      text-align: left;
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ecf0f1; /* Light gray border */
+      border-radius: 5px;
+      background: #f9f9f9; /* Slightly off-white background */
+    }
+
+  /* Modal Footer Styles */
+  .modals-footer {
+      font-size: 14px;
+      color: #7f8c8d; /* Light gray for the footer text */
+      margin-top: 20px;
+      text-align: center;
+  }
+
+  /* Logo Styles */
+  .modals-logo {
+      width: 80px; /* Adjust the width of the logo */
+      height: auto; /* Maintain aspect ratio */
+      display: block;
+      margin: 0 auto 10px auto; /* Center the logo with margin below */
+      animation: fadeIn 1s ease-in-out; /* Add a smooth fade-in effect */
+  }
+
+  /* Company Name Styling */
+  .company-name {
+      font-weight: bold;
+      color: #2c3e50; /* Dark blue for emphasis */
+      font-size: 16px;
+  }
+
+  /* Fade-in Animation */
+  @keyframes fadeIn {
+      0% {
+          opacity: 0;
+          transform: scale(0.9);
+      }
+      100% {
+          opacity: 1;
+          transform: scale(1);
+      }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+      .modals-logo {
+          width: 60px; /* Reduce logo size for smaller screens */
+      }
+
+      .company-name {
+          font-size: 14px; /* Adjust font size for company name */
+      }
+  }
+
+  
+    /* Button Style */
+    .modals-button {
+      background-color: #3498db; /* Blue */
+      color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
       cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
     }
   
-    .modal .close-btn {
-      background-color: #ccc;
-      color: #333;
+    .modals-button:hover {
+      background-color: #2980b9; /* Darker blue */
     }
   
-    .modal .try-again-btn {
-      background-color: #f44336;
-      color: #fff;
-    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .modals-content {
+        width: 95%;
+        padding: 15px;
+      }
   
-    /* Disable scrolling when modal is active */
-    body.modal-active {
-      overflow: hidden;
+      .modals-header {
+        font-size: 20px;
+      }
+  
+      .modals-body {
+        font-size: 14px;
+      }
     }
+    
   </style>
-  
 {% endblock custom_css %}
 
+
 {% block main_content %}
-
-<!-- Overlay -->
-<div class="overlay"></div>
-
-<!-- Modal -->
-<div class="modal">
-  <h1>Oops something went wrong!</h1>
-  <p>The transfer was not successfully received by us. The email of the recipient wasn't correct.</p>
-  <button class="close-btn">Close</button>
-  <button class="try-again-btn">Try Again</button>
-</div>
-
-<script>
-
-        // Disable interaction with background element
-   document.body.classList.add('modal-active');
-
-  // Disable interaction with the background
-  document.body.style.pointerEvents = 'none';
-
-  // Allow interaction with the modal
-  const modal = document.querySelector('.modal');
-  modal.style.pointerEvents = 'all';
-</script>
-{% endblock main_content %}
-
-
-
-
-
-
-
-
-
-
-
-
-{% comment %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
-    <!-- Favicon icon -->    
-	<link rel="stylesheet" href="{% static 'account-assets/css/clientlib-default.min.css' %}" type="text/css">
-	<link rel="stylesheet" href="{% static 'account-assets/css/headstyle.css' %}" type="text/css">
-	<link rel="stylesheet" href="{% static 'account-assets/css/site.min.css' %}" type="text/css">
-	<link rel="shortcut icon" type="image/png" href="{% static 'account-assets/media/img/capital_logo.png' %}">    
-    <title>Accoount Flagged!</title>
-</head>
 <body>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h2 class="modal-header">Dear Valued Customer,</h2>
-            <p class="modal-body">
+    <div id="modals" class="modals">
+        <div class="modals-content">
+            <h2 class="modals-header">Dear Valued Customer,</h2>
+            <p class="modals-body">
                 We want to inform you that we have detected some unusual activities on your account. 
-                An unauthorized IP address attempted to perform a transaction, which has led our 
+                An unauthorized IP address attempted to a successful transaction, which has led our 
                 risk assessment department to flag your account as a precautionary measure.
             </p>
-            <p class="modal-body">
+            <p class="modals-body">
                 To ensure the security of your account, we kindly request that you visit your nearest 
                 branch with a valid identification card and a recent utility bill to verify your identity. 
                 This step is necessary to reactivate your account.
             </p>
-            <p class="modal-body">
+            <p class="modals-body">
                 If you have any questions or require further assistance, please feel free to contact 
                 our customer care team through the live chat on our bank's homepage.
             </p>
-            <p class="modal-footer">
-                Thank you for your understanding and cooperation.
-                <br><br>
-                Sincerely,<br>
-                [Your Bank's Name] Customer Service Team
-            </p>
-            <p class="modal-user-details">
+            <p class="modals-user-details">
                 <strong>Account Details:</strong><br>
                 Name: {{ user.get_full_name }}<br>
                 Email: {{ user.email }}<br>
                 Current Balance: ${{ user.formatted_balance }}<br>
                 Date Flagged: {{ date_flagged|date:"F j, Y" }}
             </p>
-            <button class="modal-button" onclick="window.location.href = ''">OK</button>
+        
+            <p class="modals-footer">
+                <img src="{% static 'account-assets/media/img/capital_logo.png' %}" alt="Company Logo" class="modals-logo">
+                
+                Thank you for your understanding and cooperation.
+                <br>
+                Sincerely,<br>
+                <span class="company-name">Capital Funding Financial Customer Service Team</span>
+            </p>
+            <a href="/login"><button class="modals-button">Ok</button></a>
         </div>
     </div>
 
     <script>
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function closeModals() {
+            document.getElementById('modals').style.display = 'none';
         }
     </script>
 </body>
-</html> {% endcomment %}
+{% endblock main_content %}
+
+{% block custom_js %}
+<script>
+    // Disable interaction with the background
+    document.body.style.pointerEvents = 'none';
+  
+    // Allow interaction with the modals
+    const modals = document.querySelector('.modals');
+    modals.style.pointerEvents = 'all';
+  </script>
+{% endblock custom_js %}  
+
+
