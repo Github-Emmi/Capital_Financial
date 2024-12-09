@@ -1,78 +1,76 @@
+/* General styles for body and background */
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-}
-
-.modal {
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    /* Prevent scrolling */
+    background: rgba(0, 0, 0, 0.5);
+    /* Dark translucent background */
+    backdrop-filter: blur(5px);
+    /* Blur effect for background */
+}
+
+/* Modal container styles */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    z-index: 1000;
+}
+
+/* Modal heading */
+.modal h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Modal message */
+.modal p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+.modal button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal .close-btn {
+    background-color: #ccc;
+    color: #333;
+}
+
+.modal .try-again-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* Overlay to block interactions with background */
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-.modal-header {
-    color: #333333;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.modal-body {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #555555;
-    margin-bottom: 15px;
-}
-
-.modal-footer {
-    font-size: 0.9rem;
-    color: #888888;
-    text-align: center;
-    margin-top: 15px;
-}
-
-.modal-button {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #ffffff;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.modal-button:hover {
-    background-color: #0056b3;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    pointer-events: none;
+    /* Prevent interaction with the overlay */
 }

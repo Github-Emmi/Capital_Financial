@@ -1,39 +1,128 @@
-{% extends 'account_templates/base.html' %}
-{% load static %}
-{% block title %} Account Flagged {% endblock title %}
+{% extends 'user_templates/base.html' %}
 
 {% block custom_css %}
-<link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'users-assets/css/dashlite.css' %}"> 
-<link rel="stylesheet" href="{% static 'users-assets/css/sweetalert.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
-<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+<style>
+    /* Overlay to blur the background and cover the full page */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); /* Slightly dark translucent effect */
+      backdrop-filter: blur(5px); /* Add blur to background */
+      z-index: 998; /* Below the modal but above the base content */
+    }
+  
+    /* Modal styling */
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      z-index: 999; /* Ensure the modal is above the overlay */
+      text-align: center;
+    }
+  
+    /* Heading and text inside the modal */
+    .modal h1 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+  
+    .modal p {
+      font-size: 1em;
+      color: #666;
+      margin-bottom: 20px;
+    }
+  
+    /* Buttons styling */
+    .modal button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    .modal .close-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+  
+    .modal .try-again-btn {
+      background-color: #f44336;
+      color: #fff;
+    }
+  
+    /* Disable scrolling when modal is active */
+    body.modal-active {
+      overflow: hidden;
+    }
+  </style>
+  
 {% endblock custom_css %}
-
-{% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
-
-
-
-#modalDefault1676
-
 
 {% block main_content %}
 
-<div class="modal fade show" tabindex="-1" id="modalDefault1676" aria-modal="true" role="dialog" style="padding-right:15px; display: block;">
-    <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <div class="modal-header bg-primary text-light">
-        <h5 class="modal-title text-light">Account Flagged</h5>
-        <a href="#" class="close text-light" data-dismiss="modal" aria-label="Close">
-            <em class="icon ni ni-cross"></em>
-        </a>
-    </div>
-    <div class="modal-body">
+<!-- Overlay -->
+<div class="overlay"></div>
+
+<!-- Modal -->
+<div class="modal">
+  <h1>Oops something went wrong!</h1>
+  <p>The transfer was not successfully received by us. The email of the recipient wasn't correct.</p>
+  <button class="close-btn">Close</button>
+  <button class="try-again-btn">Try Again</button>
+</div>
+
+<script>
+
+        // Disable interaction with background element
+   document.body.classList.add('modal-active');
+
+  // Disable interaction with the background
+  document.body.style.pointerEvents = 'none';
+
+  // Allow interaction with the modal
+  const modal = document.querySelector('.modal');
+  modal.style.pointerEvents = 'all';
+</script>
+{% endblock main_content %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
+    <!-- Favicon icon -->    
+	<link rel="stylesheet" href="{% static 'account-assets/css/clientlib-default.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/headstyle.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'account-assets/css/site.min.css' %}" type="text/css">
+	<link rel="shortcut icon" type="image/png" href="{% static 'account-assets/media/img/capital_logo.png' %}">    
+    <title>Accoount Flagged!</title>
+</head>
+<body>
+    <div id="modal" class="modal">
         <div class="modal-content">
             <h2 class="modal-header">Dear Valued Customer,</h2>
             <p class="modal-body">
@@ -50,6 +139,12 @@
                 If you have any questions or require further assistance, please feel free to contact 
                 our customer care team through the live chat on our bank's homepage.
             </p>
+            <p class="modal-footer">
+                Thank you for your understanding and cooperation.
+                <br><br>
+                Sincerely,<br>
+                [Your Bank's Name] Customer Service Team
+            </p>
             <p class="modal-user-details">
                 <strong>Account Details:</strong><br>
                 Name: {{ user.get_full_name }}<br>
@@ -59,36 +154,6 @@
             </p>
             <button class="modal-button" onclick="window.location.href = ''">OK</button>
         </div>
-       
-    </div>
-    <div class="modal-footer bg-light">
-        <p class="modal-footer">
-            Thank you for your understanding and cooperation.
-            <br><br>
-            Sincerely,<br>
-            Capital Funding Financial Customer Service Team
-        </p>
-        <span class="sub-text text-primary">Capital Funding Financial E-Service services.</span>
-    </div>
-    </div>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="modal" class="modal">
-        
     </div>
 
     <script>
@@ -96,5 +161,5 @@
             document.getElementById('modal').style.display = 'none';
         }
     </script>
-
-    {% endblock main_content %}
+</body>
+</html> {% endcomment %}
