@@ -1,19 +1,35 @@
+{% extends 'account_templates/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
-    <!-- Favicon icon -->    
-	<link rel="stylesheet" href="{% static 'account-assets/css/clientlib-default.min.css' %}" type="text/css">
-	<link rel="stylesheet" href="{% static 'account-assets/css/headstyle.css' %}" type="text/css">
-	<link rel="stylesheet" href="{% static 'account-assets/css/site.min.css' %}" type="text/css">
-	<link rel="shortcut icon" type="image/png" href="{% static 'account-assets/media/img/capital_logo.png' %}">    
-    <title>Accoount Flagged!</title>
-</head>
-<body>
-    <div id="modal" class="modal">
+{% block title %} Account Flagged {% endblock title %}
+
+{% block custom_css %}
+{% comment %} <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'users-assets/css/dashlite.css' %}"> 
+<link rel="stylesheet" href="{% static 'users-assets/css/sweetalert.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/opensans-font.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationPassword.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationSelect.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextarea.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationConfirm.css' %}"> 
+<link rel="stylesheet" href="{% static 'account-assets/css/SpryValidationTextField.css' %}"> 
+{% endblock custom_css %}
+
+{% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
+
+
+{% block main_content %}
+
+<div class="modal fade" tabindex="-1" id="modalDefault1676">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header bg-primary text-light">
+        <h5 class="modal-title text-light">Transaction Details</h5>
+        <a href="#" class="close text-light" data-dismiss="modal" aria-label="Close">
+            <em class="icon ni ni-cross"></em>
+        </a>
+    </div>
+    <div class="modal-body">
         <div class="modal-content">
             <h2 class="modal-header">Dear Valued Customer,</h2>
             <p class="modal-body">
@@ -30,12 +46,6 @@
                 If you have any questions or require further assistance, please feel free to contact 
                 our customer care team through the live chat on our bank's homepage.
             </p>
-            <p class="modal-footer">
-                Thank you for your understanding and cooperation.
-                <br><br>
-                Sincerely,<br>
-                [Your Bank's Name] Customer Service Team
-            </p>
             <p class="modal-user-details">
                 <strong>Account Details:</strong><br>
                 Name: {{ user.get_full_name }}<br>
@@ -45,6 +55,36 @@
             </p>
             <button class="modal-button" onclick="window.location.href = ''">OK</button>
         </div>
+       
+    </div>
+    <div class="modal-footer bg-light">
+        <p class="modal-footer">
+            Thank you for your understanding and cooperation.
+            <br><br>
+            Sincerely,<br>
+            Capital Funding Financial Customer Service Team
+        </p>
+        <span class="sub-text text-primary">Capital Funding Financial E-Service services.</span>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="modal" class="modal">
+        
     </div>
 
     <script>
@@ -52,7 +92,5 @@
             document.getElementById('modal').style.display = 'none';
         }
     </script>
-</body>
-</html>
 
-
+    {% endblock main_content %}
