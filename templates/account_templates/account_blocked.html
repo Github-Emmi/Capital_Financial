@@ -3,7 +3,7 @@
 {% block title %} Account Flagged {% endblock title %}
 
 {% block custom_css %}
-{% comment %} <link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css"> {% endcomment %}
+<link rel="stylesheet" href="{% static 'account-assets/css/blocked_user_modal.css' %}" type="text/css">
 <link rel="stylesheet" href="{% static 'users-assets/css/dashlite.css' %}"> 
 <link rel="stylesheet" href="{% static 'users-assets/css/sweetalert.css' %}"> 
 <link rel="stylesheet" href="{% static 'account-assets/css/enroll.css' %}"> 
@@ -18,13 +18,17 @@
 {% block header %} {% include 'account_templates/includes/signup_header.html' %} {% endblock header %}	
 
 
+
+#modalDefault1676
+
+
 {% block main_content %}
 
-<div class="modal fade" tabindex="-1" id="modalDefault1676">
+<div class="modal fade show" tabindex="-1" id="modalDefault1676" aria-modal="true" role="dialog" style="padding-right:15px; display: block;">
     <div class="modal-dialog" role="document">
     <div class="modal-content">
     <div class="modal-header bg-primary text-light">
-        <h5 class="modal-title text-light">Transaction Details</h5>
+        <h5 class="modal-title text-light">Account Flagged</h5>
         <a href="#" class="close text-light" data-dismiss="modal" aria-label="Close">
             <em class="icon ni ni-cross"></em>
         </a>
