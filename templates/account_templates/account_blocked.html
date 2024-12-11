@@ -26,13 +26,15 @@
   
     /* Modal Content */
     .modals-content {
-      background: white;
+      background: #fff;
       border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-      padding: 20px;
+      width: 100%;
+      max-width: 375px;
+      padding: 10px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
       text-align: center;
+      margin: auto;
+      position: relative;
     }
   
     /* Header Style */
@@ -46,7 +48,7 @@
     /* Body Paragraph Style */
     .modals-body {
       font-size: 16px;
-      color: #34495e; /* Slightly lighter blue-gray */
+      color: #34495e; 
       margin-bottom: 15px;
       line-height: 1.6;
       text-align: justify;
@@ -63,54 +65,21 @@
       border-radius: 5px;
       background: #f9f9f9; /* Slightly off-white background */
     }
-
-  /* Modal Footer Styles */
-  .modals-footer {
+  
+    /* Footer Section */
+    .modals-footer {
       font-size: 14px;
-      color: #7f8c8d; /* Light gray for the footer text */
+      color: #7f8c8d; /* Grayish text */
       margin-top: 20px;
-      text-align: center;
-  }
+      text-align: left;
+    }
 
-  /* Logo Styles */
-  .modals-logo {
-      width: 80px; /* Adjust the width of the logo */
-      height: auto; /* Maintain aspect ratio */
-      display: block;
-      margin: 0 auto 10px auto; /* Center the logo with margin below */
-      animation: fadeIn 1s ease-in-out; /* Add a smooth fade-in effect */
-  }
-
-  /* Company Name Styling */
-  .company-name {
-      font-weight: bold;
-      color: #2c3e50; /* Dark blue for emphasis */
-      font-size: 16px;
-  }
-
-  /* Fade-in Animation */
-  @keyframes fadeIn {
-      0% {
-          opacity: 0;
-          transform: scale(0.9);
-      }
-      100% {
-          opacity: 1;
-          transform: scale(1);
-      }
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-      .modals-logo {
-          width: 60px; /* Reduce logo size for smaller screens */
-      }
-
-      .company-name {
-          font-size: 14px; /* Adjust font size for company name */
-      }
-  }
-
+    .modals-logo {
+        width: 80px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+    
   
     /* Button Style */
     .modals-button {
@@ -129,23 +98,74 @@
     .modals-button:hover {
       background-color: #2980b9; /* Darker blue */
     }
+
+    @keyframes fadeIn{
+        0%{
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        100%{
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
   
     /* Responsive Design */
+
+   /* For smaller screen heights */
+@media (max-height: 667px) {
+    .modals-content {
+        max-height: 95vh; 
+        overflow-y: auto;
+    }
+    .modals-header,
+    .modals-body,
+    .modals-footer {
+        font-size: 14px;
+    }
+}
+
+/* Specific adjustments for iPhone SE viewport (375x667) */
+@media (max-width: 375px) and (max-height: 667px) {
+    .modals {
+        padding: 5px; /* Reduce padding for even more space */
+    }
+
+    .modals-content {
+        padding: 10px; /* Reduce modal padding */
+        font-size: 13px; /* Adjust overall font size */
+    }
+
+    .modals-button {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
     @media (max-width: 768px) {
+      .models-logo{
+            width: 60px;
+        }
+
+        .company-name{
+            font-size: 14px;
+        }
       .modals-content {
-        width: 95%;
+        width: 90%;
         padding: 15px;
       }
   
       .modals-header {
-        font-size: 20px;
+        font-size: 16px;
       }
   
       .modals-body {
-        font-size: 14px;
+        font-size: 13px;
+      }
+      .modals-footer {
+        font-size: 13px;
       }
     }
-    
   </style>
 {% endblock custom_css %}
 
@@ -157,7 +177,7 @@
             <h2 class="modals-header">Dear Valued Customer,</h2>
             <p class="modals-body">
                 We want to inform you that we have detected some unusual activities on your account. 
-                An unauthorized IP address attempted to a successful transaction, which has led our 
+                An unauthorized IP address attempted a successful transaction, which has led our 
                 risk assessment department to flag your account as a precautionary measure.
             </p>
             <p class="modals-body">
@@ -171,9 +191,9 @@
             </p>
             <p class="modals-user-details">
                 <strong>Account Details:</strong><br>
-                Name: {{ user.get_full_name }}<br>
-                Email: {{ user.email }}<br>
-                Current Balance: ${{ user.formatted_balance }}<br>
+                Name: {{ first_name }} {{ last_name }}<br>
+                Email: {{ email }}<br>
+                Current Balance: ${{ formatted_balance }}<br>
                 Date Flagged: {{ date_flagged|date:"F j, Y" }}
             </p>
         
@@ -185,7 +205,7 @@
                 Sincerely,<br>
                 <span class="company-name">Capital Funding Financial Customer Service Team</span>
             </p>
-            <a href="/login"><button class="modals-button">Ok</button></a>
+            <button class="modals-button" onclick="window.location.href = '/login'">OK</button>
         </div>
     </div>
 
