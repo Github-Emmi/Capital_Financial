@@ -125,9 +125,11 @@ def review_transaction(request):
         account_number = request.POST.get("accountnumber")
         account_holder = request.POST.get("accountholder")
         description = request.POST.get("description")
+
         charge = 5 + int(amount)
 
         if user.bal > charge:
+            balance_after_transaction = user.bal - charge
             # Generate a 6-digit random code
             verification_code = get_random_string(length=6, allowed_chars="0123456789")
 
@@ -151,6 +153,7 @@ def review_transaction(request):
                 "account_number": account_number,
                 "account_holder": account_holder,
                 "description": description,
+                "balance_after_transaction": balance_after_transaction,
                 "verification_code": verification_code,
                 "full_name": f"{user.first_name} {user.last_name}",
             }
@@ -247,6 +250,7 @@ def verify_transaction(request):
                         {
                             "status": "success",
                             "message": "Transaction completed successfully!",
+                            "transaction_id": transfer.id,
                         }
                     )
                 else:

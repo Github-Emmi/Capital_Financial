@@ -45,10 +45,10 @@
                                         <div class="nk-wg7">
                                             <div class="nk-wg7-stats-group">
                                                 <div class="nk-wg7-stats w-50" style="background-image: url(); border-color: white; border-width: 5px; border-radius: 50%;">
-                                                     {% comment %} {% if user.avatar %}  
+                                                     {% if user.avatar %}  
                                                     
                                                     <img class="img img-rounded" src="{{ user.avatar.url }}" width="85" style="border-color: white; border-width: 5px; border-radius:50px;" height="85">
-                                                    {% endif %}  {% endcomment %}
+                                                    {% endif %} 
                                                 
                                                 </div>
                                             <div class="nk-wg7-stats w-50">
@@ -219,13 +219,13 @@
                                  <div class="tranx-col">
                                     <div class="tranx-amount">
                                         <div class="number text-danger">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1676">View Details</span>
+                                        <button class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalTransaction{{ account_data.txnId }}"> View Details </button>
                               </div>
                       </div>
                       {% endif %}
              </div><!-- .tranx-item -->
 <!-- .tranx-details -->
-<div class="modal fade" tabindex="-1" id="modalDefault1676">
+<div class="modal fade" tabindex="-1" id="modalTransaction{{ account_data.txnId }}">
 <div class="modal-dialog" role="document">
 <div class="modal-content">
 <div class="modal-header bg-primary text-light">

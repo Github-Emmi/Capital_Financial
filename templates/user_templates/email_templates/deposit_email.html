@@ -13,22 +13,13 @@
             background-color: #f4f4f4;
             color: #333;
         }
-        table {
-            border-spacing: 0;
-            width: 100%;
-        }
-        img {
-            border: 0;
-            max-width: 100%;
-            height: auto;
-        }
-        .email-container {
+        .container {
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
             background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
+            padding: 20px;
+            border-radius: 5px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         .header {
@@ -53,23 +44,17 @@
             line-height: 1.6;
             margin: 10px 0;
         }
-        .summary {
+        .details {
             background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
             margin: 20px 0;
+            border-radius: 8px;
         }
-        .summary table {
-            width: 100%;
+        .details ul { 
+            list-style-type: none;
+            padding: 0; 
         }
-        .summary th, .summary td {
-            padding: 10px;
-            text-align: left;
-            font-size: 16px;
-        }
-        .summary th {
-            background-color: #f1f1f1;
-            color: #333;
+        .details li { 
+            margin-bottom: 10px; 
         }
         .cta-button {
             text-align: center;
@@ -109,64 +94,41 @@
     </style>
 </head>
 <body>
-    <table role="presentation" class="email-container">
-        <tr>
-            <td class="header">
-                <h1>Your Deposit Was Successful</h1>
-            </td>
-        </tr>
-        <tr>
-            <td class="content">
-                <h2>Hi {{ full_name }},</h2>
-                <p>
-                    We’re pleased to inform you that a deposit has been successfully made to your account. Below are the details of the transaction for your reference:
-                </p>
-                <div class="summary">
-                    <table>
-                        <tr>
-                            <th>Transaction ID:</th>
-                            <td>{{ txnId }}</td>
-                        </tr>
-                        <tr>
-                            <th>Transaction Type:</th>
-                            <td>{{ txnType }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date:</th>
-                            <td>{{ date }}</td>
-                        </tr>
-                        <tr>
-                            <th>Amount:</th>
-                            <td>${{ amount }}</td>
-                        </tr>
-                        <tr>
-                            <th>Description:</th>
-                            <td>${{ description }}</td>
-                        </tr>
-                        <tr>
-                            <th>Current Balance:</th>
-                            <td>${{ current_balance }}</td>
-                        </tr>
-                        <tr>
-                            <th>Status:</th>
-                            <td>${{ status }}</td>
-                        </tr>
-                    </table>
-                </div>
-                <p>
-                    Thank you for choosing our services. If you have any questions or need further assistance, feel free to contact our support team.
-                </p>
-                <div class="cta-button">
-                    <a href="https://capitalfundfinance.com/user/user-profile">Go to Dashboard</a>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td class="footer">
-                &copy; {{ current_year }} Capital Funding Financial. All rights reserved. <br>
+    <div class="container">
+        <div class="header">
+            <h1>Deposit Successful</h1>
+        </div>
+        <div class="content">
+            <h2>Hi {{ full_name }},</h2>
+            <p>
+                We’re pleased to inform you that a deposit has been successfully made to your account. 
+                Below are the details of the transaction for your reference:
+            </p>
+            <div class="details">
+                <h4>Transaction Details:</h4>
+                <ul>
+                    <li><strong>Transaction ID:</strong> {{txnId}}</li>
+                    <li><strong>Transaction Type:</strong> {{txnType}}</li>
+                    <li><strong>Date:</strong> {{date}}</li>
+                    <li><strong>Amount:</strong> {{amount}}</li>
+                    <li><strong>Description:</strong> {{description}}</li>
+                    <li><strong>current_balance:</strong> {{current_balance}}</li>
+                    <li><strong>Status:</strong> {{status}}</li>
+                </ul>
+            </div>
+            <p>
+                Thank you for choosing our services. If you have any questions or need further assistance, 
+                feel free to contact our support team.
+            </p>
+            <div class="cta-button">
+                <a href="https://capitalfundfinance.com/user/user-profile">Go to Dashboard</a>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; {{ current_year }} Capital Funding Financial. All rights reserved. <br>
                 This is an automated message. {{user}} Please do not reply to this email.
-            </td>
-        </tr>
-    </table>
+        </div>
+    </div>
+
 </body>
 </html>
