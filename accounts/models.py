@@ -170,7 +170,8 @@ class Deposit(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     txnId = models.UUIDField(default=uuid.uuid4, editable=False)
     txnType = models.CharField(max_length=10,default="Credit", editable=False)
-    amount = models.CharField(max_length=30)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    balance = models.ForeignKey(User, on_delete=models.CASCADE, related_name="balance")
     action = models.CharField(max_length=200)
     status = models.CharField(max_length=50, choices=Status, default='Successful')
     date = models.DateTimeField(default=now)
@@ -190,7 +191,8 @@ class Transfer(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     txnId = models.UUIDField(default=uuid.uuid4, editable=False)
     txnType = models.CharField(max_length=10,default="Debit", editable=False)
-    amount = models.CharField(max_length=30,null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    balance_after_transaction = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     bank_name = models.CharField(max_length=30, null=True)
     action = models.CharField(max_length=30,null=True)
     routing_number = models.CharField(max_length=30,null=True)
@@ -200,15 +202,15 @@ class Transfer(models.Model):
     date = models.DateTimeField(default=now)
     
     def __str__(self):
-        return f'Transfer details  {self.txnId}'
-    def formatted_amount(self, obj):
+        return f'Transfer details {self.txnId}'
+
+    @property
+    def formatted_amount(self):
         try:
-            # Convert the amount to a float and format with commas
-            formatted = f"{float(obj.amount):,.2f}"
+            formatted = f"{self.amount:,.2f}"
             return formatted
         except (ValueError, TypeError):
-            # Handle cases where the amount is invalid or None
-            return obj.amount  # Display as is if formatting fails
+            return self.amount
         
 
 def get_expiration_time():  

@@ -1,8 +1,15 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import AdminPasswordChangeForm
+from django.core.mail import EmailMessage
+from django.forms import ModelForm
+from django.http import HttpRequest
+from django.template.loader import render_to_string
+from django.utils.timezone import now
 from django.utils.crypto import get_random_string
+from django.utils.html import strip_tags
 from django.contrib import messages
+from django.conf import settings
 from .models import * 
 
 @admin.register(Country)
@@ -21,8 +28,56 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ['user',]
 
 @admin.register(Deposit)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ['txnId','amount','date','action', 'user_id']
+class DepositAdmin(admin.ModelAdmin):
+    list_display = ['txnId','amount','date','action', 'user']
+    list_filter = ('date','user','action',)
+    search_fields = ('amount','action',)
+
+    def save_model(self, request, obj, form, change):
+        """
+        Override save_model to send an email after a deposit is created.
+        """
+        # Save the deposit to the database
+        super().save_model(request, obj, form, change)
+        amount = obj.amount
+        formatted_amount = f"{float(amount):,.2f}"
+
+        # email context
+        email_context ={
+            "full_name": f"{obj.user.first_name} {obj.user.last_name}",
+            'user': obj.user,
+            'amount': formatted_amount,
+            'description': obj.action,
+            'date': obj.date,
+            'txnId': obj.txnId,
+            'txnType': obj.txnType,
+            'current_year': now().year,
+            'status': obj.status
+        }
+        # Render the HTML template
+        html_message = render_to_string("user_templates/email_templates/deposit_email.html", email_context)
+        plain_message = strip_tags(html_message)  # Fallback for non-HTML clients
+
+        # Send email to the user
+        subject = 'Deposit Confirmation'
+        recipient_email = obj.user.email
+
+        email = EmailMessage(
+            subject=subject,
+            body=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[recipient_email],
+        )
+        email.content_subtype = 'html'  # Indicate the email is HTML
+
+        try:
+            email.send()
+        except Exception as e:
+            self.message_user(request, f"Failed to send email: {e}", level="error")
+
+
+
+
 
 @admin.register(Transfer)
 class TransferAdmin(admin.ModelAdmin):
@@ -45,7 +100,7 @@ class VerificationCodeEmail(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ('email', 'first_name', 'last_name', 'account_number', 'is_blocked')
+    list_display = ('email', 'first_name', 'last_name', 'bal', 'account_number', 'bal', 'is_blocked', 'id')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
     list_filter = ('is_blocked', 'is_staff', 'is_superuser', 'is_active')

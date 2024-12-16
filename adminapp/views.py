@@ -8,8 +8,9 @@ from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.http import JsonResponse
 from django.db.models import Q
-from accounts.models import Transfer, Deposit, VerificationCode
+from accounts.models import *
 from itertools import chain
+from decimal import Decimal
 from datetime import datetime
 from django.utils.timezone import now
 from datetime import timedelta
@@ -21,23 +22,31 @@ from .models import *
 
 # Create your views here
 
-
 @login_required(login_url="/login")
 def user_profile(request):
     user_id = request.session["cred"]
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
+    
+    # Initials for display
     first_name = user.first_name[0] if user.first_name else ""
     last_name = user.last_name[0] if user.last_name else ""
+    
+    # Fetch cards and deposits
     cad = cards.objects.filter(user_id=user)
     card_len = cad.count()
-
     dep = Deposit.objects.filter(user=user_id)
 
+    # Fetch transfers and annotate with historical balance
     trans = Transfer.objects.filter(user=user_id)
+
+    # Combine transactions
     account_data = list(chain(dep, trans))
     account_data.sort(key=lambda x: x.date, reverse=True)
+
+    # Limit to the top 20 transactions
     top_transactions = account_data[:20]
+
     return render(
         request,
         "user_templates/index.html",
@@ -48,6 +57,7 @@ def user_profile(request):
             "card_len": card_len,
         },
     )
+
 
 
 @login_required(login_url="/login")
@@ -145,7 +155,7 @@ def review_transaction(request):
                 "full_name": f"{user.first_name} {user.last_name}",
             }
             html_message = render_to_string(
-                "user_templates/transaction_code_email.html", context
+                "user_templates/email_templates/transaction_code_email.html", context
             )
             plain_message = strip_tags(html_message)  # Fallback for non-HTML clients
             recipient_email = user.email
@@ -187,11 +197,6 @@ def review_transaction(request):
         {},
     )
 
-
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-
-
 @login_required(login_url="/login")
 def verify_transaction(request):
     if (
@@ -212,20 +217,27 @@ def verify_transaction(request):
                 # Complete the transaction
                 transaction_data = request.session.pop("transaction_data", None)
                 if transaction_data:
-                    # Deduct balance and save the transaction
-                    user.bal -= transaction_data["charge"]
-                    user.save()
+                    # Deduct balance and calculate new balance
+                    amount = Decimal(transaction_data["amount"])
+                    charge = Decimal(transaction_data["charge"])
+                    new_balance = user.bal - charge
 
+                    # Create the Transfer object
                     Transfer.objects.create(
-                        amount=transaction_data["amount"],
+                        user=user,
+                        amount=amount,
                         bank_name=transaction_data["bank_name"],
                         routing_number=transaction_data["routing_number"],
                         account_number=transaction_data["account_number"],
                         account_holder=transaction_data["account_holder"],
                         action=transaction_data["description"],
-                        user=user,
                         status="Completed",
+                        balance_after_transaction=new_balance,  # Save historical balance
                     )
+
+                    # Update the user's current balance
+                    user.bal = new_balance
+                    user.save()
 
                     # Remove the used verification code
                     verification_entry.delete()
@@ -269,7 +281,6 @@ def verify_transaction(request):
         },
         status=400,
     )
-
 
 @login_required(login_url="/login")
 def transaction_successful(request):
