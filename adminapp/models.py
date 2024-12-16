@@ -15,7 +15,7 @@ class DepositCheck(models.Model):
 class cards(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(('cardholder name'), max_length=30)
-    card_number = models.IntegerField(('card number'))
+    card_number = models.CharField(('card number'), max_length=30)
     cvv = models.IntegerField(('card cvv'))
     expiry_month = models.CharField(('card expiry month'), max_length=30, blank=True)
     expiry_year = models.CharField(('card expiry year'), max_length=30, blank=True)

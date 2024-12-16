@@ -48,6 +48,7 @@ class DepositAdmin(admin.ModelAdmin):
             'user': obj.user,
             'amount': formatted_amount,
             'description': obj.action,
+            'current_balance': obj.user.bal,
             'date': obj.date,
             'txnId': obj.txnId,
             'txnType': obj.txnType,

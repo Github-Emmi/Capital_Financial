@@ -171,7 +171,6 @@ class Deposit(models.Model):
     txnId = models.UUIDField(default=uuid.uuid4, editable=False)
     txnType = models.CharField(max_length=10,default="Credit", editable=False)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    balance = models.ForeignKey(User, on_delete=models.CASCADE, related_name="balance")
     action = models.CharField(max_length=200)
     status = models.CharField(max_length=50, choices=Status, default='Successful')
     date = models.DateTimeField(default=now)
