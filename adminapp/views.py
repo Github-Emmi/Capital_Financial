@@ -250,7 +250,6 @@ def verify_transaction(request):
                         {
                             "status": "success",
                             "message": "Transaction completed successfully!",
-                            "transaction_id": transfer.id,
                         }
                     )
                 else:
