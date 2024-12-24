@@ -165,6 +165,15 @@ class Beneficiary_Security_Details(models.Model):
     sq2_answer = models.CharField(('answer to security question 2'), max_length=300, blank=True)
 
 
+class AccountDetails(models.Model):
+    bank_name = models.CharField(max_length=255)
+    account_number = models.CharField(max_length=12, unique=True)
+    routing_number = models.CharField(max_length=9)
+    recipient_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.recipient_name} - {self.bank_name}"
+
 
 class Deposit(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

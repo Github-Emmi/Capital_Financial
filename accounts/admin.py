@@ -47,6 +47,12 @@ class ProfileAdmin(admin.ModelAdmin):
     ]
 
 
+@admin.register(AccountDetails)
+class AccountDetailsAdmin(admin.ModelAdmin):
+    list_display = ('bank_name', 'account_number', 'routing_number', 'recipient_name')
+    search_fields = ('bank_name', 'account_number', 'recipient_name')
+
+
 @admin.register(Deposit)
 class DepositAdmin(admin.ModelAdmin):
     list_display = ["txnId", "amount", "date", "action", "user"]

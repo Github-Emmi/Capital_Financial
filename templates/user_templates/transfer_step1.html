@@ -1,8 +1,55 @@
 {% extends 'user_templates/base.html' %}
 {% load static %}
+{% block custom_css %}
+<style>
+    /* Spinner Container */
+    .spinner-container {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+    
+    /* Spinner Animation */
+    .spinner {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 2px solid transparent;
+        border-top-color: #007bff; /* Primary color */
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+    
+    /* Animation Keyframes */
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    /* Style for the Recipient Name Field when Loading */
+    .loading-field {
+        position: relative;
+        pointer-events: none; /* Prevent user interaction */
+        opacity: 0.7;
+        background-color: #f9f9f9; /* Light background during loading */
+    }
+    
+    .spinner-container.loading .spinner {
+        display: inline-block;
+    }
+    </style>
+{% endblock custom_css %}
+
+
 {% block main_content %}
-
-
 <div class="nk-content">
              <div class="nk-content nk-content-fluid">
                         <div class="container-xl wide-lg">
@@ -48,7 +95,7 @@
                                                                     <div class="form-icon form-icon-right">
                                                                         <em class="icon ni ni-card-view"></em>
                                                                     </div>
-                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="sortcode" id="sortcode">
+                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="sortcode" id="routing_number" required>
                                                                     <label class="form-label-outlined" for="sortcode">Bank routing number</label>
                                                                 </div>
                                                             </div>
@@ -59,20 +106,23 @@
                                                                     <div class="form-icon form-icon-right">
                                                                         <em class="icon ni ni-card-view"></em>
                                                                     </div>
-                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="accountnumber" id="accountnumber">
+                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="accountnumber" id="account_number" required>
                                                                     <label class="form-label-outlined" for="accountnumber">Account Number:</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                    
-                                                        <div class="col-lg-12 col-sm-12 p-2">
+                                                        <div class="col-lg-12 col-sm-12 p-2" id="spinner-container">
                                                             <div class="form-group">
                                                                 <div class="form-control-wrap">
                                                                     <div class="form-icon form-icon-right">
                                                                     <em class="icon ni ni-user-alt"></em>
                                                                     </div>
-                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="accountholder" id="accountholder">
-                                                                    <label class="form-label-outlined" for="accountholder">Account holder:</label>
+                                                                    
+                                                                        <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="accountholder" id="recipient_name">
+                                                                        <label class="form-label-outlined" for="accountholder">Account holder:</label>
+                                                                        <div class="spinner" id="spinner" style="display: none;"></div>
+                                                                 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -82,7 +132,7 @@
                                                                     <div class="form-icon form-icon-right">
                                                                         <em class="icon ni ni-chat-fill"></em>
                                                                     </div>
-                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="description" id="description">
+                                                                    <input type="text" required="true" class="form-control form-control-xl form-control-outlined" name="description" id="description" required>
                                                                     <label class="form-label-outlined" for="accountholder">Description(optional):</label>
                                                                 </div>
                                                             </div>
@@ -111,40 +161,49 @@
     
     {% endblock main_content %}
 
+
     {% block custom_js %}
-            <!-- <script type="text/javascript">
-                $(document).ready(function(){
-                $("#modalDefault").click(function(){
-                  var accountnumber = $("#accountnumber").val();
-                  var bankname = $("#bankname").val();
-                  var routing_no = $("#sortcode").val();
-                  var accountholder = $("#accountholder").val();
-                  var amount = $("#amount").val();
-                  var description = $("#description").val();
-
-                  
-                //   console.log(accountholder , accountnumber , bankname , sortcode,  routing_no )
-
-                  $.ajax({
-                 type:"post",
-                //  url:"../scripts/user_account_name.php",
-                url: "{% url 'adminapp:transaction_successful' %}",
-                 data: { 
-
-                    bankname,
-                    routing_no,
-                    accountholder,
-                    accountnumber,
-                    amount,
-                    description,
-                },
-                 
-                 success:function(data){
-                  $("#accountholder").val(data);
-                 }
-                  });
-                });
+    <script>
+        $(document).ready(function () {
+            $("#account_number, #bank_name, #routing_number").on("blur", function () {
+                const accountNumber = $("#account_number").val();
+                const bankName = $("#bank_name").val();
+                const routingNumber = $("#routing_number").val();
+        
+                if (accountNumber && bankName && routingNumber) {
+                    // Start loading spinner
+                    $("#recipient_name").addClass("loading-field");
+                    $("#spinner").show();
+        
+                    // Perform AJAX request
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'adminapp:fetch_account_details' %}",
+                        data: {
+                            account_number: accountNumber,
+                            bank_name: bankName,
+                            routing_number: routingNumber,
+                            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+                        },
+                        success: function (response) {
+                            if (response.status === "success") {
+                                // Fill recipient name, disable field, and stop spinner
+                                $("#recipient_name").val(response.recipient_name).removeClass("loading-field");
+                                $("#spinner").hide();
+                            } else {
+                                alert(response.message);
+                                $("#recipient_name").val("").removeClass("loading-field");
+                                $("#spinner").hide();
+                            }
+                        },
+                        error: function () {
+                            alert("An error occurred. Please try again.");
+                            $("#recipient_name").val("").removeClass("loading-field");
+                            $("#spinner").hide();
+                        },
+                    });
+                }
             });
-         </script> -->
-    
+        });
+        </script>
     {% endblock custom_js %}

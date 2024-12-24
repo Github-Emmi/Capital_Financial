@@ -8,6 +8,7 @@ urlpatterns = [
     path("user-profile", views.user_profile, name="user_profile"),
     path("account-summary", views.account_sumarry, name="account_summary"),
     path("transfer", views.transfer, name="transfer"),
+    path('fetch-account-details/', views.fetch_account_details, name='fetch_account_details'),
     path("transfer-step1", views.transfer_step1, name="transfer_step1"),
     path("review-transaction", views.review_transaction, name="review_transaction"),
     path('verify-transaction', views.verify_transaction, name='verify_transaction'),

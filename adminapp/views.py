@@ -22,16 +22,17 @@ from .models import *
 
 # Create your views here
 
+
 @login_required(login_url="/login")
 def user_profile(request):
     user_id = request.session["cred"]
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
-    
+
     # Initials for display
     first_name = user.first_name[0] if user.first_name else ""
     last_name = user.last_name[0] if user.last_name else ""
-    
+
     # Fetch cards and deposits
     cad = cards.objects.filter(user_id=user)
     card_len = cad.count()
@@ -57,7 +58,6 @@ def user_profile(request):
             "card_len": card_len,
         },
     )
-
 
 
 @login_required(login_url="/login")
@@ -90,8 +90,31 @@ def transfer(request):
     return render(request, "user_templates/transfer.html", {"user": user})
 
 
+@csrf_exempt
+def fetch_account_details(request):
+    if request.method == "POST":
+        account_number = request.POST.get("account_number")
+        bank_name = request.POST.get("bank_name")
+        routing_number = request.POST.get("routing_number")
+
+        # Search for account details in the database
+        try:
+            account = AccountDetails.objects.get(
+                account_number=account_number,
+                bank_name=bank_name,
+                routing_number=routing_number
+            )
+            return JsonResponse({
+                "status": "success",
+                "recipient_name": account.recipient_name
+            })
+        except AccountDetails.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Account details not found."}, status=404)
+
+    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
+
+
 @login_required(login_url="/login")
-# @csrf_exempt
 def transfer_step1(request):
     if request.method == "POST":
         amount = request.POST.get("amount")
@@ -200,6 +223,7 @@ def review_transaction(request):
         {},
     )
 
+
 @login_required(login_url="/login")
 def verify_transaction(request):
     if (
@@ -284,6 +308,7 @@ def verify_transaction(request):
         },
         status=400,
     )
+
 
 @login_required(login_url="/login")
 def transaction_successful(request):
