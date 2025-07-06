@@ -46,7 +46,7 @@ def user_profile(request):
     account_data.sort(key=lambda x: x.date, reverse=True)
 
     # Limit to the top 20 transactions
-    top_transactions = account_data[:20]
+    top_transactions = account_data[:10]
 
     return render(
         request,

@@ -23,9 +23,10 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "whispering-caverns-20318-364325440733.herokuapp.com",
-    "capitalfundfinance.com",
-    "www.capitalfundfinance.com",
+    "*"
+    # "whispering-caverns-20318-364325440733.herokuapp.com",
+    # "capitalfundfinance.com",
+    # "www.capitalfundfinance.com",
 ]
 
 
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     ######  apps  ###############
     "accounts.apps.AccountsConfig",
     "adminapp.apps.AdminappConfig",
-    "venexapp.apps.VenexappConfig",
     ######  Extras ##############
     "django_user_agents",
     "cloudinary",
@@ -95,15 +95,15 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 # settings.py
 
 DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dc5r7noa0gfik1",
-        "USER": "u4dtlsn48am1ug",
-        "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
-        "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-        "PORT": "5432",
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.postgresql",
+        # "NAME": "dc5r7noa0gfik1",
+        # "USER": "u4dtlsn48am1ug",
+        # "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
+        # "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
+        # "PORT": "5432",
     }
 }
 
@@ -158,18 +158,18 @@ MESSAGE_TAGS = {
     messages.WARNING: "alert-warning",
     messages.ERROR: "alert-danger",
 }
-MIDDLEWARE.append('accounts.middleware.BlockedUserMiddleware')
+MIDDLEWARE.append("accounts.middleware.BlockedUserMiddleware")
 AUTH_USER_MODEL = "accounts.User"
 SESSION_COOKIE_AGE = 180
 LOGIN_REDIRECT_URL = "/login"
-SITE_URL = "https://capitalfundfinance.com/"
+SITE_URL = "https://emmidev.pythonanywhere.com/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Media folder
 MEDIA_URL = "/user/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
