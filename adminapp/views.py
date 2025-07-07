@@ -81,13 +81,17 @@ def account_sumarry(request):
     )
 
 
-@login_required(login_url="/login")
+login_required(login_url="/login")
+
+
 @csrf_exempt
 def transfer(request):
     user_id = request.session["cred"]
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
     return render(request, "user_templates/transfer.html", {"user": user})
+
+    ##### A function that fetch a user's account details from the database
 
 
 @csrf_exempt
@@ -97,23 +101,26 @@ def fetch_account_details(request):
         bank_name = request.POST.get("bank_name")
         routing_number = request.POST.get("routing_number")
 
-        # Search for account details in the database
         try:
             account = AccountDetails.objects.get(
                 account_number=account_number,
                 bank_name=bank_name,
-                routing_number=routing_number
+                routing_number=routing_number,
             )
-            return JsonResponse({
-                "status": "success",
-                "recipient_name": account.recipient_name
-            })
+            return JsonResponse(
+                {"status": "success", "recipient_name": account.recipient_name}
+            )
         except AccountDetails.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Account details not found."}, status=404)
+            return JsonResponse(
+                {"status": "error", "message": "Account details not found."}, status=404
+            )
 
-    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
+    return JsonResponse(
+        {"status": "error", "message": "Invalid request method."}, status=400
+    )
 
 
+########### Transfer first step ################
 @login_required(login_url="/login")
 def transfer_step1(request):
     if request.method == "POST":
@@ -124,16 +131,28 @@ def transfer_step1(request):
         account_number = request.POST.get("accountnumber")
         account_holder = request.POST.get("accountholder")
         description = request.POST.get("description")
+    else:
+        return redirect("/user/transfer")
+
     user_id = request.session["cred"]
     userModel = get_user_model()
     user = userModel.objects.get(pk=user_id)
     return render(
         request,
         "user_templates/transfer_step1.html",
-        {"user": user, "amount": amount, "formatted_amount": formatted_amount},
+        {
+            "user": user,
+            "amount": amount,
+            "formatted_amount": formatted_amount,
+            "bank_name": bank_name,
+            "routing_number": routing_number,
+            "account_number": account_number,
+            "account_holder": account_holder,
+            "description": description
+        },
     )
 
-
+################### Review Transaction 
 @login_required(login_url="/login")
 def review_transaction(request):
     user_id = request.session["cred"]
@@ -143,20 +162,18 @@ def review_transaction(request):
     if request.method == "POST":
         amount = request.POST.get("amount")
         formatted_amount = f"{float(amount):,.2f}"
-        bank_name = request.POST.get("bankname")
-        routing_number = request.POST.get("sortcode")
-        account_number = request.POST.get("accountnumber")
-        account_holder = request.POST.get("accountholder")
+        bank_name = request.POST.get("bank_name")
+        routing_number = request.POST.get("routing_number")
+        account_number = request.POST.get("account_number")
+        account_holder = request.POST.get("account_holder")
         description = request.POST.get("description")
 
         charge = 5 + int(amount)
 
         if user.bal > charge:
             balance_after_transaction = user.bal - charge
-            # Generate a 6-digit random code
             verification_code = get_random_string(length=6, allowed_chars="0123456789")
 
-            # Save or update the verification code in the database
             VerificationCode.objects.update_or_create(
                 user=user,
                 defaults={
@@ -166,7 +183,7 @@ def review_transaction(request):
                 },
             )
 
-            # Send verification email
+            # Email sending
             subject = "Transaction Verification Code"
             context = {
                 "user": user,
@@ -180,10 +197,8 @@ def review_transaction(request):
                 "verification_code": verification_code,
                 "full_name": f"{user.first_name} {user.last_name}",
             }
-            html_message = render_to_string(
-                "user_templates/email_templates/transaction_code_email.html", context
-            )
-            plain_message = strip_tags(html_message)  # Fallback for non-HTML clients
+            html_message = render_to_string("user_templates/email_templates/transaction_code_email.html", context)
+            plain_message = strip_tags(html_message)
             recipient_email = user.email
 
             try:
@@ -195,12 +210,10 @@ def review_transaction(request):
                     html_message=html_message,
                     fail_silently=False,
                 )
-
             except Exception as e:
                 messages.error(request, f"Failed to send email: {e}")
-                return redirect("user/transfer")
+                return redirect("/user/transfer")
 
-            # Save transaction details temporarily in the session
             request.session["transaction_data"] = {
                 "amount": amount,
                 "formatted_amount": formatted_amount,
@@ -212,44 +225,39 @@ def review_transaction(request):
                 "charge": charge,
             }
 
-            return redirect("/user/review-transaction")
-
+            return render(request, "user_templates/review_transaction.html", {
+                "amount": amount,
+                "formatted_amount": formatted_amount,
+                "bank_name": bank_name,
+                "routing_number": routing_number,
+                "account_number": account_number,
+                "account_holder": account_holder,
+                "description": description,
+                "user": user,
+            })
         else:
             messages.error(request, "Insufficient funds. Please deposit and try again.")
             return redirect("/user/user-profile")
-    return render(
-        request,
-        "user_templates/review_transaction.html",
-        {},
-    )
+    return redirect("/user/transfer")
 
 
+############## Verify transaction
 @login_required(login_url="/login")
 def verify_transaction(request):
-    if (
-        request.method == "POST"
-        and request.headers.get("x-requested-with") == "XMLHttpRequest"
-    ):
+    if request.method == "POST" and request.headers.get("x-requested-with") == "XMLHttpRequest":
         user = request.user
         code_entered = request.POST.get("verification_code")
 
         try:
-            # Fetch the verification code for the user
             verification_entry = VerificationCode.objects.get(user=user)
 
-            if (
-                verification_entry.is_valid()
-                and verification_entry.code == code_entered
-            ):
-                # Complete the transaction
+            if verification_entry.is_valid() and verification_entry.code == code_entered:
                 transaction_data = request.session.pop("transaction_data", None)
                 if transaction_data:
-                    # Deduct balance and calculate new balance
                     amount = Decimal(transaction_data["amount"])
                     charge = Decimal(transaction_data["charge"])
                     new_balance = user.bal - charge
 
-                    # Create the Transfer object
                     Transfer.objects.create(
                         user=user,
                         amount=amount,
@@ -259,63 +267,48 @@ def verify_transaction(request):
                         account_holder=transaction_data["account_holder"],
                         action=transaction_data["description"],
                         status="Completed",
-                        balance_after_transaction=new_balance,  # Save historical balance
+                        balance_after_transaction=new_balance,
                     )
 
-                    # Update the user's current balance
                     user.bal = new_balance
                     user.save()
 
-                    # Remove the used verification code
                     verification_entry.delete()
 
-                    # Return a success response
-                    return JsonResponse(
-                        {
-                            "status": "success",
-                            "message": "Transaction completed successfully!",
-                        }
-                    )
+                    return JsonResponse({
+                        "status": "success",
+                        "message": "Transaction completed successfully!",
+                    })
                 else:
-                    return JsonResponse(
-                        {
-                            "status": "error",
-                            "message": "Transaction data missing. Please try again.",
-                        },
-                        status=400,
-                    )
-            else:
-                return JsonResponse(
-                    {
+                    return JsonResponse({
                         "status": "error",
-                        "message": "Invalid or expired verification code.",
-                    },
-                    status=400,
-                )
-        except VerificationCode.DoesNotExist:
-            return JsonResponse(
-                {
+                        "message": "Transaction data missing. Please try again.",
+                    }, status=400)
+            else:
+                return JsonResponse({
                     "status": "error",
-                    "message": "No verification code found for this user.",
-                },
-                status=404,
-            )
+                    "message": "Invalid or expired verification code.",
+                }, status=400)
 
-    return JsonResponse(
-        {
-            "status": "error",
-            "message": "Invalid request method or not an AJAX request.",
-        },
-        status=400,
-    )
+        except VerificationCode.DoesNotExist:
+            return JsonResponse({
+                "status": "error",
+                "message": "No verification code found for this user.",
+            }, status=404)
+
+    return JsonResponse({
+        "status": "error",
+        "message": "Invalid request method or not an AJAX request.",
+    }, status=400)
 
 
+###################### Transaction Successful
 @login_required(login_url="/login")
 def transaction_successful(request):
     user = request.user
-    # Fetch the most recent transaction
     data = Transfer.objects.filter(user=user).order_by("-date").first()
     return render(request, "user_templates/transaction_successful.html", {"data": data})
+
 
 
 @login_required(login_url="/login")
