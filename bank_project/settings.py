@@ -23,8 +23,9 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "capitalfundfinance.com",
-    "www.capitalfundfinance.com",
+    "*"
+    # "capitalfundfinance.com",
+    # "www.capitalfundfinance.com",
 ]
 
 
@@ -160,7 +161,7 @@ MIDDLEWARE.append("accounts.middleware.BlockedUserMiddleware")
 AUTH_USER_MODEL = "accounts.User"
 SESSION_COOKIE_AGE = 180
 LOGIN_REDIRECT_URL = "/login"
-SITE_URL = "https://emmidev.pythonanywhere.com/"
+SITE_URL = "https://www.capitalfundfinance.com/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/

@@ -1,5 +1,5 @@
 Status = (
-    ('pending', 'pending'),
+    ('Pending', 'Pending'),
     ('Successful', 'Successful'),
 )
 

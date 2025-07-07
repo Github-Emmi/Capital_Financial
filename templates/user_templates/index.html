@@ -194,7 +194,12 @@
                                         <div class="tranx-date">Amount</div>
                                <div class="text-success fs-16px">{{account_data.amount}} 
                                  <span class="currency currency-usd"><span class="currency currency-btc">{{user.profile.Currency_type}}</span></span></div>
+
+                                 {% if account_data.status == 'Successful' %}
                                         <div class="number-sm"><strong class="text-success">{{account_data.status}}</strong></div>
+                                {% elif account_data.status == 'Pending' %}
+                                        <div class="number-sm"><strong class="text-warning">{{account_data.status}}</strong></div>
+                                {% endif %}
                                     </div>
                                 </div>
                                 {% elif account_data.txnType == 'Debit' %}
@@ -212,7 +217,7 @@
                                  <div class="tranx-col">
                                     <div class="tranx-amount">
                                         <div class="number text-success">{{account_data.txnType}}<span class="currency currency-btc"></span></div>
-                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalDefault1676">View Details</span>
+                                        <span class="badge badge-dim badge-pill badge-outline-primary" data-toggle="modal" data-target="#modalTransaction{{ account_data.txnId }}">View Details</span>
                               </div>
                       </div>
                       {% elif account_data.txnType == 'Debit' %}
