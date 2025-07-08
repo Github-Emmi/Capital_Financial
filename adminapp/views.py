@@ -234,14 +234,6 @@ def review_transaction(request):
 def verify_transaction(request):
     user = request.user
 
-    if user.is_marked:
-        return JsonResponse(
-            {
-                "status": "error",
-                "message": "Your transfer is under review. Transfer is cureently pending.",
-            },
-            status=403,
-        )
     if (
         request.method == "POST"
         and request.headers.get("x-requested-with") == "XMLHttpRequest"
@@ -329,7 +321,11 @@ def verify_transaction(request):
 @login_required(login_url="/login")
 def transaction_successful(request):
     user = request.user
-    # Fetch the most recent transaction
+
+    if user.is_marked:
+        data = Transfer.objects.filter(user=user).order_by("-date").first()
+        return render(request, "user_templates/transfer_pending.html", {"user": user, "data":data})
+
     data = Transfer.objects.filter(user=user).order_by("-date").first()
     return render(request, "user_templates/transaction_successful.html", {"data": data})
 
