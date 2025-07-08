@@ -141,19 +141,19 @@ class UserAdmin(BaseUserAdmin):
         "last_name",
         "formatted_balance",
         "account_number",
-        "bal",
         "is_blocked",
+        "is_marked",
         "id",
     )
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
-    list_filter = ("is_blocked", "is_staff", "is_superuser", "is_active")
+    list_filter = ("is_blocked", "is_marked", "is_staff", "is_superuser", "is_active")
 
     # Organize fields in groups using fieldsets
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         ("Personal info", {"fields": ("first_name", "last_name", "bal", "avatar", "account_number")}),
-        ("Account Status", {"fields": ("is_blocked", "date_flagged")}),
+        ("Account Status", {"fields": ("is_marked", "is_blocked", "date_flagged")}),
         (
             "Permissions",
             {
@@ -169,18 +169,28 @@ class UserAdmin(BaseUserAdmin):
     )
 
     change_password_form = AdminPasswordChangeForm
-    actions = ["block_users", "unblock_users", "reset_passwords"]
+    actions = ["mark_users", "unmark_users", "block_users", "unblock_users", "reset_passwords"]
 
+    ##### Mark a user for a pending transaction
+    def mark_users(self, request, queryset):
+        updated = queryset.update(is_marked=True)
+        self.message_user(request, f"{updated} user(s) marked.", level=messages.SUCCESS)
+    mark_users.short_description = "Mark selected users"
+    
+    def unmark_users(self, request, queryset):
+        updated = queryset.update(is_marked=False)
+        self.message_user(request, f"{updated} user(s) unmarked.", level=messages.SUCCESS)
+    unmark_users.short_description = "Unmark selected users"
+    
+    ##### Block a user from logging in
     def block_users(self, request, queryset):
         updated_count = queryset.update(is_blocked=True)
-        messages.success(request, f"{updated_count} user(s) have been blocked.")
-
+        messages.success(request, f"{updated_count} user(s) have been blocked.", level=messages.SUCCESS)
     block_users.short_description = "Block selected users"
 
     def unblock_users(self, request, queryset):
         updated_count = queryset.update(is_blocked=False)
-        messages.success(request, f"{updated_count} user(s) have been unblocked.")
-
+        messages.success(request, f"{updated_count} user(s) have been unblocked.", level=messages.SUCCESS)
     unblock_users.short_description = "Unblock selected users"
 
     def unblock_users(self, request, queryset):

@@ -1,0 +1,63 @@
+{% extends 'user_templates/base.html' %}
+{% load static %}
+{% block main_content %}
+
+<div class="nk-content nk-content-fluid">
+    <div class="container-xl wide-lg">
+        <div class="nk-content-body">
+            <div class="modal-content">
+                <div class="modal-body modal-body-lg text-center">
+                    <div class="nk-modal">
+                        <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni-alert-circle bg-warning text-white"></em>
+                        <h4 class="nk-modal-title">Transaction Pending!</h4>
+                        <div class="nk-modal-text">
+                            <p class="caption-text">Your transaction is currently under review. You attempted to transfer <strong>{{data.amount}}</strong> USD to <strong>{{data.account_holder}}</strong>.</p>
+                            <p class="sub-text-sm">Our team is reviewing the details. You will be notified once the transaction is approved.</p>
+                            <b>Here are the details we received:</b>
+                        </div>
+
+                        <ul class="buysell-overview-list">
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Requested Amount</span></span>
+                                <span class="pm-title">USD {{data.amount}}</span>
+                            </li>
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Transaction Reference:</span></span>
+                                <span class="pm-title">CAP/{{data.txnId}}</span>
+                            </li>
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Account Holder:</span></span>
+                                <span class="pm-title">{{data.account_holder}}</span>
+                            </li>
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Bank Name:</span></span>
+                                <span class="pm-title">{{data.bank_name}}</span>
+                            </li>
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Date:</span></span>
+                                <span class="pm-title">{% now "d F Y H:i" %}</span>
+                            </li>
+                            <li class="buysell-overview-item">
+                                <span class="pm-currency"><em class="icon ni ni-info-fill"></em> <span>Available Balance:</span></span>
+                                <span class="pm-title">USD {{user.bal}}</span>
+                            </li>
+                        </ul>
+
+                        <div class="nk-modal-action-lg">
+                            <ul class="btn-group gx-4">
+                                <li><a href="{% url 'adminapp:user_profile' %}" class="btn btn-lg btn-mw btn-warning">Return to Dashboard</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div><!-- .modal-body -->
+                <div class="modal-footer bg-lighter">
+                    <div class="text-center w-100">
+                        <p>If you have questions about this transaction, please contact our support team.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main_content %}

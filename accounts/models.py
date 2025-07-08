@@ -55,6 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='uploads/', null=True, blank=True)
     account_number = models.BigIntegerField(('account_number'), unique=True, blank=True, null=True)
     bal = models.DecimalField(decimal_places=2, max_digits=15, default=0.00)
+    is_marked = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
     date_flagged = models.DateTimeField(('date flagged'), null=True, blank=True)
 

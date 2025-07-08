@@ -82,6 +82,8 @@ def account_sumarry(request):
 
 
 login_required(login_url="/login")
+
+
 @login_required(login_url="/login")
 @csrf_exempt
 def transfer(request):
@@ -103,16 +105,19 @@ def fetch_account_details(request):
             account = AccountDetails.objects.get(
                 account_number=account_number,
                 bank_name=bank_name,
-                routing_number=routing_number
+                routing_number=routing_number,
             )
-            return JsonResponse({
-                "status": "success",
-                "recipient_name": account.recipient_name
-            })
+            return JsonResponse(
+                {"status": "success", "recipient_name": account.recipient_name}
+            )
         except AccountDetails.DoesNotExist:
-            return JsonResponse({"status": "error", "message": "Account details not found."}, status=404)
+            return JsonResponse(
+                {"status": "error", "message": "Account details not found."}, status=404
+            )
 
-    return JsonResponse({"status": "error", "message": "Invalid request method."}, status=400)
+    return JsonResponse(
+        {"status": "error", "message": "Invalid request method."}, status=400
+    )
 
 
 @login_required(login_url="/login")
@@ -227,6 +232,16 @@ def review_transaction(request):
 
 @login_required(login_url="/login")
 def verify_transaction(request):
+    user = request.user
+
+    if user.is_marked:
+        return JsonResponse(
+            {
+                "status": "error",
+                "message": "Your transfer is under review. Transfer is cureently pending.",
+            },
+            status=403,
+        )
     if (
         request.method == "POST"
         and request.headers.get("x-requested-with") == "XMLHttpRequest"
@@ -317,7 +332,6 @@ def transaction_successful(request):
     # Fetch the most recent transaction
     data = Transfer.objects.filter(user=user).order_by("-date").first()
     return render(request, "user_templates/transaction_successful.html", {"data": data})
-
 
 
 @login_required(login_url="/login")
