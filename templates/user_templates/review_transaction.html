@@ -137,63 +137,66 @@
     {% endblock main_content %}
 
     {% block custom_js %}
-<script>
-    $(document).ready(function () {
-        Swal.fire({
-            title: 'Verification Required',
-            text: 'A verification code has been sent to your email. Please enter it to proceed.',
-            input: 'text',
-            inputAttributes: {
-                maxlength: 6,
-                pattern: '[0-9]*',
-                placeholder: 'Enter Verification Code'
-            },
-            inputValidator: (value) => {
-                if (!value) {
-                    return 'You need to enter a code!';
+    <script>
+        $('#modalDefault').on("click", function (e) {
+            e.preventDefault();
+        
+            Swal.fire({
+                title: 'Verification Required',
+                text: 'A verification code has been sent to your email. Please enter the code to proceed.',
+                input: 'text',
+                inputAttributes: {
+                    maxlength: 6,
+                    pattern: '[0-9]*',
+                    placeholder: 'Enter Verification Code'
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to enter a code!';
+                    }
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Verify',
+                showLoaderOnConfirm: true,
+                preConfirm: (code) => {
+                    return $.ajax({
+                        type: "POST",
+                        url: "{% url 'adminapp:verify_transaction' %}",
+                        headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                        data: {
+                            verification_code: code
+                        }
+                    })
+                    .then(response => {
+                        if (response.status === 'success') {
+                            return response;
+                        } else {
+                            throw new Error(response.message || 'Verification failed');
+                        }
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(error.message);
+                    });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Transaction Verified!',
+                        text: 'Your transaction is now completed.',
+                    }).then(() => {
+                        window.location.href = '/user/transaction-successful';
+                    });
                 }
-            },
-            showCancelButton: true,
-            confirmButtonText: 'Verify',
-            showLoaderOnConfirm: true,
-            preConfirm: (code) => {
-                return $.ajax({
-                    type: "POST",
-                    url: "{% url 'adminapp:verify_transaction' %}",
-                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                    data: {
-                        verification_code: code
-                    }
-                }).then(response => {
-                    if (response.status === 'success') {
-                        return response;
-                    } else {
-                        throw new Error(response.message || 'Verification failed');
-                    }
-                }).catch(error => {
-                    Swal.showValidationMessage(error.message);
-                });
-            },
-            allowOutsideClick: () => !Swal.isLoading()
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Transaction Verified!',
-                    text: 'Your transaction is now completed.',
-                }).then(() => {
-                    window.location.href = '/user/transaction-successful';
-                });
-            }
+            });
         });
-    });
-</script>
-{% endblock custom_js %}
-
+        
+     </script>
+    
+    {% endblock custom_js %}
 
 
 
 
     
-
-
