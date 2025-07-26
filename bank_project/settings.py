@@ -22,10 +22,7 @@ SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "*"
-    # "capitalfundfinance.com",
-    # "www.capitalfundfinance.com",
+ALLOWED_HOSTS = ['www.febmexinternationalschools.com', 'febmexinternationalschools.com '
 ]
 
 
@@ -102,7 +99,7 @@ DATABASES = {
         # "ENGINE": "django.db.backends.sqlite3",
         # "NAME": BASE_DIR / "db.sqlite3",
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'emmidev$febmexdb',
+        'NAME': 'emmidev$capitalfundfinance',
         'USER': 'emmidev',
         'PASSWORD': 'Febmexdb1999',
         'HOST': 'emmidev.mysql.pythonanywhere-services.com',
