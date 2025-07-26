@@ -130,13 +130,10 @@ def enroll_step1(request):
 def enroll_step2(request):
     return render(request, "account_templates/enroll_step2.html", {})
 
-
 def enroll_step3(request):
     form = SignUpForm(request.POST or None)
     msg = ""
-
-    if request.method == "POST" or "None":
-
+    if request.method == "POST" or request.method == "None":
         if form.is_valid():
             email = form.cleaned_data.get("email")
             first_name = form.cleaned_data.get("firstname")
@@ -155,12 +152,23 @@ def enroll_step3(request):
             country = form.cleaned_data.get("country")
             city = form.cleaned_data.get("city")
             ssn = form.cleaned_data.get("ssn")
+            # Assign referred_by if user came through a referral link
+            referred_by = None
+            referred_by_id = request.session.get("referred_by_admin_id")
+            if referred_by_id:
+                try:
+                    admin_user = User.objects.get(pk=referred_by_id, is_superuser=True)
+                    referred_by = admin_user
+                except User.DoesNotExist:
+                    pass
+            # Create the user and associate with admin if applicable
             user = User.objects.create(
-                email=email, first_name=first_name, last_name=last_name
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                referred_by=referred_by
             )
-
             if user:
-                # state,country,dob,
                 Profile.objects.create(
                     user=user,
                     gender=gender,
@@ -178,15 +186,12 @@ def enroll_step3(request):
                     title=title,
                 )
                 uid = urlsafe_base64_encode(force_bytes(user.pk))
-                print(uid)
-                print(user.pk)
                 return redirect("/enroll-step4/" + uid)
             else:
-                # No user
                 msg = "Something Went Wrong"
         else:
-            # form not valid
-            msg = ""
+            msg = "Form is not valid."
+
     return render(
         request, "account_templates/enroll_step3.html", {"form": form, "msg": msg}
     )
@@ -283,7 +288,6 @@ def enroll_step5(request, uidb64):
                 plain_message = strip_tags(
                     html_message
                 )  # Fallback for non-HTML clients
-
                 send_mail(
                     subject,
                     plain_message,
@@ -292,15 +296,12 @@ def enroll_step5(request, uidb64):
                     html_message=html_message,
                     fail_silently=False,
                 )
-
                 return redirect("/enroll-complete/" + uidb64)
             else:
                 msg = "Picture could not be uploaded"
-
     return render(
         request, "account_templates/enroll_step5.html", {"form": form, "msg": msg}
     )
-
 
 def enroll_complete(request, uidb64):
     uid = urlsafe_base64_decode(uidb64).decode()
@@ -309,7 +310,6 @@ def enroll_complete(request, uidb64):
 
     return render(request, "account_templates/enroll_complete.html", {"user": user})
 
-
 def verify_email(request, uidb64, token):
     """Verifies the user's email and sends a follow-up email."""
     try:
@@ -317,11 +317,9 @@ def verify_email(request, uidb64, token):
         user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
-
     if user and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-
         # Send follow-up email
         send_mail(
             "Email Verified",
@@ -337,7 +335,6 @@ def verify_email(request, uidb64, token):
         messages.error(request, "The verification link is invalid or has expired.")
         return redirect("")
 
-
 def forgot_password(request):
     form = forgotPassForm(request.POST or None)
     return render(request, "account_templates/forgot_password.html", {"form": form})
@@ -348,6 +345,13 @@ def LogoutView(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect("/login")
+
+# accounts/views.py
+def referral_signup(request, admin_id):
+    # Store referring superuser ID in session
+    request.session['referred_by_admin_id'] = admin_id
+    return redirect('/enroll-step1')  # Adjust if your signup step changes
+
 
 
 def load_cities(request):

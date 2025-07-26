@@ -12,7 +12,7 @@ class DepositCheck(models.Model):
     amount = models.CharField(max_length=30)
     
 
-class cards(models.Model):
+class cards(models.Model): 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(('cardholder name'), max_length=30)
     card_number = models.CharField(('card number'), max_length=30)

@@ -1,0 +1,14 @@
+{% extends "admin/change_list.html" %}
+
+{% block content %}
+  {% if referral_link %}
+    <div style="margin-bottom: 20px; padding: 10px; background: #f0f0f0; border: 1px solid #ccc;">
+      <strong>Your Referral Link:</strong><br>
+      <input type="text" id="referralInput" value="{{ referral_link }}" readonly style="width: 75%; margin-top: 5px;">
+      <button onclick="navigator.clipboard.writeText(document.getElementById('referralInput').value)">Copy</button>
+    </div>
+  {% endif %}
+
+  {{ block.super }}
+{% endblock %}
+

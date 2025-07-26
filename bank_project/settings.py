@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "-hm18@2xud4fiugcbho$w&g8v(nb)#(-$hov+k)s@@+b4l$(h-"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*"
@@ -31,11 +31,16 @@ ALLOWED_HOSTS = [
 
 # Application definition
 
-cloudinary.config(
-    cloud_name="dmkcqgan1",
-    api_key="716231591674135",
-    api_secret="lVtlknqZrOUITzpCqmQjWNMUvkQ",
-)
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dmkcqgan1',          # Replace with your Cloud Name
+    'API_KEY': '716231591674135',      # Replace with your API Key
+    'API_SECRET': 'lVtlknqZrOUITzpCqmQjWNMUvkQ',  # Replace with your API Secret
+    'DEFAULT_RESOURCE_TYPE': 'raw',  # Set to 'raw' for non-image files
+    'OPTIONS': {
+        'resource_type': 'raw',
+        'type': 'upload'
+    }
+}
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -94,17 +99,20 @@ WSGI_APPLICATION = "bank_project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-        # "ENGINE": "django.db.backends.postgresql",
-        # "NAME": "dc5r7noa0gfik1",
-        # "USER": "u4dtlsn48am1ug",
-        # "PASSWORD": "p515b5afd280c012f07de5e946e663dc25c0da899906d0ce16e80eeba28eaffc4",
-        # "HOST": "cc0gj7hsrh0ht8.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com",
-        # "PORT": "5432",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'emmidev$febmexdb',
+        'USER': 'emmidev',
+        'PASSWORD': 'Febmexdb1999',
+        'HOST': 'emmidev.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -180,12 +188,18 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-# Media folder
-MEDIA_URL = "/user/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# Static files configuration
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+# Media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+
+# Static root (for Heroku)
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

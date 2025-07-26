@@ -11,6 +11,8 @@ from django.utils.html import strip_tags
 from django.contrib import messages
 from django.conf import settings
 from .models import *
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 
 @admin.register(Country)
@@ -143,73 +145,72 @@ class UserAdmin(BaseUserAdmin):
         "account_number",
         "is_blocked",
         "is_marked",
+        "referred_by",
         "id",
     )
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
     list_filter = ("is_blocked", "is_marked", "is_staff", "is_superuser", "is_active")
 
-    # Organize fields in groups using fieldsets
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        ("Personal info", {"fields": ("first_name", "last_name", "bal", "avatar", "account_number")}),
+        ("Personal info", {
+            "fields": (
+                "first_name", "last_name", "bal", "avatar",
+                "account_number", "referred_by"
+            )
+        }),
         ("Account Status", {"fields": ("is_marked", "is_blocked", "date_flagged")}),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
+        ("Permissions", {
+            "fields": (
+                "is_active", "is_staff", "is_superuser", "groups", "user_permissions"
+            )
+        }),
     )
 
     change_password_form = AdminPasswordChangeForm
     actions = ["mark_users", "unmark_users", "block_users", "unblock_users", "reset_passwords"]
 
-    ##### Mark a user for a pending transaction
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs.filter(
+                models.Q(referred_by=request.user) | models.Q(referred_by__isnull=True)
+            )
+        return qs.none()
+
+    def changelist_view(self, request, extra_context=None):
+        if request.user.is_superuser:
+            referral_url = request.build_absolute_uri(
+                reverse("referral_signup", args=[request.user.id])
+            )
+            extra_context = extra_context or {}
+            extra_context['referral_link'] = referral_url
+        return super().changelist_view(request, extra_context=extra_context)
+
     def mark_users(self, request, queryset):
         updated = queryset.update(is_marked=True)
         self.message_user(request, f"{updated} user(s) marked.", level=messages.SUCCESS)
     mark_users.short_description = "Mark selected users"
-    
+
     def unmark_users(self, request, queryset):
         updated = queryset.update(is_marked=False)
         self.message_user(request, f"{updated} user(s) unmarked.", level=messages.SUCCESS)
     unmark_users.short_description = "Unmark selected users"
-    
-    ##### Block a user from logging in
+
     def block_users(self, request, queryset):
         updated_count = queryset.update(is_blocked=True)
-        messages.success(request, f"{updated_count} user(s) have been blocked.", level=messages.SUCCESS)
+        self.message_user(request, f"{updated_count} user(s) have been blocked.", level=messages.SUCCESS)
     block_users.short_description = "Block selected users"
 
     def unblock_users(self, request, queryset):
         updated_count = queryset.update(is_blocked=False)
-        messages.success(request, f"{updated_count} user(s) have been unblocked.", level=messages.SUCCESS)
-    unblock_users.short_description = "Unblock selected users"
-
-    def unblock_users(self, request, queryset):
-        """
-        Admin action to unblock selected users.
-        """
-        updated_count = queryset.update(is_blocked=False)
-        messages.success(request, f"{updated_count} user(s) have been unblocked.")
-
+        self.message_user(request, f"{updated_count} user(s) have been unblocked.", level=messages.SUCCESS)
     unblock_users.short_description = "Unblock selected users"
 
     def reset_passwords(self, request, queryset):
-        """
-        Admin action to reset passwords for selected users.
-        """
         for user in queryset:
-            new_password = get_random_string(
-                8
-            )  # Generate a random 8-character password
+            new_password = get_random_string(8)
             user.set_password(new_password)
             user.save()
             user.email_user(
@@ -217,5 +218,4 @@ class UserAdmin(BaseUserAdmin):
                 message=f"Your new password is: {new_password}\nPlease update it after logging in.",
             )
         messages.success(request, "Passwords have been reset and emailed to the users.")
-
     reset_passwords.short_description = "Reset passwords for selected users"

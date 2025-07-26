@@ -46,6 +46,14 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    referred_by = models.ForeignKey(
+    'self',
+    null=True,
+    blank=True,
+    limit_choices_to={'is_superuser': True},
+    on_delete=models.SET_NULL,
+    related_name='referred_users'
+)
     email = models.EmailField(('email address'), unique=True)
     first_name = models.CharField(('first name'), max_length=30)
     last_name = models.CharField(('last name'), max_length=30)

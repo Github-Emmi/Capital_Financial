@@ -14,9 +14,11 @@ future==1.0.0
 gunicorn==23.0.0
 idna==3.10
 more-itertools==10.5.0
+mysqlclient==2.2.7
 packaging==24.2
 pillow==11.0.0
 psycopg2-binary==2.9.10
+PyMySQL==1.1.1
 pynliner==0.8.0
 python-decouple==3.8
 pytz==2024.2

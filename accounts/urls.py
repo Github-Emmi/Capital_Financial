@@ -12,8 +12,7 @@ path('capital-funding-account', capitalfunding_account, name='capitalfunding_acc
 path('advanced-account', advanced_account, name='advanced_account'),
 path('student-account', student_account, name='student_account'),
 path('bank-account', bank_account, name='bank_account'),
-path('accounts/activate/<str:uidb64>',
-         activate_email, name='activate_email'),
+path('accounts/activate/<str:uidb64>', activate_email, name='activate_email'),
 
        ###########          ###########
           ##     sign up urls  ##
@@ -21,6 +20,7 @@ path('accounts/activate/<str:uidb64>',
 path('login', login_user, name='login'),
 path('account-blocked/', account_blocked, name='account-blocked'),
 path('logout', LogoutView, name='logout'),
+path('referral-signup/<int:admin_id>/', referral_signup, name='referral_signup'),
 path('enroll-step1', enroll_step1, name='enroll_step1'),
 path('enroll-step2', enroll_step2, name='enroll_step2'),
 path('enroll-step3', enroll_step3, name='enroll_step3'),
@@ -31,5 +31,8 @@ path('verify-email/<uidb64>/<token>/', verify_email, name='verify_email'),
 path('query/load-cities/', load_cities, name='query_load_cities'),
 path("forgot-password", forgot_password, name="forgot_password"),
 ]
+
+
+
 
 
